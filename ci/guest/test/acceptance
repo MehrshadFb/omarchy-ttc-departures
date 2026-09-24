@@ -119,6 +119,51 @@ shot 09-panel-plan-results
 if grep -qE '"planTo": *"13760"' ~/.config/omarchy/shell.json; then log "ok - planner persisted destination"; else log "not ok - planTo not found in shell.json"; status=1; fi
 wtype -k Escape; sleep 1; wtype -k Escape; sleep 2
 shot 10-panel-closed
+
+log "== panel: planner with the same stop twice shows an error"
+omarchy-shell shell summon "$PLUGIN_ID" >>"$ART/log.txt" 2>&1 || true
+sleep 3
+wtype p; sleep 2
+wtype t; sleep 1
+wtype "union"; sleep 4
+wtype -k Return; sleep 4
+shot 11-panel-plan-same-stop
+wtype -k Escape; sleep 1
+
+log "== panel: picker with no matches"
+wtype s; sleep 1
+wtype "zzzz qqqq"; sleep 4
+shot 12-panel-picker-no-match
+wtype -k Escape; sleep 1; wtype -k Escape; sleep 2
+
+log "== panel: no stop chosen yet"
+omarchy bar set "$PLUGIN_ID" stopId 0 --json >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" stopName "" >>"$ART/log.txt" 2>&1 || true
+sleep 8
+shot 13-bar-no-stop; crop_bar 13-bar-no-stop
+omarchy-shell shell summon "$PLUGIN_ID" >>"$ART/log.txt" 2>&1 || true
+sleep 3
+shot 14-panel-no-stop
+wtype -k Escape; sleep 2
+
+log "== route filter and label style on a multi-route stop (Queen and Bathurst area, 14282 filtered to 301)"
+omarchy bar set "$PLUGIN_ID" stopId 14282 --json >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" routes "301" >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" labelStyle "Route and minutes" >>"$ART/log.txt" 2>&1 || true
+sleep 30
+shot 15-bar-route-filter; crop_bar 15-bar-route-filter
+omarchy-shell shell summon "$PLUGIN_ID" >>"$ART/log.txt" 2>&1 || true
+sleep 3
+shot 16-panel-route-filter
+wtype -k Escape; sleep 2
+omarchy bar set "$PLUGIN_ID" routes "" >>"$ART/log.txt" 2>&1 || true
+
+log "== bar on the left edge (vertical) and back"
+omarchy bar position left >>"$ART/log.txt" 2>&1 || log "warn - bar position left failed"
+sleep 6
+shot 17-vertical-bar
+omarchy bar position top >>"$ART/log.txt" 2>&1 || true
+sleep 4
 cp ~/.config/omarchy/shell.json "$ART/shell-after.json" 2>/dev/null || true
 health after-panel
 

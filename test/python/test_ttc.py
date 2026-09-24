@@ -279,6 +279,7 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(result["from"]["station"], "Bathurst")
         its = result["itineraries"]
         self.assertGreater(len(its), 0)
+        self.assertEqual([i["end"] for i in its], sorted(i["end"] for i in its), "earliest arrival first")
         first = its[0]
         self.assertGreater(first["duration"], 0)
         self.assertGreater(first["end"], first["start"])

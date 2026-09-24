@@ -703,8 +703,11 @@ def _epoch(value):
 
 
 def parse_plan(data, max_itineraries=4):
+    """Itineraries sorted the way a rider reads them: earliest arrival first,
+    then fewer transfers. Transitous returns them in search order, which can
+    put a slow walk-plus-streetcar option ahead of a quick subway trip."""
     itins = []
-    for it in data.get("itineraries", [])[:max_itineraries]:
+    for it in data.get("itineraries", []):
         legs = []
         for leg in it.get("legs", []):
             mode = leg.get("mode", "")
@@ -731,14 +734,15 @@ def parse_plan(data, max_itineraries=4):
             "transfers": int(it.get("transfers") or 0),
             "legs": legs,
         })
-    return itins
+    itins.sort(key=lambda it: (it["end"], it["transfers"], it["duration"]))
+    return itins[:max_itineraries]
 
 
 def plan(from_code, to_code, when=None, max_itineraries=4, raw=None):
     a, b = find_stop(from_code), find_stop(to_code)
     if not a or not b:
         return {"ok": False, "error": "unknown stop", "itineraries": []}
-    params = {"fromPlace": _place(a), "toPlace": _place(b), "numItineraries": str(max_itineraries)}
+    params = {"fromPlace": _place(a), "toPlace": _place(b), "numItineraries": str(max(max_itineraries, 6))}
     if when:
         params["time"] = when
     url = TRANSITOUS + "?" + urllib.parse.urlencode(params)
