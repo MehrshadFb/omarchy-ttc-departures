@@ -12,7 +12,7 @@ The widget polls the TTC's public real-time feed (UmoIQ, formerly NextBus) and s
 - **Hover** for the full board: every route and direction at the stop with upcoming minutes.
 - **Click** to open the stop on the live TTC vehicle map in your browser.
 - **Right-click** to send the board as a desktop notification.
-- **Middle-click** to refresh now.
+- **Middle-click** to refresh now, re-running the stop lookup.
 
 ## Install
 
@@ -20,17 +20,31 @@ The widget polls the TTC's public real-time feed (UmoIQ, formerly NextBus) and s
 omarchy plugin add https://github.com/MehrshadFb/omarchy-ttc-departures.git --enable
 ```
 
-Then place it on the bar and set your stop:
+Then place it on the bar and tell it which stop you wait at:
 
 ```
 omarchy bar put io.github.mehrshadfb.ttc-departures right
+omarchy bar set io.github.mehrshadfb.ttc-departures route 501
+omarchy bar set io.github.mehrshadfb.ttc-departures stop "Windermere east"
 ```
 
-Open the bar settings for the widget (or edit `~/.config/omarchy/shell.json`) and set `stopId`.
+That is it. The widget looks up the route's stop list, picks the stop whose name matches your words, and starts showing arrivals. Hover to confirm it picked the right one: the tooltip's first line is the full stop name.
 
-## Finding your stop id
+The same settings are in the widget's settings panel in the bar.
 
-Every TTC stop has a five-digit **stop number**. It is printed on the stop pole and on the shelter sign, and it is the number you would text to the TTC's next-vehicle service. You can also open any route on the TTC site or the live map and read the stop number from the stop's details.
+## Choosing the stop
+
+Give the **route number** and **a few words of the stop name**, the way it reads on the TTC sign: usually the cross street. Add `east`, `west`, `north`, or `south` to pick the side of the road for the direction you travel.
+
+| You wait at | `route` | `stop` |
+|---|---|---|
+| 501 Queen eastbound at Windermere | `501` | `Windermere east` |
+| 504 King westbound at Bathurst | `504` | `Bathurst west` |
+| 72 Pape southbound at Danforth | `72` | `Danforth south` |
+
+If two stops match, the first one along the route wins, so add the side of the road when it matters. If nothing matches, the bar shows `?` and the tooltip says so.
+
+Power users can set `stopId` to the five-digit stop number printed on the pole instead. It overrides `route` and `stop`.
 
 The feed covers **buses and streetcars**. Subway lines are not in this feed.
 
@@ -38,8 +52,10 @@ The feed covers **buses and streetcars**. Subway lines are not in this feed.
 
 | Key | Default | Meaning |
 |---|---|---|
-| `stopId` | `0` | The five-digit TTC stop number. Required. |
-| `routes` | `""` | Comma-separated route numbers to show, for example `501,301`. Blank shows every route at the stop. |
+| `route` | `""` | Route number to look the stop up on, for example `501`. |
+| `stop` | `""` | A few words of the stop name, for example `Windermere east`. |
+| `stopId` | `0` | Optional five-digit stop number. Overrides `route` and `stop`. |
+| `routes` | `""` | Comma-separated routes to show, for example `501,301`. Blank shows the chosen route, or every route when using `stopId`. |
 | `maxShown` | `2` | How many upcoming arrivals appear in the bar label. |
 | `refreshSeconds` | `30` | Poll interval. Minimum 15. |
 | `labelStyle` | `Minutes` | `Minutes` shows `5·15`. `Route and minutes` shows `501 5·15`. |
@@ -47,10 +63,10 @@ The feed covers **buses and streetcars**. Subway lines are not in this feed.
 Example `shell.json` layout entry:
 
 ```json
-{ "id": "io.github.mehrshadfb.ttc-departures", "settings": { "stopId": 14282, "routes": "501", "maxShown": 3 } }
+{ "id": "io.github.mehrshadfb.ttc-departures", "settings": { "route": "501", "stop": "Windermere east", "maxShown": 3 } }
 ```
 
-You can add the widget more than once with different stops.
+You can add the widget more than once for different stops.
 
 ## Remove
 

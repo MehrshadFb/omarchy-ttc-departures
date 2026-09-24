@@ -35,15 +35,16 @@ fi
 omarchy plugin list >"$ART/plugin-list.txt" 2>&1
 grep -q "$PLUGIN_ID" "$ART/plugin-list.txt" && log "ok - plugin listed" || { log "not ok - plugin not listed"; status=1; }
 
-log "== place on bar and configure (stop 14282 = The Queensway at Windermere, route 501)"
+log "== place on bar and pick the stop by route and name (501, Windermere east)"
 omarchy bar put "$PLUGIN_ID" --section right --index 0 >>"$ART/log.txt" 2>&1 || { log "not ok - bar put failed"; status=1; }
-omarchy bar set "$PLUGIN_ID" stopId 14282 --json >>"$ART/log.txt" 2>&1 || log "warn - bar set stopId failed"
+omarchy bar set "$PLUGIN_ID" route 501 >>"$ART/log.txt" 2>&1 || log "warn - bar set route failed"
+omarchy bar set "$PLUGIN_ID" stop "Windermere east" >>"$ART/log.txt" 2>&1 || log "warn - bar set stop failed"
 omarchy bar set "$PLUGIN_ID" labelStyle "Route and minutes" >>"$ART/log.txt" 2>&1 || log "warn - bar set labelStyle failed"
 cp ~/.config/omarchy/shell.json "$ART/shell.json" 2>/dev/null || true
-sleep 30
-shot 01-route-and-minutes; crop_bar 01-route-and-minutes
+sleep 40
+shot 01-route-and-name; crop_bar 01-route-and-name
 
-log "== second stop, minutes-only label, three arrivals"
+log "== second stop by number, minutes-only label, three arrivals"
 omarchy bar set "$PLUGIN_ID" stopId 6916 --json >>"$ART/log.txt" 2>&1 || true
 omarchy bar set "$PLUGIN_ID" labelStyle "Minutes" >>"$ART/log.txt" 2>&1 || true
 omarchy bar set "$PLUGIN_ID" maxShown 3 --json >>"$ART/log.txt" 2>&1 || true
@@ -54,6 +55,12 @@ log "== invalid stop shows the error marker"
 omarchy bar set "$PLUGIN_ID" stopId 99999999 --json >>"$ART/log.txt" 2>&1 || true
 sleep 20
 shot 03-invalid-stop; crop_bar 03-invalid-stop
+
+log "== unmatched stop name shows the question mark"
+omarchy bar set "$PLUGIN_ID" stopId 0 --json >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" stop "zzz nowhere" >>"$ART/log.txt" 2>&1 || true
+sleep 20
+shot 04-no-match; crop_bar 04-no-match
 
 log "== shell diagnostics"
 journalctl --user --no-pager -n 400 >"$ART/journal.txt" 2>&1 || true

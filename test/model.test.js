@@ -81,3 +81,34 @@ test("urls target the ttc agency with the stop id encoded", () => {
   assert.equal(Model.predictionsUrl(14282), "https://retro.umoiq.com/service/publicJSONFeed?command=predictions&a=ttc&stopId=14282")
   assert.equal(Model.mapUrl("14 282"), "https://retro.umoiq.com/googleMap/index.jsp?a=ttc&stopId=14%20282")
 })
+
+test("route config lists public stops and both directions", () => {
+  const c = Model.parseRouteConfig(fixture("route-config-501.json"))
+  assert.equal(c.ok, true)
+  assert.equal(c.title, "501-Queen")
+  assert.equal(c.stops.length, 122, "five stops without a public number are dropped")
+  assert.deepEqual(c.directions.map((d) => d.name).sort(), ["East", "West"])
+  assert.ok(c.directions[0].stopTags.length > 50)
+})
+
+test("finds a stop from route plus a few words, including the direction", () => {
+  const c = Model.parseRouteConfig(fixture("route-config-501.json"))
+  assert.equal(Model.findStop(c, "Windermere east").stopId, "14282")
+  assert.equal(Model.findStop(c, "windermere west").stopId, "14395")
+  assert.equal(Model.findStop(c, "queensway windermere").stopId, "14282", "ambiguous name takes the first listed stop")
+  assert.equal(Model.findStop(c, "Humber Loop").title, "Humber Loop At The Queensway")
+  assert.match(Model.findStop(c, "windermere east").direction, /East/)
+})
+
+test("stop lookup fails cleanly on nonsense, blanks, and bad configs", () => {
+  const c = Model.parseRouteConfig(fixture("route-config-501.json"))
+  assert.equal(Model.findStop(c, "zzz nowhere"), null)
+  assert.equal(Model.findStop(c, "   "), null)
+  assert.equal(Model.findStop(Model.parseRouteConfig("<html>"), "queen"), null)
+  assert.equal(Model.parseRouteConfig(fixture("invalid-stop.json")).ok, false)
+  assert.equal(Model.parseRouteConfig("{}").error, "no such route")
+})
+
+test("route config url trims the route", () => {
+  assert.equal(Model.routeConfigUrl(" 501 "), "https://retro.umoiq.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=501")
+})
