@@ -1,0 +1,40 @@
+name: refresh-stops
+# The TTC publishes a new schedule roughly every six weeks. Rebuild the
+# shipped stop table from Toronto Open Data and open a pull request when it
+# changed, so the plugin never drifts from the feeds it reads.
+on:
+  schedule:
+    - cron: "17 9 * * 1"   # Mondays, 09:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild data/stops.json from the current GTFS feeds
+        run: python3 tools/build_stops.py
+      - name: Verify the table still passes the offline tests
+        run: |
+          node --test test/model.test.js
+          python3 -m unittest discover -s test/python
+      - name: Open a pull request when the table changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- data/stops.json; then
+            echo "stop table unchanged"; exit 0
+          fi
+          version=$(python3 -c 'import json; m=json.load(open("data/stops.json"))["meta"]; print(m["surface_feed"]["version"], m["classic_service"]["start"], m["classic_service"]["end"])')
+          branch="refresh-stops/$(date +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add data/stops.json
+          git commit -m "Refresh stop table from TTC GTFS ($version)"
+          git push -u origin "$branch"
+          gh pr create --title "Refresh stop table from TTC GTFS ($version)" \
+            --body "Automated rebuild of data/stops.json from Toronto Open Data. Feed: $version. Review the diff summary, then merge." \
+            --base main --head "$branch"

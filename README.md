@@ -1,24 +1,21 @@
 # TTC Departures for Omarchy
 
-Next TTC bus and streetcar arrivals for one Toronto stop, right in the Omarchy bar.
-
-The widget polls the TTC's public real-time feed (UmoIQ, formerly NextBus) and shows the minutes until the next vehicles. No API key, no account, no extra packages beyond `curl`, which Omarchy already ships.
+Live TTC arrivals for your stop in the Omarchy bar, with a panel for the full board, service alerts, a stop picker, and a trip planner. Buses, streetcars, and subway Lines 1, 2, and 4 are covered in real time. No API keys, no accounts.
 
 ![TTC Departures in the Omarchy bar](preview.png)
 
-The four states, captured on a real Omarchy 4.0.4 desktop: route and minutes, minutes only with three arrivals, an unknown stop number, and a stop name that matched nothing.
-
 ```
-󰔭 501 5·15    "Route and minutes" label style
-󰔭 3·13·23     "Minutes" with maxShown 3
-󰔭 !           the feed rejected the stop number
-󰔭 ?           no stop on the route matched the words
+󰔭 501 5·15    the bar: next two 501 Queen streetcars, in minutes
+󰚬 now·2·4     a subway platform, three trains
+󰃧 3·13·23 󰀦   a bus stop with an active service alert
 ```
 
-- **Hover** for the full board: every route and direction at the stop with upcoming minutes.
-- **Click** to open the stop on the live TTC vehicle map in your browser.
+- **Hover** the bar for the board: every route at the stop, direction, next arrivals, alerts.
+- **Click** to open the panel.
 - **Right-click** to send the board as a desktop notification.
-- **Middle-click** to refresh now, re-running the stop lookup.
+- **Middle-click** to refresh now.
+
+In the panel: `s` searches for a new stop, `p` plans a trip, `r` refreshes, arrows or `j`/`k` move, `Enter` selects, `Esc` goes back and then closes.
 
 ## Install
 
@@ -26,53 +23,76 @@ The four states, captured on a real Omarchy 4.0.4 desktop: route and minutes, mi
 omarchy plugin add https://github.com/MehrshadFb/omarchy-ttc-departures.git --enable
 ```
 
-Then place it on the bar and tell it which stop you wait at:
+Click the widget, press `s`, and type your stop: a cross street, a station name, or the stop number printed on the pole. That is the whole setup. The choice is saved in your shell configuration.
+
+You can also configure it from the command line:
 
 ```
 omarchy bar put io.github.mehrshadfb.ttc-departures right
+omarchy bar set io.github.mehrshadfb.ttc-departures stopId 14282 --json
+```
+
+Or by route and a few words of the stop name, which the widget resolves for you:
+
+```
 omarchy bar set io.github.mehrshadfb.ttc-departures route 501
 omarchy bar set io.github.mehrshadfb.ttc-departures stop "Windermere east"
 ```
 
-That is it. The widget looks up the route's stop list, picks the stop whose name matches your words, and starts showing arrivals. Hover to confirm it picked the right one: the tooltip's first line is the full stop name.
+Add the widget more than once for different stops.
 
-The same settings are in the widget's settings panel in the bar.
+## The panel
 
-## Choosing the stop
+**Board.** One row per route and direction with the next arrivals, recomputed every few seconds from the feed's absolute times. Vehicles that end before the terminus are marked with `*` (a short turn). Active alerts for the stop and its routes appear underneath.
 
-Give the **route number** and **a few words of the stop name**, the way it reads on the TTC sign: usually the cross street. Add `east`, `west`, `north`, or `south` to pick the side of the road for the direction you travel.
+**Stop picker.** Searches the shipped list of every TTC stop and subway platform. Subway platforms rank first for station names, so "union" offers Union Station's platforms before the bus bays outside. Picking a stop writes it to your shell configuration immediately.
 
-| You wait at | `route` | `stop` |
-|---|---|---|
-| 501 Queen eastbound at Windermere | `501` | `Windermere east` |
-| 504 King westbound at Bathurst | `504` | `Bathurst west` |
-| 72 Pape southbound at Danforth | `72` | `Danforth south` |
-
-If two stops match, the first one along the route wins, so add the side of the road when it matters. If nothing matches, the bar shows `?` and the tooltip says so.
-
-Power users can set `stopId` to the five-digit stop number printed on the pole instead. It overrides `route` and `stop`.
-
-The feed covers **buses and streetcars**. Subway lines are not in this feed.
+**Trip planner.** Choose From and To stops, and the panel shows up to four itineraries with times, transfers, and legs. From defaults to the widget's stop. Routing comes from [Transitous](https://transitous.org), a community-run router built on the TTC's published schedule, so itinerary times are scheduled times. Real-time predictions apply to the departures board, not to itineraries.
 
 ## Settings
 
 | Key | Default | Meaning |
 |---|---|---|
-| `route` | `""` | Route number to look the stop up on, for example `501`. |
-| `stop` | `""` | A few words of the stop name, for example `Windermere east`. |
-| `stopId` | `0` | Optional five-digit stop number. Overrides `route` and `stop`. |
-| `routes` | `""` | Comma-separated routes to show, for example `501,301`. Blank shows the chosen route, or every route when using `stopId`. |
-| `maxShown` | `2` | How many upcoming arrivals appear in the bar label. |
-| `refreshSeconds` | `30` | Poll interval. Minimum 15. |
+| `stopId` | `0` | The stop number. The picker sets this for you. |
+| `route`, `stop` | `""` | Alternative to `stopId`: a route number and a few words of the stop name. |
+| `routes` | `""` | Comma-separated routes to show, for example `501,301`. Blank shows every route at the stop. |
+| `maxShown` | `2` | Arrivals in the bar label, 1 to 4. |
+| `refreshSeconds` | `30` | Poll interval, minimum 15. |
 | `labelStyle` | `Minutes` | `Minutes` shows `5·15`. `Route and minutes` shows `501 5·15`. |
 
-Example `shell.json` layout entry (settings sit next to the id, which is how `omarchy bar set` writes them):
+Settings live inline in the widget's entry in `~/.config/omarchy/shell.json`, which is how `omarchy bar set` writes them:
 
 ```json
-{ "id": "io.github.mehrshadfb.ttc-departures", "route": "501", "stop": "Windermere east", "maxShown": 3 }
+{ "id": "io.github.mehrshadfb.ttc-departures", "stopId": 14282, "maxShown": 3 }
 ```
 
-You can add the widget more than once for different stops.
+## How it works
+
+A Python 3 helper, `ttc.py`, is run by the widget with an argument list, never through a shell, and prints one JSON document per request. It uses only the standard library and decodes the GTFS-realtime protobuf feeds with a small built-in reader, so nothing needs to be installed. One shared hub inside the shell runs the helper once per stop on a schedule, however many bars or widgets show that stop.
+
+`data/stops.json` is built from the TTC's published GTFS by `tools/build_stops.py`. It carries every stop and platform, which routes serve it, the internal id the BusTime feed uses for it, and each route's headsigns keyed by trip origin and terminal. That is what lets the widget name the direction and destination of a vehicle from a feed that carries neither.
+
+## Data sources and attribution
+
+| Source | Used for |
+|---|---|
+| [TTC Routes and Schedules](https://open.toronto.ca/dataset/ttc-routes-and-schedules/) and [Surface Routes and Schedules for BusTime](https://open.toronto.ca/dataset/surface-routes-and-schedules-for-bustime/) (GTFS, Toronto Open Data) | The shipped stop table |
+| [TTC BusTime GTFS-realtime](https://open.toronto.ca/dataset/ttc-bustime-real-time-next-vehicle-arrival-nvas/) | Bus and streetcar arrivals and occupancy |
+| [TTC GTFS-realtime](https://gtfsrt.ttc.ca) | Subway arrivals and service alerts |
+| Legacy NextBus feed | Fallback only, when BusTime returns nothing for a stop |
+| [Transitous](https://transitous.org/sources/) | Trip planning |
+
+Contains information licensed under the [Open Government Licence – Toronto](https://open.toronto.ca/open-data-licence/). Routing by Transitous; see [their data sources](https://transitous.org/sources/). This project is not affiliated with, endorsed by, or an official application of the Toronto Transit Commission or the City of Toronto.
+
+## Network access and privacy
+
+The plugin has no analytics or telemetry. Your chosen stops are stored locally in your Omarchy shell configuration. Feed responses are cached under `~/.local/state/omarchy/ttc-departures/` for a few seconds so several widgets can share one download.
+
+| Host | When | What it learns |
+|---|---|---|
+| `bustime.ttc.ca`, `gtfsrt.ttc.ca` | Every refresh | Your IP address. These are city-wide feeds, so your stop is not sent. |
+| `retro.umoiq.com` | Only when BusTime has nothing for your stop | Your IP address and the stop number. |
+| `api.transitous.org` | Only when you plan a trip | Your IP address, the two stops' coordinates, and a User-Agent naming this plugin. |
 
 ## Remove
 
@@ -80,21 +100,28 @@ You can add the widget more than once for different stops.
 omarchy plugin remove io.github.mehrshadfb.ttc-departures
 ```
 
+To also delete the small feed cache:
+
+```
+rm -rf ~/.local/state/omarchy/ttc-departures
+```
+
 ## Development
 
-`Model.js` holds all feed parsing, stop matching, and label logic and runs under Node as well as QML. Tests use real feed responses saved in `test/fixtures`.
-
 ```
-npm test
-omarchy plugin validate .
+./test/all               # Node tests for Model.js, Python tests for ttc.py, syntax checks
+omarchy plugin validate . 
+python3 ttc.py departures 14282 | jq .
+python3 ttc.py search union station | jq .
+python3 ttc.py plan 13760 13816 | jq .
 ```
 
-The `vm-test` GitHub Actions workflow installs Omarchy from the official ISO in a KVM guest on the runner, installs this plugin inside it, walks it through the four states above, and uploads screenshots and logs as an artifact. Trigger it manually from the Actions tab; it takes about an hour.
+The Python tests validate the protobuf reader against the TTC's own text renderings of the same feeds, saved under `test/fixtures/rt`, and exercise departures merging, the NextBus fallback, alert matching, search ranking, and itinerary parsing offline.
 
-## Data
+`tools/build_stops.py` regenerates `data/stops.json`. The TTC publishes a new schedule roughly every six weeks; the `refresh-stops` workflow rebuilds the table weekly and opens a pull request when it changes.
 
-Predictions are provided by the Toronto Transit Commission through its public UmoIQ feed. All data is copyright Toronto Transit Commission. This project is not affiliated with the TTC.
+The `vm-test` workflow installs Omarchy from the official ISO in a KVM guest on a GitHub runner, installs this plugin inside it, drives the bar, picker, and planner with keystrokes, and uploads screenshots. Trigger it from the Actions tab; it takes about an hour.
 
 ## License
 
-MIT
+MIT. Transit data is subject to the licences named above.
