@@ -156,14 +156,29 @@ class StopTableTests(unittest.TestCase):
         self.assertEqual(ttc.route_kind("1"), "subway")
         self.assertEqual(ttc.route_kind("72"), "bus")
 
-    def test_headsigns_resolve_direction_and_short_turns(self):
-        towards, direction, short = ttc.headsign_for("501", "41052", "7952")
-        self.assertEqual((towards, direction, short), ("Neville Park", "East", False))
-        towards, direction, short = ttc.headsign_for("501", "18248", "1401")
-        self.assertEqual(direction, "East")
-        self.assertTrue(short)
+    def test_headsigns_prefer_the_exact_trip_then_the_riders_stop(self):
+        trips = ttc.trip_table()
+        self.assertGreater(len(trips), 100000)
+        # An exact trip id gives the scheduled headsign, including short turns.
+        short_id = next(t for t, (h, d, r) in trips.items() if r == "501" and "short turn" in h.lower())
+        towards, direction, short = ttc.headsign_for("501", None, None, trip_id=short_id, stop_sid="2599")
+        self.assertEqual((towards, direction, short), ("Roncesvalles", "East" if trips[short_id][1] == "1" else "West", True))
+        full_id = next(t for t, (h, d, r) in trips.items() if r == "501" and h.endswith("Neville Park"))
+        self.assertEqual(ttc.headsign_for("501", None, None, trip_id=full_id), ("Neville Park", "East", False))
+        # Unknown trip (NEW): the direction served at the rider's stop decides.
+        self.assertEqual(ttc.headsign_for("501", None, None, trip_id="-1", stop_sid="2599"), ("Neville Park", "East", False))
+        # No stop either: fall back to the trip's origin, then its terminal, then a stop name.
+        self.assertEqual(ttc.headsign_for("501", "18248", "7952"), ("Neville Park", "East", False))
         self.assertEqual(ttc.headsign_for("501", "nope", "nope"), ("", "", False))
         self.assertEqual(ttc.headsign_for("501", None, "2599")[0], "The Queensway at Windermere Ave East Side")
+        self.assertEqual(ttc.parse_headsign("North - 34 Eglinton Short Turn towards Kennedy Station"), ("Kennedy", "North", True))
+
+    def test_every_subway_platform_has_a_destination(self):
+        platforms = [s for s in ttc.stops_data()["stops"] if s["kind"] == "platform"]
+        self.assertEqual(len(platforms), 140)
+        self.assertTrue(all(s.get("towards") for s in platforms))
+        self.assertEqual(ttc.find_stop("13760")["towards"], "Kennedy")
+        self.assertEqual(ttc.find_stop("13815")["towards"], "Vaughan Metropolitan Centre")
 
     def test_search_ranks_platforms_and_supports_codes_and_routes(self):
         names = [r["name"] for r in ttc.search("bathurst station")]
@@ -178,10 +193,12 @@ class StopTableTests(unittest.TestCase):
 
 class DeparturesTests(unittest.TestCase):
     def surface_feed(self):
+        trips = ttc.trip_table()
+        short_id = next(t for t, (h, d, r) in trips.items() if r == "501" and h.startswith("East") and "short turn" in h.lower())
         return feed([
             trip_entity("1", "501", "111", [("41052", NOW - 900), ("2599", NOW + 240), ("7952", NOW + 2400)], vehicle="4501"),
             trip_entity("2", "501", "112", [("41052", NOW - 300), ("2599", NOW + 840), ("7952", NOW + 3000)], vehicle="4502"),
-            trip_entity("3", "501", "113", [("18248", NOW - 200), ("2599", NOW + 500), ("1401", NOW + 1500)], vehicle="4503"),  # short turn
+            trip_entity("3", "501", short_id, [("18248", NOW - 200), ("2599", NOW + 500), ("1401", NOW + 1500)], vehicle="4503"),  # scheduled short turn
             trip_entity("4", "501", "114", [("41052", NOW - 3000), ("2599", NOW - 600), ("7952", NOW)], vehicle="4504"),        # already passed
             trip_entity("5", "301", "115", [("41052", NOW), ("2599", NOW + 5 * 3600)], vehicle="4505"),                          # beyond horizon
             trip_entity("6", "72", "116", [("9999", NOW), ("8888", NOW + 100)], vehicle="7000"),                                 # other stop
@@ -204,6 +221,26 @@ class DeparturesTests(unittest.TestCase):
         self.assertEqual(rows[0]["towards"], "Neville Park", "short turn must not become the headline destination")
         self.assertEqual(rows[0]["minutes"], [4, 8, 14])
         self.assertEqual(rows[0]["shortTurns"], [False, True, False])
+
+    def test_windowed_trip_gets_direction_from_the_riders_stop(self):
+        # The live feed lists only a window of stops; neither end is a terminal
+        # and the trip id is unscheduled, so only the stop table can help.
+        f = feed([trip_entity("1", "501", "-5", [("1866", NOW - 60), ("2599", NOW + 300), ("1401", NOW + 600)], rel="NEW")])
+        d = ttc.departures(WINDERMERE, now=NOW, feeds={"bustime": f, "vehicles": feed([]), "alerts": feed([])})
+        self.assertEqual(d["byRoute"][0]["direction"], "East")
+        self.assertEqual(d["byRoute"][0]["towards"], "Neville Park")
+        self.assertFalse(d["arrivals"][0]["shortTurn"])
+
+    def test_light_rail_stop_without_feed_reports_why(self):
+        d = ttc.departures("16073", now=NOW, feeds={"bustime": feed([]), "vehicles": feed([]), "nextbus": b"{}", "alerts": feed([])})
+        self.assertTrue(d["ok"])
+        self.assertEqual(d["source"], "none")
+        self.assertIn("Lines 5 and 6", d["error"])
+
+    def test_empty_feed_is_rejected_not_cached(self):
+        with self.assertRaises(ValueError):
+            ttc._validate_feed(encode(feed([])))
+        ttc._validate_feed(encode(feed([trip_entity("1", "7", "1", [("1", NOW)])])))
 
     def test_route_filter_and_max(self):
         d = ttc.departures(WINDERMERE, routes_filter="301, 72", now=NOW, feeds={"bustime": self.surface_feed(), "vehicles": feed([]), "alerts": feed([])})
@@ -264,11 +301,20 @@ class AlertTests(unittest.TestCase):
             {"id": "other-stop", "alert": {"informed_entity": [{"route_id": "501", "stop_id": "1"}], "effect": "NO_SERVICE", "header_text": {"translation": [{"text": "elsewhere"}]}}},
             {"id": "expired", "alert": {"active_period": [{"start": now - 100, "end": now - 50}], "informed_entity": [{"route_id": "501"}], "effect": "NO_SERVICE", "header_text": {"translation": [{"text": "old"}]}}},
             {"id": "other-route", "alert": {"informed_entity": [{"route_id": "72"}], "effect": "DETOUR", "header_text": {"translation": [{"text": "72"}]}}},
+            {"id": "line-closure", "alert": {"informed_entity": [{"route_id": "1", "stop_id": "13798"}, {"route_id": "1", "stop_id": "13799"}], "effect": "NO_SERVICE", "header_text": {"translation": [{"text": "Line 1: no service Davisville to Eglinton"}]}}},
+            {"id": "union-lift", "alert": {"informed_entity": [{"stop_id": "13816"}], "effect": "ACCESSIBILITY_ISSUE", "header_text": {"translation": [{"text": "Union: elevator out"}]}}},
+            {"id": "king-lift", "alert": {"informed_entity": [{"stop_id": "13810"}], "effect": "ACCESSIBILITY_ISSUE", "header_text": {"translation": [{"text": "King: escalator via Union platform"}]}}},
         ])
         stop = ttc.find_stop(WINDERMERE)
         ids = [a["id"] for a in ttc.stop_alerts(stop, ["501"], now, f)]
         self.assertEqual(sorted(ids), ["route-wide", "this-stop"])
         self.assertEqual(ids[0], "route-wide", "a detour outranks a moved stop in severity order")
+        # A subway platform sees closures anywhere on its line, its own
+        # accessibility notices, and not another station's just because the
+        # text mentions Union.
+        union = ttc.find_stop(UNION_NB)
+        ids = [a["id"] for a in ttc.stop_alerts(union, union["routes"], now, f)]
+        self.assertEqual(ids, ["line-closure", "union-lift"])
 
 
 class PlanTests(unittest.TestCase):
@@ -297,6 +343,13 @@ class PlanTests(unittest.TestCase):
         self.assertTrue(r["ok"])
         self.assertEqual(r["itineraries"], [])
         self.assertIn("no itineraries", r["error"])
+
+
+class CacheTests(unittest.TestCase):
+    def test_plan_cache_keys_do_not_collide(self):
+        import re as _re
+        key = lambda a, b: "plan-" + _re.sub(r"[^0-9a-z-]", "", f"{a}-{b}-".lower())  # noqa: E731
+        self.assertNotEqual(key("12", "3456"), key("123", "456"))
 
 
 class CliTests(unittest.TestCase):

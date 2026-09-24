@@ -25,6 +25,7 @@ are decoded by a small wire-format reader below, so no protobuf package is
 required.
 """
 import argparse
+import fcntl
 import json
 import math
 import os
@@ -43,6 +44,7 @@ USER_AGENT = f"omarchy-ttc-departures/{VERSION} (+{REPO})"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STOPS_FILE = os.path.join(HERE, "data", "stops.json")
+TRIPS_FILE = os.path.join(HERE, "data", "trips.json")
 STATE_DIR = os.path.join(
     os.environ.get("XDG_STATE_HOME", os.path.join(os.path.expanduser("~"), ".local", "state")),
     "omarchy", "ttc-departures")
@@ -58,7 +60,9 @@ TRANSITOUS = "https://api.transitous.org/api/v1/plan"
 # (one per monitor) and the panel share these, so one poll serves all.
 CACHE_TTL = {"bustime": 20, "vehicles": 20, "subway": 15, "alerts": 90, "nextbus": 20, "plan": 120}
 MAX_BYTES = 8 * 1024 * 1024
-TIMEOUT = 10
+TIMEOUT = 6
+CACHE_MAX_AGE = 86400     # prune cache files older than a day
+STALE_OK = 15 * 60        # serve a cached feed this old when the network fails
 PAST_GRACE = 45          # keep arrivals up to this many seconds in the past ("now")
 HORIZON = 3 * 3600       # ignore predictions further out than this
 
@@ -201,6 +205,18 @@ def _read_cache(key, ttl):
     return None
 
 
+def _prune_cache():
+    """Drop cache files nobody has touched for a day (one stop per file)."""
+    try:
+        now = time.time()
+        for name in os.listdir(STATE_DIR):
+            path = os.path.join(STATE_DIR, name)
+            if name.startswith(".tmp-") or now - os.path.getmtime(path) > CACHE_MAX_AGE:
+                os.unlink(path)
+    except OSError:
+        pass
+
+
 def _write_cache(key, data):
     try:
         os.makedirs(STATE_DIR, mode=0o700, exist_ok=True)
@@ -208,28 +224,79 @@ def _write_cache(key, data):
         with os.fdopen(fd, "wb") as f:
             f.write(data)
         os.replace(tmp, _cache_path(key))
+        if int(time.time()) % 50 == 0:
+            _prune_cache()
     except OSError:
         pass
 
 
-def fetch(url, key=None, ttl=0, timeout=TIMEOUT, max_bytes=MAX_BYTES, headers=None):
-    """GET url with a size cap. Returns bytes; caches by key when ttl > 0."""
-    if key and ttl:
-        cached = _read_cache(key, ttl)
-        if cached is not None:
-            return cached
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        data = r.read(max_bytes + 1)
-    if len(data) > max_bytes:
-        raise ValueError("response too large")
-    if key:
-        _write_cache(key, data)
-    return data
+class _Lock:
+    """Serialises fetches of one key across helper processes. Several bar
+    instances or a panel and a widget can ask for the same feed at once; the
+    TTC's subway endpoint answers concurrent requests with an empty feed."""
+
+    def __init__(self, key):
+        self.path = _cache_path(key) + ".lock" if key else None
+        self.fd = None
+
+    def __enter__(self):
+        if self.path:
+            try:
+                os.makedirs(STATE_DIR, mode=0o700, exist_ok=True)
+                self.fd = os.open(self.path, os.O_CREAT | os.O_RDWR, 0o600)
+                fcntl.flock(self.fd, fcntl.LOCK_EX)
+            except OSError:
+                self.fd = None
+        return self
+
+    def __exit__(self, *exc):
+        if self.fd is not None:
+            try:
+                fcntl.flock(self.fd, fcntl.LOCK_UN)
+                os.close(self.fd)
+            except OSError:
+                pass
+
+
+def fetch(url, key=None, ttl=0, timeout=TIMEOUT, max_bytes=MAX_BYTES, headers=None, validate=None):
+    """GET url with a size cap. Returns bytes; caches by key when ttl > 0.
+
+    `validate(bytes)` may raise to reject a response (it is then not cached).
+    When the network fails, a cached copy up to STALE_OK old is returned so a
+    blip does not empty the board.
+    """
+    with _Lock(key):
+        if key and ttl:
+            cached = _read_cache(key, ttl)
+            if cached is not None:
+                return cached
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = r.read(max_bytes + 1)
+            if len(data) > max_bytes:
+                raise ValueError("response too large")
+            if validate:
+                validate(data)
+        except Exception:
+            if key:
+                stale = _read_cache(key, STALE_OK)
+                if stale is not None:
+                    return stale
+            raise
+        if key:
+            _write_cache(key, data)
+        return data
+
+
+def _validate_feed(data):
+    feed = decode(data)
+    if not feed.get("entity"):
+        raise ValueError("feed came back empty")
 
 
 def fetch_feed(url, key, ttl):
-    return decode(fetch(url, key, ttl))
+    return decode(fetch(url, key, ttl, validate=_validate_feed))
 
 
 # --------------------------------------------------------------------------
@@ -285,20 +352,82 @@ def stop_display_name(sid_or_code, by="sid"):
     return s.get("station") or s["name"]
 
 
-def headsign_for(route, first_sid, last_sid):
+_TRIPS = None
+
+
+def trip_table():
+    """trip_id -> (headsign, direction_id, route), expanded lazily from data/trips.json."""
+    global _TRIPS
+    if _TRIPS is None:
+        _TRIPS = {}
+        try:
+            with open(TRIPS_FILE, encoding="utf-8") as f:
+                data = json.load(f)
+        except (OSError, ValueError):
+            return _TRIPS
+        for route, entry in data.get("routes", {}).items():
+            heads = entry.get("headsigns", [])
+            dirs = entry.get("directions", [])
+            for idx, deltas in entry.get("trips", {}).items():
+                i = int(idx)
+                headsign = heads[i] if i < len(heads) else ""
+                direction = dirs[i] if i < len(dirs) else ""
+                tid = 0
+                for d in deltas:
+                    tid += d
+                    _TRIPS[str(tid)] = (headsign, direction, route)
+    return _TRIPS
+
+
+def parse_headsign(headsign):
+    """'East - 501 Queen Short Turn towards Roncesvalles' -> ('Roncesvalles', 'East', True)."""
+    m = re.match(r"^\s*(?P<dir>North|South|East|West)\s*-\s*.*?towards\s+(?P<to>.+?)\s*$", headsign, re.I)
+    if m:
+        return clean_towards(m.group("to")), m.group("dir").capitalize(), "short turn" in headsign.lower()
+    return clean_towards(headsign), "", "short turn" in headsign.lower()
+
+
+def stop_direction_for(route, sid):
+    """Direction served at the rider's own stop, from the shipped stopDirections table."""
+    table = stops_data().get("stopDirections", {}).get(str(route))
+    if not table:
+        return None
+    idx = table.get("stops", {}).get(str(sid))
+    if idx is None or idx >= len(table.get("headsigns", [])):
+        return None
+    return table["headsigns"][idx]
+
+
+def headsign_for(route, first_sid, last_sid, trip_id=None, stop_sid=None):
+    """Direction and destination for a live surface vehicle.
+
+    Preference order: the exact GTFS trip (BusTime trip ids are GTFS trip
+    ids), then the direction served at the rider's stop, then the trip's
+    origin or terminal from the headsign table, then naming the last stop.
+    The live feed lists only a window of a trip's stops, so the last two are
+    fallbacks for unscheduled (NEW) trips only.
+    """
+    if trip_id:
+        hit = trip_table().get(str(trip_id))
+        if hit and hit[0]:
+            return parse_headsign(hit[0])
+    if stop_sid:
+        headsign = stop_direction_for(route, stop_sid)
+        if headsign:
+            return parse_headsign(headsign)
+    return _headsign_from_ends(route, first_sid, last_sid)
+
+
+def _headsign_from_ends(route, first_sid, last_sid):
     """Direction and destination for a BusTime trip from its origin and terminal.
 
     Returns (towards, direction_word, short_turn). Falls back to naming the
     terminal stop when the trip is not in the shipped table (NEW trips).
     """
     table = stops_data().get("headsigns", {}).get(str(route), {})
-    entry = table.get("last", {}).get(str(last_sid)) or table.get("first", {}).get(str(first_sid))
+    entry = table.get("first", {}).get(str(first_sid)) or table.get("last", {}).get(str(last_sid))
     if entry:
-        headsign = entry[0]
-        m = re.match(r"^\s*(?P<dir>North|South|East|West)\s*-\s*.*?towards\s+(?P<to>.+?)\s*$", headsign, re.I)
-        if m:
-            return clean_towards(m.group("to")), m.group("dir").capitalize(), "short turn" in headsign.lower()
-        return clean_towards(headsign), "", False
+        return parse_headsign(entry[0])
     terminal = stop_display_name(last_sid) if last_sid else ""
     return (clean_towards(terminal) if terminal else ""), "", False
 
@@ -354,7 +483,7 @@ def surface_arrivals(stop, now, feed=None, vehicles=None):
             trip = tu.get("trip") or {}
             first = stus[0].get("stop_id") if stus else None
             last = stus[-1].get("stop_id") if stus else None
-            towards, direction, short_turn = headsign_for(trip.get("route_id", ""), first, last)
+            towards, direction, short_turn = headsign_for(trip.get("route_id", ""), first, last, trip.get("trip_id"), sid)
             vid = (tu.get("vehicle") or {}).get("id") or ""
             out.append({
                 "route": trip.get("route_id", ""),
@@ -465,7 +594,7 @@ def group_by_route(arrivals):
     groups = {}
     order = []
     for a in arrivals:
-        key = (a["route"], a.get("direction") or a.get("towards", ""))
+        key = (a["route"], a.get("direction", ""))
         if key not in groups:
             groups[key] = {
                 "route": a["route"],
@@ -516,7 +645,10 @@ def departures(code, routes_filter=None, max_arrivals=12, now=None, feeds=None):
     errors = []
     arrivals = []
     source = "none"
-    if stop["kind"] == "platform":
+    light_rail_only = not stop.get("sid") and stop.get("routes") and set(stop["routes"]) <= {"5", "6"}
+    if light_rail_only:
+        errors.append("Lines 5 and 6 have no real-time feed yet")
+    elif stop["kind"] == "platform":
         try:
             arrivals = subway_arrivals(stop, now, feeds.get("subway"))
             source = "subway"
@@ -623,10 +755,14 @@ def stop_alerts(stop, routes, now, feed=None):
         if a["start"] and a["start"] > now + 7 * 86400:
             continue
         hit_stop = bool(ids & set(a["stops"]))
-        hit_route = bool(routes & set(a["routes"])) and not a["stops"]
-        # Route-wide alerts that also list stops apply only to those stops,
-        # except accessibility notices which are station-wide by nature.
-        if hit_stop or hit_route or (a["effect"] == "ACCESSIBILITY_ISSUE" and stop.get("station") and stop["station"].lower() in a["header"].lower()):
+        shared_routes = routes & set(a["routes"])
+        hit_route = bool(shared_routes) and not a["stops"]
+        # A closure or delay anywhere on a subway line affects everyone riding
+        # it, so those pass even when the alert lists other stations. Surface
+        # detours and accessibility notices only matter at the listed stops.
+        severe = a["effect"] in ("NO_SERVICE", "REDUCED_SERVICE", "SIGNIFICANT_DELAYS")
+        hit_line = severe and any(route_kind(r) == "subway" for r in shared_routes)
+        if hit_stop or hit_route or hit_line:
             matched.append({k: a[k] for k in ("id", "effect", "cause", "header", "description", "routes", "start", "end")})
     severity = {"NO_SERVICE": 0, "SIGNIFICANT_DELAYS": 1, "DETOUR": 2, "REDUCED_SERVICE": 3, "MODIFIED_SERVICE": 4, "STOP_MOVED": 5, "ACCESSIBILITY_ISSUE": 6}
     matched.sort(key=lambda a: (severity.get(a["effect"], 9), -a["start"]))
@@ -747,7 +883,7 @@ def plan(from_code, to_code, when=None, max_itineraries=4, raw=None):
         params["time"] = when
     url = TRANSITOUS + "?" + urllib.parse.urlencode(params)
     if raw is None:
-        key = "plan-" + re.sub(r"[^0-9a-z]", "", f"{from_code}{to_code}{when or ''}".lower())
+        key = "plan-" + re.sub(r"[^0-9a-z-]", "", f"{from_code}-{to_code}-{when or ''}".lower())
         try:
             raw = fetch(url, key, CACHE_TTL["plan"], timeout=20, headers={"Accept": "application/json"})
         except urllib.error.HTTPError as e:
@@ -779,7 +915,7 @@ def status():
     stale = False
     if end:
         stale = time.strftime("%Y%m%d") > end
-    return {"ok": True, "version": VERSION, "stops": len(stops_data()["stops"]), "data": meta, "dataStale": stale}
+    return {"ok": True, "version": VERSION, "stops": len(stops_data()["stops"]), "trips": len(trip_table()), "data": meta, "dataStale": stale}
 
 
 def main(argv=None):

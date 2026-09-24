@@ -91,18 +91,36 @@ Item {
   }
 
   // ---------------------------------------------------------------- departures
+  //
+  // Process exit and stream end have no guaranteed order, so completion is a
+  // barrier: a result is applied only once the exit code AND the collected
+  // stdout are both in. A generation counter makes late signals from a fetch
+  // the watchdog already abandoned harmless.
+  property int _fetchGen: 0
+  property var _fetchOut: null
+  property var _fetchExit: null
+
   function pump() {
-    if (fetchProc.running || watchdog.running || _queue.length === 0) return
+    if (fetchProc.running || _queue.length === 0) return
     var key = _queue.shift()
     var e = _entries[key]
     if (!e) { pump(); return }
     e.queued = false
     e.fetching = true
     _activeKey = key
+    _fetchGen += 1
+    fetchProc.gen = _fetchGen
+    _fetchOut = null
+    _fetchExit = null
     fetchProc.command = ["python3", helper, "departures"].concat(e.args)
     fetchProc.running = true
     watchdog.restart()
     fetchingChanged(key)
+  }
+
+  function maybeFinish() {
+    if (_fetchExit === null || _fetchOut === null) return
+    finish(_fetchExit, _fetchOut)
   }
 
   function finish(exitCode, text) {
@@ -110,18 +128,22 @@ Item {
     var key = _activeKey
     var e = _entries[key]
     _activeKey = ""
+    _fetchOut = null
+    _fetchExit = null
     if (e) {
       var parsed = parsePayload(text)
       if (parsed) {
         e.data = parsed
         e.error = parsed.ok ? (parsed.error || "") : (parsed.error || "helper failed")
       } else {
-        e.error = exitCode === 0 ? "helper returned no data" : "helper exited " + exitCode
-        if (!e.data) e.data = Model.emptyData()
+        e.error = exitCode === 0 ? "helper returned no data" : (exitCode === -1 ? "helper timed out" : "helper exited " + exitCode)
+        if (!e.data || !e.data.ok) e.data = Object.assign(Model.emptyData(), { error: e.error })
       }
       e.lastUpdated = Date.now()
       e.fetching = false
-      e.nextDue = Date.now() + (e.intervalMs || 30000)
+      // A failed fetch retries sooner than the regular interval, but never
+      // faster than the helper's own cache window.
+      e.nextDue = Date.now() + (parsed && parsed.ok ? (e.intervalMs || 30000) : Math.min(e.intervalMs || 30000, 20000))
       updated(key)
       fetchingChanged(key)
     }
@@ -140,15 +162,23 @@ Item {
 
   Process {
     id: fetchProc
-    stdout: StdioCollector { id: fetchOut; waitForEnd: true }
+    property int gen: 0
+    stdout: StdioCollector {
+      waitForEnd: true
+      onStreamFinished: { if (fetchProc.gen === hub._fetchGen) { hub._fetchOut = text; hub.maybeFinish() } }
+    }
     stderr: StdioCollector { waitForEnd: true }
-    onExited: function (exitCode) { Qt.callLater(function () { hub.finish(exitCode, fetchOut.text) }) }
+    onExited: function (exitCode) { if (fetchProc.gen === hub._fetchGen) { hub._fetchExit = exitCode; hub.maybeFinish() } }
   }
 
   Timer {
     id: watchdog
-    interval: 25000
-    onTriggered: { if (fetchProc.running) fetchProc.running = false; hub.finish(-1, "") }
+    interval: 40000
+    onTriggered: {
+      hub._fetchGen += 1          // orphan whatever the killed process still emits
+      if (fetchProc.running) fetchProc.running = false
+      hub.finish(-1, "")
+    }
   }
 
   Timer {
@@ -166,65 +196,100 @@ Item {
   }
 
   // ---------------------------------------------------------------- search
+  // Requests queue in order; every token gets exactly one searchResults().
   property int _searchToken: 0
-  property var _pendingSearch: null
+  property var _searchQueue: []
+  property var _searchOut: null
+  property var _searchExit: null
 
   function search(query) {
     var token = ++_searchToken
-    _pendingSearch = { token: token, query: String(query || "") }
+    _searchQueue.push({ token: token, query: String(query || "") })
     _startSearch()
     return token
   }
 
   function _startSearch() {
-    if (searchProc.running || !_pendingSearch) return
-    var req = _pendingSearch
-    _pendingSearch = null
-    searchProc.token = req.token
+    if (searchProc.running || _searchQueue.length === 0) return
+    var req = _searchQueue.shift()
     if (req.query.trim() === "") {
       searchResults(req.token, [], "")
+      _startSearch()
       return
     }
-    searchProc.command = ["python3", helper, "search", "--limit", "10", req.query]
+    searchProc.token = req.token
+    _searchOut = null
+    _searchExit = null
+    // "--" keeps a query that starts with a dash from being read as an option.
+    searchProc.command = ["python3", helper, "search", "--limit", "10", "--", req.query]
     searchProc.running = true
+  }
+
+  function _finishSearch() {
+    if (_searchExit === null || _searchOut === null) return
+    var parsed = parsePayload(_searchOut)
+    _searchOut = null
+    _searchExit = null
+    var results = parsed && parsed.ok ? (parsed.results || []) : []
+    searchResults(searchProc.token, results, parsed ? (parsed.error || "") : "search failed")
+    _startSearch()
   }
 
   Process {
     id: searchProc
     property int token: 0
-    stdout: StdioCollector { id: searchOut; waitForEnd: true }
-    onExited: function (exitCode) {
-      Qt.callLater(function () {
-        var parsed = hub.parsePayload(searchOut.text)
-        var results = parsed && parsed.ok ? (parsed.results || []) : []
-        hub.searchResults(searchProc.token, results, parsed ? (parsed.error || "") : "search failed")
-        hub._startSearch()
-      })
+    stdout: StdioCollector {
+      waitForEnd: true
+      onStreamFinished: { hub._searchOut = text; hub._finishSearch() }
     }
+    onExited: function (exitCode) { hub._searchExit = exitCode; hub._finishSearch() }
   }
 
   // ---------------------------------------------------------------- planning
+  // One plan at a time; a newer request waits for the running one to exit
+  // (Quickshell cannot start a replacement before that anyway) and the
+  // superseded result is dropped by token.
   property int _planToken: 0
+  property var _pendingPlan: null
+  property var _planOut: null
+  property var _planExit: null
 
   function plan(fromCode, toCode) {
     var token = ++_planToken
-    if (planProc.running) planProc.running = false
-    planProc.token = token
-    planProc.command = ["python3", helper, "plan", String(fromCode), String(toCode), "--max", "4"]
-    planProc.running = true
+    _pendingPlan = { token: token, from: String(fromCode), to: String(toCode) }
+    _startPlan()
     return token
+  }
+
+  function _startPlan() {
+    if (planProc.running || !_pendingPlan) return
+    var req = _pendingPlan
+    _pendingPlan = null
+    planProc.token = req.token
+    _planOut = null
+    _planExit = null
+    planProc.command = ["python3", helper, "plan", "--max", "4", "--", req.from, req.to]
+    planProc.running = true
+  }
+
+  function _finishPlan() {
+    if (_planExit === null || _planOut === null) return
+    var parsed = parsePayload(_planOut)
+    _planOut = null
+    _planExit = null
+    if (planProc.token === _planToken)
+      planResults(planProc.token, parsed || { ok: false, error: "planner returned no data", itineraries: [] })
+    _startPlan()
   }
 
   Process {
     id: planProc
     property int token: 0
-    stdout: StdioCollector { id: planOut; waitForEnd: true }
-    onExited: function (exitCode) {
-      Qt.callLater(function () {
-        var parsed = hub.parsePayload(planOut.text)
-        hub.planResults(planProc.token, parsed || { ok: false, error: "planner returned no data", itineraries: [] })
-      })
+    stdout: StdioCollector {
+      waitForEnd: true
+      onStreamFinished: { hub._planOut = text; hub._finishPlan() }
     }
+    onExited: function (exitCode) { hub._planExit = exitCode; hub._finishPlan() }
   }
 
   // ---------------------------------------------------------------- routes table
