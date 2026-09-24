@@ -67,9 +67,21 @@ test("formatting helpers", () => {
   assert.equal(Model.subscriptionKey(14282, "501, 301", 12), "14282|501,301|12")
 })
 
-test("stop subtitle shows platform direction, routes, and the stop number", () => {
-  assert.equal(Model.stopSubtitle({ code: "13816", kind: "platform", dir: "Northbound", routes: ["1"] }), "Northbound   1   #13816")
-  assert.equal(Model.stopSubtitle({ code: "14282", kind: "stop", routes: ["301", "501"] }), "301 · 501   #14282")
+test("stop title and subtitle read naturally for platforms and surface stops", () => {
+  const platform = { code: "13816", kind: "platform", station: "Union", dir: "Northbound", towards: "Finch Station", routes: ["1"], name: "Union Station - Northbound Platform Towards Finch" }
+  assert.equal(Model.stopTitle(platform), "Union Station")
+  assert.equal(Model.stopSubtitle(platform), "Line 1 · Northbound to Finch · #13816")
+  const stop = { code: "14282", kind: "stop", routes: ["301", "501"], name: "The Queensway at Windermere Ave East Side" }
+  assert.equal(Model.stopTitle(stop), stop.name)
+  assert.equal(Model.stopSubtitle(stop), "301 · 501 · #14282")
+  assert.equal(Model.stopSubtitle({ code: "1", kind: "stop", routes: ["1", "2", "3", "4", "5", "6", "7"] }), "1 · 2 · 3 · 4 · 5 · 6 … · #1")
+})
+
+test("headsigns are shortened to a destination", () => {
+  assert.equal(Model.cleanHeadsign("Line 1 (Yonge-University) towards Finch Station"), "to Finch")
+  assert.equal(Model.cleanHeadsign("North - 510 Spadina towards Spadina Station"), "to Spadina")
+  assert.equal(Model.cleanHeadsign("East - 501 Queen"), "501 Queen")
+  assert.equal(Model.cleanHeadsign(""), "")
 })
 
 test("itinerary title and legs text", () => {
@@ -87,6 +99,6 @@ test("itinerary title and legs text", () => {
   const legs = Model.legsText(it).split("\n")
   assert.equal(legs.length, 3, "walks under two minutes are dropped")
   assert.equal(legs[0], "Walk 4 min")
-  assert.match(legs[1], /^.+ 2 \(Kennedy\) \d\d:\d\d → St George$/)
+  assert.match(legs[1], /^.+ 2 Kennedy · \d\d:\d\d → St George$/)
   assert.equal(Model.itineraryTitle({ start, end: start + 600, duration: 600, transfers: 0 }).endsWith("direct"), true)
 })

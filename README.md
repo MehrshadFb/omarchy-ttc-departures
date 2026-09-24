@@ -43,7 +43,12 @@ Add the widget more than once for different stops.
 
 ## The panel
 
-**Board.** One row per route and direction with the next arrivals, recomputed every few seconds from the feed's absolute times. Vehicles that end before the terminus are marked with `*` (a short turn). Active alerts for the stop and its routes appear underneath.
+| Board and alerts | Stop picker | Trip planner |
+|---|---|---|
+| ![Board](screenshots/panel-board.png) | ![Picker](screenshots/panel-picker.png) | ![Planner](screenshots/panel-plan.png) |
+
+
+**Board.** One row per route and direction with the next arrivals, recomputed from the feed's absolute times as the clock runs. Vehicles that end before the terminus are marked with `*` (a short turn). Active alerts for the stop and its routes appear underneath.
 
 **Stop picker.** Searches the shipped list of every TTC stop and subway platform. Subway platforms rank first for station names, so "union" offers Union Station's platforms before the bus bays outside. Picking a stop writes it to your shell configuration immediately.
 

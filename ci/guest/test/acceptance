@@ -106,8 +106,8 @@ wtype "union"; sleep 4
 shot 06-panel-picker
 wtype -k Return; sleep 30
 shot 07-panel-union-platform
-grep -o '"stopId":[0-9]*' ~/.config/omarchy/shell.json | head -1 | tee -a "$ART/log.txt"
-grep -q '"stopId":13816' ~/.config/omarchy/shell.json && log "ok - picker persisted stop 13816 to shell.json" || log "not ok - picker did not persist the stop"
+grep -oE '"stopId": *[0-9]+' ~/.config/omarchy/shell.json | head -1 | tee -a "$ART/log.txt"
+if grep -qE '"stopId": *13816' ~/.config/omarchy/shell.json; then log "ok - picker persisted stop 13816 to shell.json"; else log "not ok - picker did not persist the stop"; status=1; fi
 
 log "== panel: trip planner Union -> Bathurst Station"
 wtype p; sleep 2
@@ -116,7 +116,7 @@ wtype t; sleep 1
 wtype "bathurst station"; sleep 4
 wtype -k Return; sleep 25
 shot 09-panel-plan-results
-grep -q '"planTo":"13760"' ~/.config/omarchy/shell.json && log "ok - planner persisted destination" || log "warn - planTo not found in shell.json ($(grep -o '"planTo":"[0-9]*"' ~/.config/omarchy/shell.json | head -1))"
+if grep -qE '"planTo": *"13760"' ~/.config/omarchy/shell.json; then log "ok - planner persisted destination"; else log "not ok - planTo not found in shell.json"; status=1; fi
 wtype -k Escape; sleep 1; wtype -k Escape; sleep 2
 shot 10-panel-closed
 cp ~/.config/omarchy/shell.json "$ART/shell-after.json" 2>/dev/null || true
