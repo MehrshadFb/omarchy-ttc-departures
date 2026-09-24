@@ -68,12 +68,15 @@ function liveMinutes(arrival, nowMs) {
 }
 
 // The text shown in the bar next to the glyph.
-function barLabel(data, maxShown, style, nowMs) {
+// On a vertical bar each value takes its own line (separator "\n"), the way
+// the first-party clock stacks its digits.
+function barLabel(data, maxShown, style, nowMs, separator) {
   if (!data || !data.ok) return ""
+  var sep = separator || "·"
   var next = (data.arrivals || []).slice(0, Math.max(1, maxShown || 2))
   if (next.length === 0) return "—"
-  var text = next.map(function (a) { return minutesText(liveMinutes(a, nowMs)) }).join("·")
-  if (style === "Route and minutes") text = next[0].route + " " + text
+  var text = next.map(function (a) { return minutesText(liveMinutes(a, nowMs)) }).join(sep)
+  if (style === "Route and minutes") text = next[0].route + (sep === "\n" ? "\n" : " ") + text
   return text
 }
 

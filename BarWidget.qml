@@ -144,18 +144,21 @@ BarWidget {
     return Model.glyphFor(Model.kindOf(route || (routes.split(",")[0] || ""), Hub.routesTable))
   }
   readonly property string displayName: activeStopId > 0 ? ((board && board.stop && board.stop.name) || resolvedName || stopName) : ""
+  // A side bar stacks the glyph and each value on its own line; a top or
+  // bottom bar keeps the compact one-line form.
+  readonly property string joiner: vertical ? "\n" : " "
   readonly property string label: {
     clockTick
     if (activeStopId <= 0) {
-      if (needsLookup) return glyph + (resolveError !== "" ? " ?" : " \u2026")
-      return glyph + " set stop"
+      if (needsLookup) return glyph + joiner + (resolveError !== "" ? "?" : "\u2026")
+      return glyph + joiner + (vertical ? "stop" : "set stop")
     }
-    if (!board || (!board.ok && !board.error && hubError === "")) return glyph + " \u2026"
-    if (!board.ok) return glyph + " !"
-    if (board.source === "none" && board.error && (!board.arrivals || board.arrivals.length === 0)) return glyph + " !"
-    var text = Model.barLabel(board, maxShown, labelStyle, clockTick)
-    if (board.alerts && board.alerts.length) text += " " + Model.GLYPH.alert
-    return glyph + " " + text
+    if (!board || (!board.ok && !board.error && hubError === "")) return glyph + joiner + "\u2026"
+    if (!board.ok) return glyph + joiner + "!"
+    if (board.source === "none" && board.error && (!board.arrivals || board.arrivals.length === 0)) return glyph + joiner + "!"
+    var text = Model.barLabel(board, maxShown, labelStyle, clockTick, vertical ? "\n" : undefined)
+    if (board.alerts && board.alerts.length) text += joiner + Model.GLYPH.alert
+    return glyph + joiner + text
   }
   readonly property string tooltip: {
     clockTick
