@@ -1,0 +1,8 @@
+{
+  "name": "omarchy-ttc-departures",
+  "private": true,
+  "description": "Unit tests for the TTC Departures Omarchy bar widget",
+  "scripts": {
+    "test": "node --test test/model.test.js"
+  }
+}
