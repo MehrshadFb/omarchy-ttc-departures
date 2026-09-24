@@ -28,11 +28,11 @@ Panel {
   readonly property color dim: Qt.darker(foreground, 1.5)
   readonly property string fontFamily: bar ? bar.fontFamily : Style.font.family
 
-  readonly property var data: hostWidget && hostWidget.data ? hostWidget.data : Model.emptyData()
+  readonly property var board: hostWidget && hostWidget.board ? hostWidget.board : Model.emptyData()
   readonly property bool fetching: hostWidget ? hostWidget.fetching === true : false
-  readonly property var stop: data && data.stop ? data.stop : null
-  readonly property var rows: data && data.byRoute ? data.byRoute : []
-  readonly property var alerts: data && data.alerts ? data.alerts.slice(0, 4) : []
+  readonly property var stop: board && board.stop ? board.stop : null
+  readonly property var rows: board && board.byRoute ? board.byRoute : []
+  readonly property var alerts: board && board.alerts ? board.alerts.slice(0, 4) : []
 
   property string mode: "board"
   property int cursor: 0
@@ -43,8 +43,8 @@ Panel {
   readonly property string freshnessText: {
     tick
     if (fetching) return "Updating…"
-    if (!data || !data.fetched) return "No data yet"
-    var age = Model.ageText(data.fetched, tick)
+    if (!board || !board.fetched) return "No data yet"
+    var age = Model.ageText(board.fetched, tick)
     var src = data.source === "nextbus" ? " · legacy feed" : ""
     return "Updated " + age + src
   }
@@ -355,7 +355,7 @@ Panel {
             textFormat: Text.PlainText
             wrapMode: Text.WordWrap
             text: !root.stop ? "No stop chosen yet. Press s to search for one."
-                : (root.data.error ? root.data.error : "No vehicles predicted right now.")
+                : (root.board.error ? root.board.error : "No vehicles predicted right now.")
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.body
