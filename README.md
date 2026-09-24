@@ -2,13 +2,9 @@
 
 Live TTC arrivals for your stop in the Omarchy bar, with a panel for the full board, service alerts, a stop picker, and a trip planner. Buses, streetcars, and subway Lines 1, 2, and 4 are covered in real time. No API keys, no accounts.
 
-![TTC Departures in the Omarchy bar](preview.png)
+<p align="center"><img src="screenshots/v1-bar-states.png" alt="Four bar states: route and minutes, a streetcar stop with an alert, a subway platform, minutes only" width="640"></p>
 
-```
-󰔭 501 5·15    the bar: next two 501 Queen streetcars, in minutes
-󰚬 now·2·4     a subway platform, three trains
-󰃧 3·13·23 󰀦   a bus stop with an active service alert
-```
+Top to bottom: `501 7·17` with the "Route and minutes" label, a streetcar stop with an active alert, a Line 1 platform, and the plain "Minutes" label. Every screenshot in this README was taken on a real Omarchy 4.0.4 desktop by the repository's VM test.
 
 - **Hover** the bar for the board: every route at the stop, direction, next arrivals, alerts.
 - **Click** to open the panel.
@@ -43,10 +39,16 @@ Add the widget more than once for different stops.
 
 ## The panel
 
-| Board and alerts | Stop picker | Trip planner |
-|---|---|---|
-| ![Board](screenshots/panel-board.png) | ![Picker](screenshots/panel-picker.png) | ![Planner](screenshots/panel-plan.png) |
-
+<table>
+<tr>
+<td align="center"><img src="screenshots/v1-panel-board.png" alt="Board for a streetcar stop with three service alerts" width="410"><br><sub>Board and alerts</sub></td>
+<td align="center"><img src="screenshots/v1-panel-subway.png" alt="Board for a Line 1 platform with live train times" width="410"><br><sub>A subway platform, live</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="screenshots/v1-panel-picker.png" alt="Stop picker searching for union" width="410"><br><sub>Stop picker</sub></td>
+<td align="center"><img src="screenshots/v1-panel-plan.png" alt="Trip planner with four itineraries from Union to Bathurst" width="410"><br><sub>Trip planner</sub></td>
+</tr>
+</table>
 
 **Board.** One row per route and direction with the next arrivals, recomputed from the feed's absolute times as the clock runs. Vehicles that end before the terminus are marked with `*` (a short turn). Active alerts for the stop and its routes appear underneath.
 
