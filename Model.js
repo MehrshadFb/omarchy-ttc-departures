@@ -144,10 +144,88 @@ function boardText(model) {
   return lines.join("\n")
 }
 
+
+// ---- Stop lookup by route and name -------------------------------------
+//
+// Stop numbers are printed on the pole, but nobody remembers them. A route
+// config lists every stop on a route with its title and the direction it
+// serves, so "501" plus "Windermere east" is enough to find stop 14282.
+
+function routeConfigUrl(route) {
+  return FEED + "?command=routeConfig&a=ttc&r=" + encodeURIComponent(String(route).trim())
+}
+
+function parseRouteConfig(raw) {
+  var data
+  try {
+    data = JSON.parse(String(raw || ""))
+  } catch (e) {
+    return { ok: false, error: "bad response", stops: [], directions: [] }
+  }
+  if (!data || typeof data !== "object") return { ok: false, error: "bad response", stops: [], directions: [] }
+  if (data.Error) return { ok: false, error: String(data.Error.content || "feed error"), stops: [], directions: [] }
+  var route = data.route
+  if (!route) return { ok: false, error: "no such route", stops: [], directions: [] }
+
+  var stops = []
+  var list = asList(route.stop)
+  for (var i = 0; i < list.length; i++) {
+    if (!list[i].stopId) continue // stops without a public number cannot be queried
+    stops.push({ stopId: String(list[i].stopId), tag: String(list[i].tag || ""), title: String(list[i].title || "") })
+  }
+  var directions = []
+  var dirs = asList(route.direction)
+  for (var j = 0; j < dirs.length; j++) {
+    var tags = asList(dirs[j].stop).map(function (s) { return String(s.tag || "") })
+    directions.push({ tag: String(dirs[j].tag || ""), name: String(dirs[j].name || ""), title: String(dirs[j].title || ""), stopTags: tags })
+  }
+  return { ok: true, error: "", title: String(route.title || ""), stops: stops, directions: directions }
+}
+
+function tokens(text) {
+  return String(text || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter(Boolean)
+}
+
+// Best stop for a free-text query such as "windermere east" or "queen bathurst".
+// Every query word must appear in the stop title or in the name of a direction
+// that serves the stop; ties go to the stop listed first on the route.
+function findStop(config, query) {
+  if (!config || !config.ok) return null
+  var words = tokens(query)
+  if (words.length === 0) return null
+  var best = null
+  var bestScore = 0
+  for (var i = 0; i < config.stops.length; i++) {
+    var stop = config.stops[i]
+    var dirNames = []
+    for (var j = 0; j < config.directions.length; j++) {
+      if (config.directions[j].stopTags.indexOf(stop.tag) !== -1) dirNames.push(config.directions[j].name)
+    }
+    var haystack = tokens(stop.title + " " + dirNames.join(" "))
+    var titleWords = tokens(stop.title)
+    var score = 0
+    var complete = true
+    for (var k = 0; k < words.length; k++) {
+      var w = words[k]
+      var inTitle = titleWords.some(function (t) { return t.indexOf(w) === 0 })
+      var inAny = inTitle || haystack.some(function (t) { return t.indexOf(w) === 0 })
+      if (!inAny) { complete = false; break }
+      score += inTitle ? 2 : 1
+    }
+    if (!complete) continue
+    if (score > bestScore) {
+      bestScore = score
+      best = { stopId: stop.stopId, title: stop.title, direction: dirNames.join("/") }
+    }
+  }
+  return best
+}
+
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     predictionsUrl: predictionsUrl, mapUrl: mapUrl, parse: parse, filterRoutes: filterRoutes,
     arrivals: arrivals, barLabel: barLabel, boardText: boardText, glyphFor: glyphFor,
-    isStreetcar: isStreetcar, shortDirection: shortDirection
+    isStreetcar: isStreetcar, shortDirection: shortDirection,
+    routeConfigUrl: routeConfigUrl, parseRouteConfig: parseRouteConfig, findStop: findStop
   }
 }

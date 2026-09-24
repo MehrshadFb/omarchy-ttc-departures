@@ -2,21 +2,25 @@
   "schemaVersion": 1,
   "id": "io.github.mehrshadfb.ttc-departures",
   "name": "TTC Departures",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Mehrshad Farahbakhsh",
   "license": "MIT",
-  "description": "Next TTC bus and streetcar arrivals for a Toronto stop, right in the Omarchy bar. Uses the free real-time feed, no API key.",
-  "kinds": ["bar-widget"],
+  "description": "Next TTC bus and streetcar arrivals for a Toronto stop, right in the Omarchy bar. Pick the stop by route and name. Free real-time feed, no API key.",
+  "kinds": [
+    "bar-widget"
+  ],
   "entryPoints": {
     "barWidget": "BarWidget.qml"
   },
   "barWidget": {
     "displayName": "TTC Departures",
-    "description": "Minutes until the next TTC vehicles at your stop. Click for the live map, right-click for the full board.",
+    "description": "Minutes until the next TTC vehicles at your stop. Pick the stop by route and name, no stop number needed.",
     "category": "Info",
     "allowMultiple": true,
     "defaultSection": "right",
     "defaults": {
+      "route": "",
+      "stop": "",
       "stopId": 0,
       "routes": "",
       "maxShown": 2,
@@ -24,11 +28,61 @@
       "labelStyle": "Minutes"
     },
     "schema": [
-      { "key": "stopId", "type": "integer", "label": "TTC stop id (the number on the stop pole)", "min": 0, "max": 99999, "step": 1, "defaultValue": 0 },
-      { "key": "routes", "type": "string", "label": "Only these routes, comma separated (blank = all)", "defaultValue": "" },
-      { "key": "maxShown", "type": "integer", "label": "Arrivals shown in the bar", "min": 1, "max": 4, "step": 1, "defaultValue": 2 },
-      { "key": "refreshSeconds", "type": "integer", "label": "Refresh interval (seconds)", "min": 15, "max": 600, "step": 15, "defaultValue": 30 },
-      { "key": "labelStyle", "type": "enum", "label": "Bar label", "options": ["Minutes", "Route and minutes"], "defaultValue": "Minutes" }
+      {
+        "key": "route",
+        "type": "string",
+        "label": "Route number, e.g. 501",
+        "defaultValue": ""
+      },
+      {
+        "key": "stop",
+        "type": "string",
+        "label": "Stop name, a few words, e.g. Windermere east",
+        "defaultValue": ""
+      },
+      {
+        "key": "stopId",
+        "type": "integer",
+        "label": "Stop number (optional, overrides route and name)",
+        "min": 0,
+        "max": 99999,
+        "step": 1,
+        "defaultValue": 0
+      },
+      {
+        "key": "routes",
+        "type": "string",
+        "label": "Only these routes, comma separated (blank = the chosen route, or all)",
+        "defaultValue": ""
+      },
+      {
+        "key": "maxShown",
+        "type": "integer",
+        "label": "Arrivals shown in the bar",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "defaultValue": 2
+      },
+      {
+        "key": "refreshSeconds",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "min": 15,
+        "max": 600,
+        "step": 15,
+        "defaultValue": 30
+      },
+      {
+        "key": "labelStyle",
+        "type": "enum",
+        "label": "Bar label",
+        "options": [
+          "Minutes",
+          "Route and minutes"
+        ],
+        "defaultValue": "Minutes"
+      }
     ]
   }
 }
