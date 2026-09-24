@@ -1,231 +1,172 @@
-// TTC real-time predictions come from the UmoIQ (formerly NextBus) public
-// JSON feed. It needs no API key. The feed collapses single-item lists into
-// bare objects, so every list access goes through asList().
-//
-// This file is plain JavaScript so it loads both as a QML import and under
-// Node for the unit tests in test/.
+// Pure presentation logic shared by the bar widget and the panel, and unit
+// tested under Node. Everything here works on the JSON documents produced by
+// ttc.py; nothing here touches the network.
 
-var FEED = "https://retro.umoiq.com/service/publicJSONFeed"
-var GLYPH_BUS = String.fromCodePoint(0xF00E7)   // nf-md-bus
-var GLYPH_TRAM = String.fromCodePoint(0xF052D)  // nf-md-tram
-
-function predictionsUrl(stopId) {
-  return FEED + "?command=predictions&a=ttc&stopId=" + encodeURIComponent(String(stopId))
+var GLYPH = {
+  bus: String.fromCodePoint(0xF00E7),      // nf-md-bus
+  streetcar: String.fromCodePoint(0xF052D), // nf-md-tram
+  subway: String.fromCodePoint(0xF06AC),    // nf-md-subway
+  alert: String.fromCodePoint(0xF0026),     // nf-md-alert
+  clock: String.fromCodePoint(0xF0150),     // nf-md-clock_outline
+  pin: String.fromCodePoint(0xF034E)        // nf-md-map_marker
 }
 
-function mapUrl(stopId) {
-  return "https://retro.umoiq.com/googleMap/index.jsp?a=ttc&stopId=" + encodeURIComponent(String(stopId))
+function glyphFor(kind) {
+  return GLYPH[kind] || GLYPH.bus
 }
 
-function asList(value) {
-  if (value === undefined || value === null) return []
-  return Array.isArray(value) ? value : [value]
+// Which glyph represents a stop: its first route's kind, subway for platforms.
+function stopGlyph(stop, routesTable) {
+  if (!stop) return GLYPH.bus
+  if (stop.kind === "platform") return GLYPH.subway
+  var first = stop.routes && stop.routes.length ? stop.routes[0] : ""
+  return glyphFor(kindOf(first, routesTable))
 }
 
-function empty(error) {
-  return { ok: false, error: error || "", stopTitle: "", routes: [] }
+// Route kind from the shipped routes table (type 0 streetcar, 1 subway, 3 bus).
+function kindOf(route, routesTable) {
+  var info = routesTable && routesTable[String(route)]
+  if (!info) return /^(5(0[1-9]|1[0-2])|3(0[1-9]|1[0-2]))$/.test(String(route)) ? "streetcar" : "bus"
+  return { 0: "streetcar", 1: "subway", 3: "bus" }[info.type] || "bus"
 }
 
-// Streetcars run on the 501-512 day routes and the 301-312 night routes.
-// Everything else on the feed is a bus. Subway lines are not in this feed.
-function isStreetcar(tag) {
-  return /^(5(0[1-9]|1[0-2])|3(0[1-9]|1[0-2]))$/.test(String(tag))
-}
-
-function glyphFor(tag) {
-  return isStreetcar(tag) ? GLYPH_TRAM : GLYPH_BUS
-}
-
-// "East - 501 Queen towards Neville Park" -> "East to Neville Park"
-function shortDirection(title) {
-  var text = String(title || "")
-  var match = text.match(/^\s*(\w+)\s*-\s*.*?\btowards\s+(.+?)\s*$/i)
-  if (match) return match[1] + " to " + match[2]
-  return text
-}
-
-function parse(raw) {
-  var data
-  try {
-    data = JSON.parse(String(raw || ""))
-  } catch (e) {
-    return empty("bad response")
-  }
-  if (!data || typeof data !== "object") return empty("bad response")
-  if (data.Error) return empty(String(data.Error.content || "feed error"))
-
-  var stopTitle = ""
-  var routes = []
-  var blocks = asList(data.predictions)
-  for (var i = 0; i < blocks.length; i++) {
-    var block = blocks[i]
-    if (!block || !block.routeTag) continue
-    if (!stopTitle && block.stopTitle) stopTitle = String(block.stopTitle)
-    var directions = []
-    var dirs = asList(block.direction)
-    for (var j = 0; j < dirs.length; j++) {
-      var minutes = []
-      var preds = asList(dirs[j].prediction)
-      for (var k = 0; k < preds.length; k++) {
-        var m = parseInt(preds[k].minutes, 10)
-        if (!isNaN(m)) minutes.push(m)
-      }
-      minutes.sort(function (a, b) { return a - b })
-      directions.push({ title: String(dirs[j].title || ""), minutes: minutes })
-    }
-    routes.push({
-      tag: String(block.routeTag),
-      title: String(block.routeTitle || block.routeTag),
-      directions: directions
-    })
-  }
-  if (routes.length === 0) return empty("no routes at this stop")
-  return { ok: true, error: "", stopTitle: stopTitle, routes: routes }
-}
-
-// "501, 301" -> only those route tags. Blank keeps every route.
-function filterRoutes(model, filter) {
-  var wanted = String(filter || "").split(",").map(function (s) { return s.trim() }).filter(Boolean)
-  if (!model || !model.ok || wanted.length === 0) return model
-  var kept = model.routes.filter(function (r) { return wanted.indexOf(r.tag) !== -1 })
-  return { ok: true, error: "", stopTitle: model.stopTitle, routes: kept }
-}
-
-// Every upcoming arrival at the stop, soonest first, tagged with its route.
-function arrivals(model) {
-  var out = []
-  if (!model || !model.ok) return out
-  for (var i = 0; i < model.routes.length; i++) {
-    var route = model.routes[i]
-    for (var j = 0; j < route.directions.length; j++) {
-      var dir = route.directions[j]
-      for (var k = 0; k < dir.minutes.length; k++) {
-        out.push({ tag: route.tag, minutes: dir.minutes[k], direction: dir.title })
-      }
-    }
-  }
-  out.sort(function (a, b) { return a.minutes - b.minutes })
-  return out
+function emptyData() {
+  return { ok: false, error: "", stop: null, source: "none", fetched: 0, arrivals: [], byRoute: [], alerts: [] }
 }
 
 function minutesText(m) {
+  m = Number(m)
+  if (isNaN(m)) return ""
   return m <= 0 ? "now" : String(m)
 }
 
-// The text shown in the bar. `style` is "Minutes" or "Route and minutes".
-function barLabel(model, maxShown, style) {
-  if (!model || !model.ok) return ""
-  var next = arrivals(model).slice(0, Math.max(1, maxShown || 2))
+function clockText(epochSeconds) {
+  if (!epochSeconds) return ""
+  var d = new Date(epochSeconds * 1000)
+  var h = d.getHours()
+  var m = d.getMinutes()
+  return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m
+}
+
+function durationText(seconds) {
+  var m = Math.round(Number(seconds || 0) / 60)
+  if (m < 60) return m + " min"
+  return Math.floor(m / 60) + " h " + (m % 60 ? (m % 60) + " min" : "")
+}
+
+function ageText(fetchedEpoch, nowMs) {
+  if (!fetchedEpoch) return ""
+  var s = Math.max(0, Math.round((nowMs - fetchedEpoch * 1000) / 1000))
+  return s < 60 ? s + "s ago" : Math.round(s / 60) + " min ago"
+}
+
+// Arrival minutes drift as the clock runs between polls; recompute from the
+// absolute times so the label stays honest even when a fetch is late.
+function liveMinutes(arrival, nowMs) {
+  if (arrival && arrival.time) return Math.max(0, Math.floor((arrival.time * 1000 - nowMs) / 60000))
+  return arrival ? Number(arrival.minutes) || 0 : 0
+}
+
+// The text shown in the bar next to the glyph.
+function barLabel(data, maxShown, style, nowMs) {
+  if (!data || !data.ok) return ""
+  var next = (data.arrivals || []).slice(0, Math.max(1, maxShown || 2))
   if (next.length === 0) return "—"
-  var text = next.map(function (a) { return minutesText(a.minutes) }).join("·")
-  if (style === "Route and minutes") text = next[0].tag + " " + text
+  var text = next.map(function (a) { return minutesText(liveMinutes(a, nowMs)) }).join("·")
+  if (style === "Route and minutes") text = next[0].route + " " + text
   return text
 }
 
-// Multi-line board used by the tooltip and the notification.
-function boardText(model) {
-  if (!model) return ""
-  if (!model.ok) return model.error ? "TTC: " + model.error : "TTC: no data yet"
-  var lines = [model.stopTitle || "TTC stop"]
-  for (var i = 0; i < model.routes.length; i++) {
-    var route = model.routes[i]
-    if (route.directions.length === 0) {
-      lines.push(route.tag + ": no vehicles scheduled")
-      continue
+function effectText(effect) {
+  return {
+    NO_SERVICE: "No service", REDUCED_SERVICE: "Reduced service", SIGNIFICANT_DELAYS: "Delays",
+    DETOUR: "Detour", ADDITIONAL_SERVICE: "Extra service", MODIFIED_SERVICE: "Service change",
+    OTHER_EFFECT: "Notice", UNKNOWN_EFFECT: "Notice", STOP_MOVED: "Stop moved", NO_EFFECT: "Notice",
+    ACCESSIBILITY_ISSUE: "Accessibility"
+  }[effect] || "Notice"
+}
+
+function directionText(row) {
+  if (!row) return ""
+  var parts = []
+  if (row.direction) parts.push(row.direction)
+  if (row.towards) parts.push((row.direction ? "to " : "To ") + row.towards)
+  return parts.join(" ")
+}
+
+// Multi-line board for the tooltip and the notification.
+function boardText(data, nowMs) {
+  if (!data) return ""
+  if (!data.ok) return data.error ? "TTC: " + data.error : "TTC: no data yet"
+  var stop = data.stop || {}
+  var lines = [stop.name || "TTC stop"]
+  var rows = data.byRoute || []
+  if (rows.length === 0) lines.push("No vehicles predicted")
+  for (var i = 0; i < rows.length; i++) {
+    var r = rows[i]
+    var mins = []
+    for (var j = 0; j < r.times.length; j++) {
+      var m = minutesText(liveMinutes({ time: r.times[j], minutes: r.minutes[j] }, nowMs))
+      if (r.shortTurns && r.shortTurns[j]) m += "*"
+      mins.push(m)
     }
-    for (var j = 0; j < route.directions.length; j++) {
-      var dir = route.directions[j]
-      var mins = dir.minutes.length
-        ? dir.minutes.map(minutesText).join(", ") + " min"
-        : "no vehicles"
-      lines.push(route.tag + " " + shortDirection(dir.title) + ": " + mins)
-    }
+    lines.push(r.route + " " + directionText(r) + ": " + mins.join(", ") + " min")
   }
+  var alerts = data.alerts || []
+  for (var k = 0; k < Math.min(alerts.length, 3); k++) {
+    lines.push(effectText(alerts[k].effect) + ": " + alerts[k].header)
+  }
+  if (data.source === "nextbus") lines.push("(legacy feed)")
   return lines.join("\n")
 }
 
-
-// ---- Stop lookup by route and name -------------------------------------
-//
-// Stop numbers are printed on the pole, but nobody remembers them. A route
-// config lists every stop on a route with its title and the direction it
-// serves, so "501" plus "Windermere east" is enough to find stop 14282.
-
-function routeConfigUrl(route) {
-  return FEED + "?command=routeConfig&a=ttc&r=" + encodeURIComponent(String(route).trim())
+// Stop picker row text: "Queen St W at Bathurst St  501 · 511" or station platforms.
+function stopSubtitle(stop) {
+  if (!stop) return ""
+  var bits = []
+  if (stop.kind === "platform") bits.push(stop.dir || "Platform")
+  if (stop.routes && stop.routes.length) bits.push(stop.routes.slice(0, 6).join(" · "))
+  bits.push("#" + stop.code)
+  return bits.join("   ")
 }
 
-function parseRouteConfig(raw) {
-  var data
-  try {
-    data = JSON.parse(String(raw || ""))
-  } catch (e) {
-    return { ok: false, error: "bad response", stops: [], directions: [] }
-  }
-  if (!data || typeof data !== "object") return { ok: false, error: "bad response", stops: [], directions: [] }
-  if (data.Error) return { ok: false, error: String(data.Error.content || "feed error"), stops: [], directions: [] }
-  var route = data.route
-  if (!route) return { ok: false, error: "no such route", stops: [], directions: [] }
-
-  var stops = []
-  var list = asList(route.stop)
-  for (var i = 0; i < list.length; i++) {
-    if (!list[i].stopId) continue // stops without a public number cannot be queried
-    stops.push({ stopId: String(list[i].stopId), tag: String(list[i].tag || ""), title: String(list[i].title || "") })
-  }
-  var directions = []
-  var dirs = asList(route.direction)
-  for (var j = 0; j < dirs.length; j++) {
-    var tags = asList(dirs[j].stop).map(function (s) { return String(s.tag || "") })
-    directions.push({ tag: String(dirs[j].tag || ""), name: String(dirs[j].name || ""), title: String(dirs[j].title || ""), stopTags: tags })
-  }
-  return { ok: true, error: "", title: String(route.title || ""), stops: stops, directions: directions }
+// Settings that identify what the widget shows. Used as the hub cache key so
+// two widgets with identical settings share one fetch.
+function subscriptionKey(stopCode, routesFilter, maxShown) {
+  return String(stopCode || "") + "|" + String(routesFilter || "").replace(/\s+/g, "") + "|" + String(maxShown || 12)
 }
 
-function tokens(text) {
-  return String(text || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter(Boolean)
+// One itinerary as a compact line: "17:04 → 17:21 · 17 min · 1 transfer"
+function itineraryTitle(it) {
+  if (!it) return ""
+  var t = it.transfers || 0
+  return clockText(it.start) + " → " + clockText(it.end) + " · " + durationText(it.duration)
+    + " · " + (t === 0 ? "direct" : t + (t === 1 ? " transfer" : " transfers"))
 }
 
-// Best stop for a free-text query such as "windermere east" or "queen bathurst".
-// Every query word must appear in the stop title or in the name of a direction
-// that serves the stop; ties go to the stop listed first on the route.
-function findStop(config, query) {
-  if (!config || !config.ok) return null
-  var words = tokens(query)
-  if (words.length === 0) return null
-  var best = null
-  var bestScore = 0
-  for (var i = 0; i < config.stops.length; i++) {
-    var stop = config.stops[i]
-    var dirNames = []
-    for (var j = 0; j < config.directions.length; j++) {
-      if (config.directions[j].stopTags.indexOf(stop.tag) !== -1) dirNames.push(config.directions[j].name)
+// The legs of an itinerary as text: "Walk 4 min → 2 Bathurst→St George → 1 → Union"
+function legsText(it) {
+  if (!it || !it.legs) return ""
+  var parts = []
+  for (var i = 0; i < it.legs.length; i++) {
+    var l = it.legs[i]
+    if (!l.transit) {
+      if ((l.duration || 0) >= 120) parts.push("Walk " + durationText(l.duration))
+      continue
     }
-    var haystack = tokens(stop.title + " " + dirNames.join(" "))
-    var titleWords = tokens(stop.title)
-    var score = 0
-    var complete = true
-    for (var k = 0; k < words.length; k++) {
-      var w = words[k]
-      var inTitle = titleWords.some(function (t) { return t.indexOf(w) === 0 })
-      var inAny = inTitle || haystack.some(function (t) { return t.indexOf(w) === 0 })
-      if (!inAny) { complete = false; break }
-      score += inTitle ? 2 : 1
-    }
-    if (!complete) continue
-    if (score > bestScore) {
-      bestScore = score
-      best = { stopId: stop.stopId, title: stop.title, direction: dirNames.join("/") }
-    }
+    var head = l.route ? l.route : l.mode
+    var to = l.to ? " → " + l.to : ""
+    parts.push(glyphFor(l.kind) + " " + head + (l.headsign ? " (" + l.headsign + ")" : "") + " " + clockText(l.start) + to)
   }
-  return best
+  return parts.join("\n")
 }
 
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
-    predictionsUrl: predictionsUrl, mapUrl: mapUrl, parse: parse, filterRoutes: filterRoutes,
-    arrivals: arrivals, barLabel: barLabel, boardText: boardText, glyphFor: glyphFor,
-    isStreetcar: isStreetcar, shortDirection: shortDirection,
-    routeConfigUrl: routeConfigUrl, parseRouteConfig: parseRouteConfig, findStop: findStop
+    GLYPH: GLYPH, glyphFor: glyphFor, stopGlyph: stopGlyph, kindOf: kindOf, emptyData: emptyData,
+    minutesText: minutesText, clockText: clockText, durationText: durationText, ageText: ageText,
+    liveMinutes: liveMinutes, barLabel: barLabel, effectText: effectText, directionText: directionText,
+    boardText: boardText, stopSubtitle: stopSubtitle, subscriptionKey: subscriptionKey,
+    itineraryTitle: itineraryTitle, legsText: legsText
   }
 }

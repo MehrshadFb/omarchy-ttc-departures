@@ -1,0 +1,14 @@
+#!/bin/bash
+# Runs every offline check: Node tests for Model.js, Python tests for ttc.py,
+# and syntax checks for the shell scripts. Usage: ./test/all
+set -uo pipefail
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+cd "$ROOT" || exit 1
+status=0
+echo "==> node tests"; node --test test/model.test.js || status=1
+echo "==> python tests"; python3 -m unittest discover -s test/python || status=1
+echo "==> syntax"; for f in ci/run-vm-test.sh ci/guest/test/acceptance; do bash -n "$f" || status=1; done
+python3 -m py_compile ttc.py tools/build_stops.py || status=1
+jq -e . manifest.json data/stops.json >/dev/null || status=1
+[[ $status == 0 ]] && echo "all checks passed" || echo "some checks FAILED" >&2
+exit $status

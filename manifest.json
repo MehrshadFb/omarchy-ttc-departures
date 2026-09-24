@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "id": "io.github.mehrshadfb.ttc-departures",
   "name": "TTC Departures",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "Mehrshad Farahbakhsh",
   "license": "MIT",
-  "description": "Next TTC bus and streetcar arrivals for a Toronto stop, right in the Omarchy bar. Pick the stop by route and name. Free real-time feed, no API key.",
+  "description": "Live TTC arrivals for your stop in the Omarchy bar: buses, streetcars, and subway, with service alerts, a stop picker, and a trip planner. Free feeds, no API key.",
   "kinds": [
     "bar-widget"
   ],
@@ -14,45 +14,48 @@
   },
   "barWidget": {
     "displayName": "TTC Departures",
-    "description": "Minutes until the next TTC vehicles at your stop. Pick the stop by route and name, no stop number needed.",
-    "category": "Info",
+    "description": "Next TTC vehicles at your stop. Click for the board, alerts, stop picker, and trip planner.",
+    "category": "Transit",
     "allowMultiple": true,
     "defaultSection": "right",
     "defaults": {
+      "stopId": 0,
+      "stopName": "",
       "route": "",
       "stop": "",
-      "stopId": 0,
       "routes": "",
       "maxShown": 2,
       "refreshSeconds": 30,
-      "labelStyle": "Minutes"
+      "labelStyle": "Minutes",
+      "planFrom": "",
+      "planTo": ""
     },
     "schema": [
       {
-        "key": "route",
-        "type": "string",
-        "label": "Route number, e.g. 501",
-        "defaultValue": ""
-      },
-      {
-        "key": "stop",
-        "type": "string",
-        "label": "Stop name, a few words, e.g. Windermere east",
-        "defaultValue": ""
-      },
-      {
         "key": "stopId",
         "type": "integer",
-        "label": "Stop number (optional, overrides route and name)",
+        "label": "Stop number (or pick one in the panel)",
         "min": 0,
         "max": 99999,
         "step": 1,
         "defaultValue": 0
       },
       {
+        "key": "route",
+        "type": "string",
+        "label": "Route number, e.g. 501 (alternative to a stop number)",
+        "defaultValue": ""
+      },
+      {
+        "key": "stop",
+        "type": "string",
+        "label": "Stop name words, e.g. Windermere east",
+        "defaultValue": ""
+      },
+      {
         "key": "routes",
         "type": "string",
-        "label": "Only these routes, comma separated (blank = the chosen route, or all)",
+        "label": "Only these routes, comma separated (blank = all)",
         "defaultValue": ""
       },
       {

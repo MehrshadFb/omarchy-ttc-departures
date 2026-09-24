@@ -1,114 +1,92 @@
 const test = require("node:test")
 const assert = require("node:assert/strict")
-const fs = require("node:fs")
-const path = require("node:path")
 const Model = require("../Model.js")
 
-const fixture = (name) => fs.readFileSync(path.join(__dirname, "fixtures", name), "utf8")
+const NOW = 1_790_266_000_000 // ms
 
-test("parses a stop served by several routes", () => {
-  const m = Model.parse(fixture("multi-route.json"))
-  assert.equal(m.ok, true)
-  assert.equal(m.stopTitle, "The Queensway At Windermere Ave East Side")
-  assert.deepEqual(m.routes.map((r) => r.tag), ["501", "301"])
-  assert.equal(m.routes[0].directions.length, 1)
-  assert.ok(m.routes[0].directions[0].minutes.length >= 1)
-  assert.deepEqual(m.routes[1].directions, [], "a route with no vehicles has no directions")
+function data(overrides) {
+  return Object.assign({
+    ok: true, error: "", source: "bustime", fetched: NOW / 1000 - 20,
+    stop: { code: "14282", name: "The Queensway at Windermere Ave East Side", kind: "stop", routes: ["301", "501"] },
+    arrivals: [
+      { route: "501", time: NOW / 1000 + 250, minutes: 4, towards: "Neville Park", direction: "East", shortTurn: false },
+      { route: "501", time: NOW / 1000 + 900, minutes: 15, towards: "Roncesvalles", direction: "East", shortTurn: true },
+      { route: "301", time: NOW / 1000 + 1500, minutes: 25, towards: "Neville Park", direction: "East", shortTurn: false }
+    ],
+    byRoute: [
+      { route: "501", kind: "streetcar", direction: "East", towards: "Neville Park", minutes: [4, 15], times: [NOW / 1000 + 250, NOW / 1000 + 900], shortTurns: [false, true] },
+      { route: "301", kind: "streetcar", direction: "East", towards: "Neville Park", minutes: [25], times: [NOW / 1000 + 1500], shortTurns: [false] }
+    ],
+    alerts: [{ effect: "DETOUR", header: "Streetcars divert via King" }]
+  }, overrides || {})
+}
+
+const ROUTES = { "501": { type: 0 }, "1": { type: 1 }, "72": { type: 3 } }
+
+test("glyphs follow the route kind and platforms are subway", () => {
+  assert.equal(Model.kindOf("501", ROUTES), "streetcar")
+  assert.equal(Model.kindOf("1", ROUTES), "subway")
+  assert.equal(Model.kindOf("72", ROUTES), "bus")
+  assert.equal(Model.kindOf("504", {}), "streetcar", "falls back to the 5xx rule without a table")
+  assert.equal(Model.stopGlyph({ kind: "platform", routes: ["1"] }, ROUTES), Model.GLYPH.subway)
+  assert.equal(Model.stopGlyph({ kind: "stop", routes: ["72"] }, ROUTES), Model.GLYPH.bus)
+  assert.notEqual(Model.GLYPH.streetcar, Model.GLYPH.bus)
 })
 
-test("parses a stop where the feed collapses lists into objects", () => {
-  const m = Model.parse(fixture("single-route.json"))
-  assert.equal(m.ok, true)
-  assert.equal(m.routes.length, 1)
-  assert.ok(m.routes[0].directions[0].minutes.length >= 1)
+test("bar label recomputes minutes from absolute times", () => {
+  const d = data()
+  assert.equal(Model.barLabel(d, 2, "Minutes", NOW), "4·15")
+  assert.equal(Model.barLabel(d, 3, "Minutes", NOW + 5 * 60000), "now·10·20")
+  assert.equal(Model.barLabel(d, 2, "Route and minutes", NOW), "501 4·15")
+  assert.equal(Model.barLabel(data({ arrivals: [] }), 2, "Minutes", NOW), "—")
+  assert.equal(Model.barLabel({ ok: false }, 2, "Minutes", NOW), "")
 })
 
-test("reports the feed's own error for an unknown stop", () => {
-  const m = Model.parse(fixture("invalid-stop.json"))
-  assert.equal(m.ok, false)
-  assert.match(m.error, /not valid/)
+test("board text lists the stop, each route with direction, alerts, and legacy marker", () => {
+  const lines = Model.boardText(data(), NOW).split("\n")
+  assert.equal(lines[0], "The Queensway at Windermere Ave East Side")
+  assert.equal(lines[1], "501 East to Neville Park: 4, 15* min")
+  assert.equal(lines[2], "301 East to Neville Park: 25 min")
+  assert.equal(lines[3], "Detour: Streetcars divert via King")
+  assert.match(Model.boardText(data({ source: "nextbus" }), NOW), /legacy feed/)
+  assert.equal(Model.boardText(data({ byRoute: [], alerts: [] }), NOW).split("\n")[1], "No vehicles predicted")
+  assert.equal(Model.boardText({ ok: false, error: "feed unreachable" }, NOW), "TTC: feed unreachable")
 })
 
-test("rejects garbage without throwing", () => {
-  assert.equal(Model.parse("<html>").ok, false)
-  assert.equal(Model.parse("").ok, false)
-  assert.equal(Model.parse("null").ok, false)
+test("formatting helpers", () => {
+  assert.equal(Model.minutesText(0), "now")
+  assert.equal(Model.minutesText(7), "7")
+  assert.equal(Model.durationText(1260), "21 min")
+  assert.equal(Model.durationText(3600), "1 h ")
+  assert.equal(Model.ageText(NOW / 1000 - 30, NOW), "30s ago")
+  assert.equal(Model.ageText(NOW / 1000 - 300, NOW), "5 min ago")
+  assert.equal(Model.effectText("NO_SERVICE"), "No service")
+  assert.equal(Model.effectText("whatever"), "Notice")
+  assert.equal(Model.directionText({ direction: "East", towards: "Neville Park" }), "East to Neville Park")
+  assert.equal(Model.directionText({ towards: "Finch" }), "To Finch")
+  assert.equal(Model.subscriptionKey(14282, "501, 301", 12), "14282|501,301|12")
 })
 
-test("bar label shows the soonest arrivals across routes, soonest first", () => {
-  const m = {
-    ok: true, error: "", stopTitle: "X",
-    routes: [
-      { tag: "501", title: "501-Queen", directions: [{ title: "East - 501 Queen towards Neville Park", minutes: [12, 22] }] },
-      { tag: "72", title: "72-Pape", directions: [{ title: "South - 72 Pape towards Union", minutes: [0, 9] }] }
+test("stop subtitle shows platform direction, routes, and the stop number", () => {
+  assert.equal(Model.stopSubtitle({ code: "13816", kind: "platform", dir: "Northbound", routes: ["1"] }), "Northbound   1   #13816")
+  assert.equal(Model.stopSubtitle({ code: "14282", kind: "stop", routes: ["301", "501"] }), "301 · 501   #14282")
+})
+
+test("itinerary title and legs text", () => {
+  const start = NOW / 1000
+  const it = {
+    start, end: start + 1260, duration: 1260, transfers: 1,
+    legs: [
+      { mode: "WALK", transit: false, duration: 240, start, end: start + 240 },
+      { mode: "SUBWAY", transit: true, route: "2", kind: "subway", headsign: "Kennedy", from: "Bathurst", to: "St George", start: start + 240, end: start + 420 },
+      { mode: "WALK", transit: false, duration: 60 },
+      { mode: "SUBWAY", transit: true, route: "1", kind: "subway", headsign: "Finch", from: "St George", to: "Union", start: start + 540, end: start + 1080 }
     ]
   }
-  assert.equal(Model.barLabel(m, 2, "Minutes"), "now·9")
-  assert.equal(Model.barLabel(m, 3, "Minutes"), "now·9·12")
-  assert.equal(Model.barLabel(m, 2, "Route and minutes"), "72 now·9")
-})
-
-test("bar label shows a dash when nothing is coming", () => {
-  const m = { ok: true, error: "", stopTitle: "X", routes: [{ tag: "301", title: "301", directions: [] }] }
-  assert.equal(Model.barLabel(m, 2, "Minutes"), "—")
-})
-
-test("route filter keeps only the listed tags and ignores spacing", () => {
-  const m = Model.parse(fixture("multi-route.json"))
-  assert.deepEqual(Model.filterRoutes(m, " 301 ").routes.map((r) => r.tag), ["301"])
-  assert.deepEqual(Model.filterRoutes(m, "").routes.map((r) => r.tag), ["501", "301"])
-  assert.deepEqual(Model.filterRoutes(m, "999").routes, [])
-})
-
-test("streetcar routes get the tram glyph, buses get the bus glyph", () => {
-  assert.equal(Model.isStreetcar("501"), true)
-  assert.equal(Model.isStreetcar("512"), true)
-  assert.equal(Model.isStreetcar("304"), true)
-  assert.equal(Model.isStreetcar("72"), false)
-  assert.equal(Model.isStreetcar("5"), false)
-  assert.notEqual(Model.glyphFor("501"), Model.glyphFor("72"))
-})
-
-test("board text lists the stop, then each route and direction", () => {
-  const text = Model.boardText(Model.parse(fixture("multi-route.json")))
-  const lines = text.split("\n")
-  assert.equal(lines[0], "The Queensway At Windermere Ave East Side")
-  assert.match(lines[1], /^501 East to Neville Park: \d+(, \d+)* min$/)
-  assert.equal(lines[2], "301: no vehicles scheduled")
-})
-
-test("urls target the ttc agency with the stop id encoded", () => {
-  assert.equal(Model.predictionsUrl(14282), "https://retro.umoiq.com/service/publicJSONFeed?command=predictions&a=ttc&stopId=14282")
-  assert.equal(Model.mapUrl("14 282"), "https://retro.umoiq.com/googleMap/index.jsp?a=ttc&stopId=14%20282")
-})
-
-test("route config lists public stops and both directions", () => {
-  const c = Model.parseRouteConfig(fixture("route-config-501.json"))
-  assert.equal(c.ok, true)
-  assert.equal(c.title, "501-Queen")
-  assert.equal(c.stops.length, 122, "five stops without a public number are dropped")
-  assert.deepEqual(c.directions.map((d) => d.name).sort(), ["East", "West"])
-  assert.ok(c.directions[0].stopTags.length > 50)
-})
-
-test("finds a stop from route plus a few words, including the direction", () => {
-  const c = Model.parseRouteConfig(fixture("route-config-501.json"))
-  assert.equal(Model.findStop(c, "Windermere east").stopId, "14282")
-  assert.equal(Model.findStop(c, "windermere west").stopId, "14395")
-  assert.equal(Model.findStop(c, "queensway windermere").stopId, "14282", "ambiguous name takes the first listed stop")
-  assert.equal(Model.findStop(c, "Humber Loop").title, "Humber Loop At The Queensway")
-  assert.match(Model.findStop(c, "windermere east").direction, /East/)
-})
-
-test("stop lookup fails cleanly on nonsense, blanks, and bad configs", () => {
-  const c = Model.parseRouteConfig(fixture("route-config-501.json"))
-  assert.equal(Model.findStop(c, "zzz nowhere"), null)
-  assert.equal(Model.findStop(c, "   "), null)
-  assert.equal(Model.findStop(Model.parseRouteConfig("<html>"), "queen"), null)
-  assert.equal(Model.parseRouteConfig(fixture("invalid-stop.json")).ok, false)
-  assert.equal(Model.parseRouteConfig("{}").error, "no such route")
-})
-
-test("route config url trims the route", () => {
-  assert.equal(Model.routeConfigUrl(" 501 "), "https://retro.umoiq.com/service/publicJSONFeed?command=routeConfig&a=ttc&r=501")
+  assert.match(Model.itineraryTitle(it), /^\d\d:\d\d → \d\d:\d\d · 21 min · 1 transfer$/)
+  const legs = Model.legsText(it).split("\n")
+  assert.equal(legs.length, 3, "walks under two minutes are dropped")
+  assert.equal(legs[0], "Walk 4 min")
+  assert.match(legs[1], /^.+ 2 \(Kennedy\) \d\d:\d\d → St George$/)
+  assert.equal(Model.itineraryTitle({ start, end: start + 600, duration: 600, transfers: 0 }).endsWith("direct"), true)
 })
