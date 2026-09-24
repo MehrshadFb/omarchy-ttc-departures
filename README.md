@@ -4,7 +4,9 @@ Live TTC arrivals for your stop in the Omarchy bar, with a panel for the full bo
 
 <p align="center"><img src="screenshots/v1-bar-states.png" alt="Four bar states: route and minutes, a streetcar stop with an alert, a subway platform, minutes only" width="640"></p>
 
-Top to bottom: the "Route and minutes" label, a streetcar stop with an active alert, a Line 1 platform, and the plain "Minutes" label with three arrivals. Every screenshot in this README was taken on a real Omarchy 4.0.4 desktop by the repository's VM test.
+Top to bottom: the "Route and minutes" label, a streetcar stop with an active alert, a Line 1 platform, and the plain "Minutes" label with three arrivals. On a bar docked to the left or right the label stacks one value per line:
+
+<p align="center"><img src="screenshots/v1-vertical-bar.png" alt="The widget on a vertical bar: glyph, route 501, then 2, 6, 16 minutes and an alert marker stacked" height="400"></p> Every screenshot in this README was taken on a real Omarchy 4.0.4 desktop by the repository's VM test.
 
 - **Hover** the bar for the board: every route at the stop, direction, next arrivals, alerts.
 - **Click** to open the panel.
