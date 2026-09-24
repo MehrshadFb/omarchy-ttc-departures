@@ -4,7 +4,7 @@ Live TTC arrivals for your stop in the Omarchy bar, with a panel for the full bo
 
 <p align="center"><img src="screenshots/v1-bar-states.png" alt="Four bar states: route and minutes, a streetcar stop with an alert, a subway platform, minutes only" width="640"></p>
 
-Top to bottom: `501 7·17` with the "Route and minutes" label, a streetcar stop with an active alert, a Line 1 platform, and the plain "Minutes" label. Every screenshot in this README was taken on a real Omarchy 4.0.4 desktop by the repository's VM test.
+Top to bottom: the "Route and minutes" label, a streetcar stop with an active alert, a Line 1 platform, and the plain "Minutes" label with three arrivals. Every screenshot in this README was taken on a real Omarchy 4.0.4 desktop by the repository's VM test.
 
 - **Hover** the bar for the board: every route at the stop, direction, next arrivals, alerts.
 - **Click** to open the panel.
@@ -47,6 +47,10 @@ The widget shows one stop at a time; switch stops from the panel in two keystrok
 <tr>
 <td align="center"><img src="screenshots/v1-panel-picker.png" alt="Stop picker searching for union" width="410"><br><sub>Stop picker</sub></td>
 <td align="center"><img src="screenshots/v1-panel-plan.png" alt="Trip planner with four itineraries from Union to Bathurst" width="410"><br><sub>Trip planner</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="screenshots/v1-panel-empty.png" alt="Board with no vehicles predicted for a night route during the day" width="410"><br><sub>Nothing coming: a night route filtered during the day</sub></td>
+<td align="center"><img src="screenshots/v1-panel-no-stop.png" alt="Panel before any stop is chosen" width="410"><br><sub>Fresh install, no stop yet</sub></td>
 </tr>
 </table>
 

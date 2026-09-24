@@ -40,6 +40,8 @@ test("bar label recomputes minutes from absolute times", () => {
   assert.equal(Model.barLabel(d, 2, "Route and minutes", NOW), "501 4·15")
   assert.equal(Model.barLabel(data({ arrivals: [] }), 2, "Minutes", NOW), "—")
   assert.equal(Model.barLabel({ ok: false }, 2, "Minutes", NOW), "")
+  assert.equal(Model.barLabel(d, 2, "Minutes", NOW, "\n"), "4\n15", "vertical bars stack one value per line")
+  assert.equal(Model.barLabel(d, 2, "Route and minutes", NOW, "\n"), "501\n4\n15")
 })
 
 test("board text lists the stop, each route with direction, alerts, and legacy marker", () => {
