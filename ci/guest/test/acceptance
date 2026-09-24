@@ -16,7 +16,32 @@ export OMARCHY_PATH="${OMARCHY_PATH:-/usr/share/omarchy}"
 export PATH="$OMARCHY_PATH/bin:$PATH"
 
 log() { printf '%s\n' "$*" | tee -a "$ART/log.txt"; }
-shot() { timeout 10 grim "$ART/$1.png" 2>/dev/null && log "captured $1.png" || log "grim failed for $1"; }
+
+# The session's Wayland socket can change if the shell or compositor restarts,
+# so rediscover it before every capture and say exactly why a capture failed.
+find_display() {
+  export WAYLAND_DISPLAY="$(find "$XDG_RUNTIME_DIR" -maxdepth 1 -name 'wayland-*' ! -name '*.lock' -printf '%f\n' | head -1)"
+  export HYPRLAND_INSTANCE_SIGNATURE="$(ls -t "$XDG_RUNTIME_DIR/hypr" 2>/dev/null | head -1)"
+}
+shot() {
+  find_display
+  local err
+  if err=$(timeout 10 grim "$ART/$1.png" 2>&1); then
+    log "captured $1.png"
+  else
+    log "grim failed for $1: ${err:-no output} (WAYLAND_DISPLAY=$WAYLAND_DISPLAY)"
+  fi
+}
+health() {
+  {
+    echo "--- $1 ---"
+    echo "wayland sockets: $(ls "$XDG_RUNTIME_DIR" | grep wayland | tr '\n' ' ')"
+    echo "hypr instances: $(ls "$XDG_RUNTIME_DIR/hypr" 2>/dev/null | tr '\n' ' ')"
+    echo "hyprctl monitors: $(hyprctl -j monitors 2>&1 | head -c 200)"
+    echo "quickshell procs: $(pgrep -a quickshell | head -3)"
+    echo "shell ping: $(timeout 5 omarchy-shell shell ping 2>&1 | head -1)"
+  } >>"$ART/health.txt" 2>&1
+}
 crop_bar() {
   # Keep the top strip so the bar is readable without zooming into a full desktop.
   magick "$ART/$1.png" -gravity North -crop 100%x72+0+0 +repage "$ART/$1-bar.png" 2>/dev/null || true
@@ -24,6 +49,7 @@ crop_bar() {
 
 status=0
 log "== omarchy version: $(omarchy version 2>/dev/null || cat "$OMARCHY_PATH/version" 2>/dev/null)"
+health before-install
 shot 00-before-install
 
 log "== plugin add"
@@ -33,17 +59,21 @@ else
   log "not ok - plugin add failed"; status=1
 fi
 omarchy plugin list >"$ART/plugin-list.txt" 2>&1
+health after-plugin-add
 grep -q "$PLUGIN_ID" "$ART/plugin-list.txt" && log "ok - plugin listed" || { log "not ok - plugin not listed"; status=1; }
 
-log "== place on bar and configure (stop 14282 = The Queensway at Windermere, route 501)"
+log "== place on bar and pick the stop by route and name (501, Windermere east)"
 omarchy bar put "$PLUGIN_ID" --section right --index 0 >>"$ART/log.txt" 2>&1 || { log "not ok - bar put failed"; status=1; }
-omarchy bar set "$PLUGIN_ID" stopId 14282 --json >>"$ART/log.txt" 2>&1 || log "warn - bar set stopId failed"
+omarchy bar set "$PLUGIN_ID" route 501 >>"$ART/log.txt" 2>&1 || log "warn - bar set route failed"
+omarchy bar set "$PLUGIN_ID" stop "Windermere east" >>"$ART/log.txt" 2>&1 || log "warn - bar set stop failed"
 omarchy bar set "$PLUGIN_ID" labelStyle "Route and minutes" >>"$ART/log.txt" 2>&1 || log "warn - bar set labelStyle failed"
 cp ~/.config/omarchy/shell.json "$ART/shell.json" 2>/dev/null || true
-sleep 30
-shot 01-route-and-minutes; crop_bar 01-route-and-minutes
+health after-bar-set
+sleep 40
+health before-first-shot
+shot 01-route-and-name; crop_bar 01-route-and-name
 
-log "== second stop, minutes-only label, three arrivals"
+log "== second stop by number, minutes-only label, three arrivals"
 omarchy bar set "$PLUGIN_ID" stopId 6916 --json >>"$ART/log.txt" 2>&1 || true
 omarchy bar set "$PLUGIN_ID" labelStyle "Minutes" >>"$ART/log.txt" 2>&1 || true
 omarchy bar set "$PLUGIN_ID" maxShown 3 --json >>"$ART/log.txt" 2>&1 || true
@@ -55,8 +85,15 @@ omarchy bar set "$PLUGIN_ID" stopId 99999999 --json >>"$ART/log.txt" 2>&1 || tru
 sleep 20
 shot 03-invalid-stop; crop_bar 03-invalid-stop
 
+log "== unmatched stop name shows the question mark"
+omarchy bar set "$PLUGIN_ID" stopId 0 --json >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" stop "zzz nowhere" >>"$ART/log.txt" 2>&1 || true
+sleep 20
+shot 04-no-match; crop_bar 04-no-match
+
 log "== shell diagnostics"
-journalctl --user --no-pager -n 400 >"$ART/journal.txt" 2>&1 || true
+journalctl --user --no-pager -n 600 >"$ART/journal.txt" 2>&1 || true
+ls -la ~/.local/state/omarchy/crash* 2>/dev/null >>"$ART/health.txt" || true
 grep -iE "ttc|mehrshadfb|BarWidget.qml|Model.js" "$ART/journal.txt" >"$ART/journal-plugin.txt" 2>/dev/null || true
 if grep -qiE "error|failed|TypeError|ReferenceError" "$ART/journal-plugin.txt"; then
   log "warn - plugin-related errors in journal (see journal-plugin.txt)"

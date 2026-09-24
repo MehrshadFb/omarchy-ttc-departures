@@ -8,6 +8,10 @@ set -euo pipefail
 ISO_URL="${ISO_URL:-https://iso.omarchy.org/omarchy-4.0.4.iso}"
 OUT=/work/ci/out
 mkdir -p "$OUT"
+# Everything here runs as root inside the container; the runner's upload step
+# runs as an ordinary user, so leave the results world-readable no matter how
+# the harness exits.
+trap 'chmod -R a+rwX "$OUT" 2>/dev/null || true' EXIT
 
 pacman -Syu --noconfirm --needed qemu-full edk2-ovmf socat imagemagick tesseract tesseract-data-eng \
   gum python openssh git jq curl >/dev/null
@@ -32,7 +36,11 @@ status=0
 run_dir=$(ls -d test-runs/*/runs/* 2>/dev/null | tail -1 || true)
 if [[ -n $run_dir ]]; then
   cp -r "$run_dir"/. "$OUT"/
-  rm -f "$OUT"/*.qcow2 "$OUT"/*.fd
+  rm -f "$OUT"/*.qcow2 "$OUT"/*.fd "$OUT"/.capture.ppm
 fi
+# Keep the install-phase console captures too; they explain a broken base image.
+for f in test-runs/*/*.png test-runs/*/*.log; do
+  [[ -f $f ]] && cp "$f" "$OUT/base-$(basename "$f")"
+done
 echo "harness exit: $status"
 exit $status
