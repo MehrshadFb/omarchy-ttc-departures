@@ -243,4 +243,8 @@ Item {
     }
     onLoadFailed: hub.routesLoaded = true
   }
+
+  // The first read can race shell startup; one delayed reload self-corrects.
+  Component.onCompleted: stopsFile.reload()
+  Timer { interval: 2000; running: !hub.routesLoaded; onTriggered: stopsFile.reload() }
 }

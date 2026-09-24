@@ -39,7 +39,7 @@ BarWidget {
   readonly property string subscriptionKey: activeStopId > 0 ? Model.subscriptionKey(activeStopId, routeFilter, 12) : ""
   property int hubToken: 0
   property string hubKey: ""
-  property var data: Model.emptyData()
+  property var board: Model.emptyData()
   property bool fetching: false
   property double clockTick: Date.now()
 
@@ -47,12 +47,12 @@ BarWidget {
     if (hubKey !== "" && hubToken > 0) Hub.unsubscribe(hubKey, hubToken)
     hubKey = ""
     hubToken = 0
-    if (subscriptionKey === "") { data = Model.emptyData(); return }
+    if (subscriptionKey === "") { board = Model.emptyData(); return }
     hubKey = subscriptionKey
     var args = [String(activeStopId), "--routes", routeFilter, "--max", "12"]
     hubToken = Hub.subscribe(hubKey, args, refreshSeconds)
     var e = Hub.entry(hubKey)
-    if (e) { data = e.data; fetching = e.fetching }
+    if (e) { board = e.data; fetching = e.fetching }
   }
 
   Connections {
@@ -60,7 +60,7 @@ BarWidget {
     function onUpdated(key) {
       if (key !== root.hubKey) return
       var e = Hub.entry(key)
-      if (e) root.data = e.data
+      if (e) root.board = e.data
     }
     function onFetchingChanged(key) {
       if (key !== root.hubKey) return
@@ -135,21 +135,21 @@ BarWidget {
 
   // ---------------------------------------------------------------- label
   readonly property string glyph: {
-    var stop = data && data.stop ? data.stop : null
+    var stop = board && board.stop ? data.stop : null
     if (stop) return Model.stopGlyph(stop, Hub.routesTable)
     return Model.glyphFor(Model.kindOf(route || (routes.split(",")[0] || ""), Hub.routesTable))
   }
-  readonly property string displayName: (data && data.stop && data.stop.name) || resolvedName || stopName
+  readonly property string displayName: (board && board.stop && data.stop.name) || resolvedName || stopName
   readonly property string label: {
     clockTick
     if (activeStopId <= 0) {
       if (needsLookup) return glyph + (resolveError !== "" ? " ?" : " \u2026")
       return glyph + " set stop"
     }
-    if (!data || (!data.ok && !data.error)) return glyph + " \u2026"
-    if (!data.ok) return glyph + " !"
-    var text = Model.barLabel(data, maxShown, labelStyle, clockTick)
-    if (data.alerts && data.alerts.length) text += " " + Model.GLYPH.alert
+    if (!board || (!board.ok && !board.error)) return glyph + " \u2026"
+    if (!board.ok) return glyph + " !"
+    var text = Model.barLabel(board, maxShown, labelStyle, clockTick)
+    if (board.alerts && board.alerts.length) text += " " + Model.GLYPH.alert
     return glyph + " " + text
   }
   readonly property string tooltip: {
@@ -159,8 +159,8 @@ BarWidget {
       if (needsLookup) return "TTC Departures: finding \u201c" + stopWords + "\u201d on route " + route + "\u2026"
       return "TTC Departures: click to choose a stop"
     }
-    if (!data || (!data.ok && !data.error)) return "TTC Departures: loading\u2026"
-    return Model.boardText(data, clockTick)
+    if (!board || (!board.ok && !board.error)) return "TTC Departures: loading\u2026"
+    return Model.boardText(board, clockTick)
   }
 
   // ---------------------------------------------------------------- panel
