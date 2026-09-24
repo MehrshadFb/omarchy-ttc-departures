@@ -1,3 +1,6 @@
 node_modules/
 .DS_Store
 ci/out/
+__pycache__/
+*.pyc
+ci/marketplace-submission.md
