@@ -41,6 +41,7 @@ BarWidget {
   property string hubKey: ""
   property var board: Model.emptyData()
   property bool fetching: false
+  property string hubError: ""
   property double clockTick: Date.now()
 
   function resubscribe() {
@@ -52,7 +53,7 @@ BarWidget {
     var args = [String(activeStopId), "--routes", routeFilter, "--max", "12"]
     hubToken = Hub.subscribe(hubKey, args, refreshSeconds)
     var e = Hub.entry(hubKey)
-    if (e) { board = e.data; fetching = e.fetching }
+    if (e) { board = e.data; fetching = e.fetching; hubError = e.error || "" }
   }
 
   Connections {
@@ -60,7 +61,7 @@ BarWidget {
     function onUpdated(key) {
       if (key !== root.hubKey) return
       var e = Hub.entry(key)
-      if (e) root.board = e.data
+      if (e) { root.board = e.data; root.hubError = e.error || "" }
     }
     function onFetchingChanged(key) {
       if (key !== root.hubKey) return
@@ -72,9 +73,9 @@ BarWidget {
       root.lookupToken = 0
       var pick = null
       for (var i = 0; i < results.length; i++) {
-        if (results[i].routes && results[i].routes.indexOf(root.route) !== -1) { pick = results[i]; break }
+        if (root.route !== "" && results[i].routes && results[i].routes.indexOf(root.route) !== -1) { pick = results[i]; break }
       }
-      if (!pick && results.length && root.route === "") pick = results[0]
+      if (!pick && results.length && root.route === "" && root.stopWords !== "") pick = results[0]
       if (pick) {
         root.resolvedStopId = parseInt(pick.code, 10) || 0
         root.resolvedName = pick.name
@@ -89,7 +90,10 @@ BarWidget {
   function lookup() {
     if (!needsLookup) return
     resolveError = ""
-    lookupToken = Hub.search(stopWords + " " + route)
+    // Search by the words only. A route number must not enter the query:
+    // some stops have a pole number equal to a route number (stop 501 is on
+    // Bloor Street), and a code match would beat the intended name match.
+    lookupToken = Hub.search(stopWords)
   }
 
   onSubscriptionKeyChanged: resubscribe()
@@ -139,15 +143,16 @@ BarWidget {
     if (stop) return Model.stopGlyph(stop, Hub.routesTable)
     return Model.glyphFor(Model.kindOf(route || (routes.split(",")[0] || ""), Hub.routesTable))
   }
-  readonly property string displayName: (board && board.stop && board.stop.name) || resolvedName || stopName
+  readonly property string displayName: activeStopId > 0 ? ((board && board.stop && board.stop.name) || resolvedName || stopName) : ""
   readonly property string label: {
     clockTick
     if (activeStopId <= 0) {
       if (needsLookup) return glyph + (resolveError !== "" ? " ?" : " \u2026")
       return glyph + " set stop"
     }
-    if (!board || (!board.ok && !board.error)) return glyph + " \u2026"
+    if (!board || (!board.ok && !board.error && hubError === "")) return glyph + " \u2026"
     if (!board.ok) return glyph + " !"
+    if (board.source === "none" && board.error && (!board.arrivals || board.arrivals.length === 0)) return glyph + " !"
     var text = Model.barLabel(board, maxShown, labelStyle, clockTick)
     if (board.alerts && board.alerts.length) text += " " + Model.GLYPH.alert
     return glyph + " " + text
@@ -159,7 +164,8 @@ BarWidget {
       if (needsLookup) return "TTC Departures: finding \u201c" + stopWords + "\u201d on route " + route + "\u2026"
       return "TTC Departures: click to choose a stop"
     }
-    if (!board || (!board.ok && !board.error)) return "TTC Departures: loading\u2026"
+    if (!board || (!board.ok && !board.error && hubError === "")) return "TTC Departures: loading\u2026"
+    if (!board.ok) return "TTC Departures: " + (board.error || hubError)
     return Model.boardText(board, clockTick)
   }
 
@@ -182,8 +188,7 @@ BarWidget {
 
   function notifyBoard() {
     if (!root.bar || typeof root.bar.run !== "function") return
-    var text = root.tooltip.replace(/\\/g, "\\\\").replace(/"/g, "\\\"").replace(/\$/g, "\\$").replace(/`/g, "\\`")
-    root.bar.run("omarchy-notification-send \"" + text + "\"")
+    root.bar.run("omarchy-notification-send " + Util.shellQuote(root.tooltip))
   }
 
   visible: true

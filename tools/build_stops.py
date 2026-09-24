@@ -81,27 +81,43 @@ def load_classic(source):
             "color": (r.get("route_color") or "").strip() or None,
         }
     trip_route = {}
+    trip_headsign = {}
     for t in open_table(source, "trips.txt"):
         trip_route[t["trip_id"]] = t["route_id"]
+        if routes.get(t["route_id"], {}).get("type") == 1:
+            trip_headsign[t["trip_id"]] = (t.get("trip_headsign") or "").strip()
     log(f"classic: {len(routes)} routes, {len(trip_route)} trips")
 
     stop_routes = defaultdict(set)
+    platform_votes = defaultdict(lambda: defaultdict(int))
     n = 0
     for st in open_table(source, "stop_times.txt"):
-        rid = trip_route.get(st["trip_id"])
+        tid = st["trip_id"]
+        rid = trip_route.get(tid)
         if rid:
             stop_routes[st["stop_id"]].add(rid)
+            headsign = trip_headsign.get(tid)
+            if headsign:
+                platform_votes[st["stop_id"]][headsign] += 1
         n += 1
         if n % 1_000_000 == 0:
             log(f"  stop_times rows: {n}")
     log(f"classic: {n} stop_times rows, {len(stop_routes)} stops served")
+
+    # "Line 1 (Yonge-University) towards Finch Station" -> "Finch"
+    platform_towards = {}
+    for sid, counts in platform_votes.items():
+        headsign = max(counts.items(), key=lambda kv: kv[1])[0]
+        m = re.search(r"towards\s+(.+?)\s*$", headsign, re.I)
+        if m:
+            platform_towards[sid] = re.sub(r"\s+Station$", "", m.group(1).strip(), flags=re.I)
 
     stops = []
     for s in open_table(source, "stops.txt"):
         if (s.get("location_type") or "0") not in ("", "0"):
             continue
         stops.append(s)
-    return routes, stop_routes, stops
+    return routes, stop_routes, stops, platform_towards
 
 
 def load_surface_map(source):
@@ -160,7 +176,67 @@ def load_surface_headsigns(source):
         (headsign, direction), _ = max(counts.items(), key=lambda kv: kv[1])
         out.setdefault(route, {"first": {}, "last": {}})[kind][sid] = [headsign, direction]
     log(f"surface: headsigns for {len(out)} routes from {len(trip_meta)} trips")
+    return out, trip_meta
+
+
+def load_stop_directions(source, trip_meta):
+    """route_id -> {stop_id: headsign index}, plus route_id -> [headsigns].
+
+    The live feed lists only a window of a trip's stops, so the trip's origin
+    is usually missing. A pole serves one direction per route (loops and
+    terminals aside), so the rider's own stop is the reliable key: this maps
+    every (route, stop) to the most common full-route headsign served there.
+    """
+    votes = {}
+    n = 0
+    for st in open_table(source, "stop_times.txt"):
+        meta = trip_meta.get(st["trip_id"])
+        if not meta or not meta[1]:
+            continue
+        route, headsign, direction = meta
+        if "short turn" in headsign.lower():
+            continue
+        key = (route, st["stop_id"])
+        votes.setdefault(key, {})
+        votes[key][headsign] = votes[key].get(headsign, 0) + 1
+        n += 1
+        if n % 1_000_000 == 0:
+            log(f"  stop direction rows: {n}")
+    out = {}
+    for (route, sid), counts in votes.items():
+        headsign = max(counts.items(), key=lambda kv: kv[1])[0]
+        entry = out.setdefault(route, {"headsigns": [], "stops": {}})
+        if headsign not in entry["headsigns"]:
+            entry["headsigns"].append(headsign)
+        entry["stops"][sid] = entry["headsigns"].index(headsign)
+    log(f"surface: stop directions for {len(out)} routes, {sum(len(v['stops']) for v in out.values())} route-stop pairs")
     return out
+
+
+def build_trip_table(trip_meta):
+    """route_id -> {"headsigns": [...], "trips": {index: [delta-encoded sorted trip ids]}}.
+
+    BusTime trip ids are the SurfaceGTFS trip ids, so this gives the exact
+    headsign and direction of a live vehicle. Delta encoding keeps 129k ids
+    to well under a megabyte of JSON.
+    """
+    by_route = {}
+    for tid, (route, headsign, direction) in trip_meta.items():
+        if not headsign or not tid.isdigit():
+            continue
+        entry = by_route.setdefault(route, {"headsigns": [], "directions": [], "trips": {}})
+        if headsign not in entry["headsigns"]:
+            entry["headsigns"].append(headsign)
+            entry["directions"].append(direction)
+        idx = entry["headsigns"].index(headsign)
+        entry["trips"].setdefault(str(idx), []).append(int(tid))
+    for entry in by_route.values():
+        for idx, ids in entry["trips"].items():
+            ids.sort()
+            deltas = [ids[0]] + [b - a for a, b in zip(ids, ids[1:])]
+            entry["trips"][idx] = deltas
+    log(f"trip table: {len(by_route)} routes")
+    return by_route
 
 
 def service_window(source):
@@ -178,9 +254,11 @@ def route_sort_key(short):
 
 
 def build(classic, surface):
-    routes, stop_routes, stops = load_classic(classic)
+    routes, stop_routes, stops, platform_towards = load_classic(classic)
     surface_map, surface_feed = load_surface_map(surface)
-    headsigns = load_surface_headsigns(surface)
+    headsigns, trip_meta = load_surface_headsigns(surface)
+    stop_directions = load_stop_directions(surface, trip_meta)
+    trip_table = build_trip_table(trip_meta)
     start, end = service_window(classic)
 
     route_table = {}
@@ -207,8 +285,9 @@ def build(classic, surface):
             row["kind"] = "platform"
             row["station"] = m.group("station").strip()
             row["dir"] = m.group("dir").capitalize() + "bound"
-            if m.group("towards"):
-                row["towards"] = m.group("towards").strip()
+            towards = platform_towards.get(s["stop_id"]) or (m.group("towards").strip() if m.group("towards") else "")
+            if towards:
+                row["towards"] = towards
         else:
             row["kind"] = "stop"
             sid = surface_map.get(code)
@@ -222,7 +301,7 @@ def build(classic, surface):
     rows.sort(key=lambda r: (r["name"].lower(), r["code"]))
     log(f"stops: {len(rows)} written, {platforms} subway platforms, {unmatched} served surface stops without a BusTime id")
 
-    return {
+    return trip_table, {
         "meta": {
             "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "classic_service": {"start": start, "end": end},
@@ -232,10 +311,11 @@ def build(classic, surface):
                 "end": surface_feed.get("feed_end_date"),
             },
             "attribution": ATTRIBUTION,
-            "fields": "code=pole/GTFS stop number, sid=BusTime stop_id, kind=stop|platform; headsigns[route][first|last][sid]=[headsign, direction_id]",
+            "fields": "code=pole/GTFS stop number, sid=BusTime stop_id, kind=stop|platform; headsigns[route][first|last][sid]=[headsign, direction_id]; stopDirections[route].stops[sid]=index into stopDirections[route].headsigns",
         },
         "routes": route_table,
         "headsigns": headsigns,
+        "stopDirections": stop_directions,
         "stops": rows,
     }
 
@@ -258,15 +338,17 @@ def main():
             url, _ = resource_url(SURFACE_PKG)
             surface = os.path.join(tmp, "surface.zip")
             fetch_zip(url, surface)
-        data = build(classic, surface)
+        trip_table, data = build(classic, surface)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    tmp_out = args.out + ".tmp"
-    with open(tmp_out, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
-        f.write("\n")
-    os.replace(tmp_out, args.out)
-    log(f"wrote {args.out} ({os.path.getsize(args.out)} bytes)")
+    trips_out = os.path.join(os.path.dirname(args.out), "trips.json")
+    for path, payload in ((args.out, data), (trips_out, {"meta": data["meta"], "routes": trip_table})):
+        tmp_out = path + ".tmp"
+        with open(tmp_out, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+            f.write("\n")
+        os.replace(tmp_out, path)
+        log(f"wrote {path} ({os.path.getsize(path)} bytes)")
 
 
 if __name__ == "__main__":

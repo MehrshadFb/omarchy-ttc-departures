@@ -24,15 +24,28 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- data/stops.json; then
-            echo "stop table unchanged"; exit 0
+          # Compare everything except the generation timestamp, so an
+          # unchanged feed does not open a pull request every week.
+          changed=$(python3 - <<'PY'
+          import json, subprocess
+          def strip(text):
+              d = json.loads(text); d.get("meta", {}).pop("generated", None); return json.dumps(d, sort_keys=True)
+          out = []
+          for f in ("data/stops.json", "data/trips.json"):
+              old = subprocess.run(["git", "show", f"HEAD:{f}"], capture_output=True, text=True).stdout or "{}"
+              out.append(strip(old) != strip(open(f).read()))
+          print("yes" if any(out) else "no")
+          PY
+          )
+          if [[ $changed != yes ]]; then
+            echo "stop table unchanged"; git checkout -- data; exit 0
           fi
           version=$(python3 -c 'import json; m=json.load(open("data/stops.json"))["meta"]; print(m["surface_feed"]["version"], m["classic_service"]["start"], m["classic_service"]["end"])')
           branch="refresh-stops/$(date +%Y%m%d)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add data/stops.json
+          git add data/stops.json data/trips.json
           git commit -m "Refresh stop table from TTC GTFS ($version)"
           git push -u origin "$branch"
           gh pr create --title "Refresh stop table from TTC GTFS ($version)" \

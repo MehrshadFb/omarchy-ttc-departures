@@ -101,7 +101,7 @@ function boardText(data, nowMs) {
   var stop = data.stop || {}
   var lines = [stop.name || "TTC stop"]
   var rows = data.byRoute || []
-  if (rows.length === 0) lines.push("No vehicles predicted")
+  if (rows.length === 0) lines.push(data.source === "none" && data.error ? data.error : "No vehicles predicted")
   for (var i = 0; i < rows.length; i++) {
     var r = rows[i]
     var mins = []

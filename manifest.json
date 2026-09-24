@@ -15,8 +15,8 @@
   "barWidget": {
     "displayName": "TTC Departures",
     "description": "Next TTC vehicles at your stop. Click for the board, alerts, stop picker, and trip planner.",
-    "category": "Transit",
-    "allowMultiple": true,
+    "category": "Info",
+    "allowMultiple": false,
     "defaultSection": "right",
     "defaults": {
       "stopId": 0,

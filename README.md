@@ -35,7 +35,7 @@ omarchy bar set io.github.mehrshadfb.ttc-departures route 501
 omarchy bar set io.github.mehrshadfb.ttc-departures stop "Windermere east"
 ```
 
-Add the widget more than once for different stops.
+The widget shows one stop at a time; switch stops from the panel in two keystrokes. Watching several stops at once is on the roadmap.
 
 ## The panel
 
@@ -77,7 +77,7 @@ Settings live inline in the widget's entry in `~/.config/omarchy/shell.json`, wh
 
 A Python 3 helper, `ttc.py`, is run by the widget with an argument list, never through a shell, and prints one JSON document per request. It uses only the standard library and decodes the GTFS-realtime protobuf feeds with a small built-in reader, so nothing needs to be installed. One shared hub inside the shell runs the helper once per stop on a schedule, however many bars or widgets show that stop.
 
-`data/stops.json` is built from the TTC's published GTFS by `tools/build_stops.py`. It carries every stop and platform, which routes serve it, the internal id the BusTime feed uses for it, and each route's headsigns keyed by trip origin and terminal. That is what lets the widget name the direction and destination of a vehicle from a feed that carries neither.
+`data/stops.json` and `data/trips.json` are built from the TTC's published GTFS by `tools/build_stops.py`. They carry every stop and platform, which routes serve it, the internal id the BusTime feed uses for it, the direction each route serves at each stop, and the headsign of every scheduled trip. The live feed carries a trip id and a window of stops but no destination, so those tables are what let the widget say "East to Neville Park" and mark a short turn.
 
 ## Data sources and attribution
 
@@ -93,7 +93,7 @@ Contains information licensed under the [Open Government Licence – Toronto](ht
 
 ## Network access and privacy
 
-The plugin has no analytics or telemetry. Your chosen stops are stored locally in your Omarchy shell configuration. Feed responses are cached under `~/.local/state/omarchy/ttc-departures/` for a few seconds so several widgets can share one download.
+The plugin has no analytics or telemetry. Your chosen stops are stored locally in your Omarchy shell configuration. Feed responses are cached under `~/.local/state/omarchy/ttc-departures/` for a few seconds so the bar and the panel share one download, and a cached copy up to 15 minutes old stands in when a feed is briefly unreachable.
 
 | Host | When | What it learns |
 |---|---|---|
@@ -125,7 +125,7 @@ python3 ttc.py plan 13760 13816 | jq .
 
 The Python tests validate the protobuf reader against the TTC's own text renderings of the same feeds, saved under `test/fixtures/rt`, and exercise departures merging, the NextBus fallback, alert matching, search ranking, and itinerary parsing offline.
 
-`tools/build_stops.py` regenerates `data/stops.json`. The TTC publishes a new schedule roughly every six weeks; the `refresh-stops` workflow rebuilds the table weekly and opens a pull request when it changes.
+`tools/build_stops.py` regenerates `data/stops.json` and `data/trips.json`. The TTC publishes a new schedule roughly every six weeks; the `refresh-stops` workflow rebuilds the table weekly and opens a pull request when it changes.
 
 The `vm-test` workflow installs Omarchy from the official ISO in a KVM guest on a GitHub runner, installs this plugin inside it, drives the bar, picker, and planner with keystrokes, and uploads screenshots. Trigger it from the Actions tab; it takes about an hour.
 

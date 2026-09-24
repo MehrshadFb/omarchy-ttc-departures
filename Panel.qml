@@ -234,6 +234,7 @@ Panel {
       onActivateRequested: root.activate()
       onReturnRequested: root.activate()
       onCloseRequested: root.back()
+      onDeleteRequested: if (root.mode === "plan") root.swapPlan()   // the catcher maps "x" here
       onTabRequested: function (direction) { root.switchPanel(direction) }
       onTextKey: function (t) {
         var key = t.toLowerCase()
@@ -241,7 +242,6 @@ Panel {
         else if (key === "s") root.startPicking("stop")
         else if (key === "p") root.enterPlan()
         else if (key === "b") root.enterBoard()
-        else if (key === "x" && root.mode === "plan") root.swapPlan()
         else if (key === "f" && root.mode === "plan") root.startPicking("from")
         else if (key === "t" && root.mode === "plan") root.startPicking("to")
       }
@@ -354,8 +354,12 @@ Panel {
             width: bodyColumn.width
             textFormat: Text.PlainText
             wrapMode: Text.WordWrap
-            text: !root.stop ? "No stop chosen yet. Press s to search for one."
-                : (root.board.error ? root.board.error : "No vehicles predicted right now.")
+            text: {
+              var active = root.hostWidget && root.hostWidget.activeStopId > 0
+              if (!active) return "No stop chosen yet. Press s to search for one."
+              if (!root.stop) return root.board && root.board.error ? root.board.error : "Loading arrivals\u2026"
+              return root.board.error ? root.board.error : "No vehicles predicted right now."
+            }
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.body
