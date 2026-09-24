@@ -120,14 +120,36 @@ function boardText(data, nowMs) {
   return lines.join("\n")
 }
 
-// Stop picker row text: "Queen St W at Bathurst St  501 · 511" or station platforms.
+// A stop's headline: surface stops keep their sign name; platforms read as
+// the station, with the line and direction on the subtitle line.
+function stopTitle(stop) {
+  if (!stop) return ""
+  if (stop.kind === "platform" && stop.station) return stop.station + " Station"
+  return stop.name || ""
+}
+
+// "Line 1 · Northbound to Finch · #13816" or "301 · 501 · 508 · #14282".
 function stopSubtitle(stop) {
   if (!stop) return ""
   var bits = []
-  if (stop.kind === "platform") bits.push(stop.dir || "Platform")
-  if (stop.routes && stop.routes.length) bits.push(stop.routes.slice(0, 6).join(" · "))
+  if (stop.kind === "platform") {
+    if (stop.routes && stop.routes.length) bits.push("Line " + stop.routes.join(", "))
+    var dir = stop.dir || "Platform"
+    if (stop.towards) dir += " to " + stop.towards.replace(/\s+Station$/i, "")
+    bits.push(dir)
+  } else if (stop.routes && stop.routes.length) {
+    bits.push(stop.routes.slice(0, 6).join(" · ") + (stop.routes.length > 6 ? " …" : ""))
+  }
   bits.push("#" + stop.code)
-  return bits.join("   ")
+  return bits.join(" · ")
+}
+
+// "Line 1 (Yonge-University) towards Finch Station" -> "to Finch"
+function cleanHeadsign(headsign) {
+  var text = String(headsign || "").trim()
+  var m = text.match(/towards\s+(.+?)\s*$/i)
+  if (m) return "to " + m[1].replace(/\s+(Station|Stn|Loop)$/i, "")
+  return text.replace(/^\s*(North|South|East|West)\s*-\s*/i, "")
 }
 
 // Settings that identify what the widget shows. Used as the hub cache key so
@@ -155,8 +177,9 @@ function legsText(it) {
       continue
     }
     var head = l.route ? l.route : l.mode
-    var to = l.to ? " → " + l.to : ""
-    parts.push(glyphFor(l.kind) + " " + head + (l.headsign ? " (" + l.headsign + ")" : "") + " " + clockText(l.start) + to)
+    var to = l.to ? " → " + l.to.replace(/\s+-\s+(North|South|East|West)bound Platform.*$/i, "") : ""
+    var sign = l.headsign ? " " + cleanHeadsign(l.headsign) : ""
+    parts.push(glyphFor(l.kind) + " " + head + sign + " · " + clockText(l.start) + to)
   }
   return parts.join("\n")
 }
@@ -166,7 +189,7 @@ if (typeof module !== "undefined" && module.exports) {
     GLYPH: GLYPH, glyphFor: glyphFor, stopGlyph: stopGlyph, kindOf: kindOf, emptyData: emptyData,
     minutesText: minutesText, clockText: clockText, durationText: durationText, ageText: ageText,
     liveMinutes: liveMinutes, barLabel: barLabel, effectText: effectText, directionText: directionText,
-    boardText: boardText, stopSubtitle: stopSubtitle, subscriptionKey: subscriptionKey,
+    boardText: boardText, stopTitle: stopTitle, stopSubtitle: stopSubtitle, cleanHeadsign: cleanHeadsign, subscriptionKey: subscriptionKey,
     itineraryTitle: itineraryTitle, legsText: legsText
   }
 }

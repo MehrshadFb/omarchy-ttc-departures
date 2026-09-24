@@ -259,10 +259,10 @@ Panel {
           fontFamily: root.fontFamily
           title: root.mode === "pick" ? (root.pickTarget === "stop" ? "Choose a stop" : (root.pickTarget === "from" ? "Trip from" : "Trip to"))
                : root.mode === "plan" ? "Plan a trip"
-               : (root.stop ? root.stop.name : (root.hostWidget && root.hostWidget.displayName ? root.hostWidget.displayName : "TTC Departures"))
+               : (root.stop ? Model.stopTitle(root.stop) : (root.hostWidget && root.hostWidget.displayName ? root.hostWidget.displayName : "TTC Departures"))
           meta: root.mode === "pick" ? "Street, station, or stop number"
               : root.mode === "plan" ? "Routing by Transitous · schedule times"
-              : (root.stop ? (root.stop.kind === "platform" ? "Line " + root.stop.routes.join(", ") + " · " + (root.stop.dir || "") : "Routes " + root.stop.routes.join(" · ")) : "")
+              : (root.stop ? Model.stopSubtitle(root.stop) : "")
           detail: root.mode === "board" ? root.freshnessText : ""
           iconComponent: Component {
             Text {
@@ -448,7 +448,7 @@ Panel {
                 id: resultName
                 anchors { left: resultGlyph.right; leftMargin: Style.space(8); right: parent.right; rightMargin: Style.space(10); top: parent.top; topMargin: Style.space(6) }
                 textFormat: Text.PlainText
-                text: resultRow.modelData.name
+                text: Model.stopTitle(resultRow.modelData)
                 elide: Text.ElideRight
                 color: root.foreground
                 font.family: root.fontFamily
@@ -511,7 +511,9 @@ Panel {
                 id: endpointName
                 anchors { left: endpointLabel.right; right: parent.right; rightMargin: Style.space(10); verticalCenter: parent.verticalCenter }
                 textFormat: Text.PlainText
-                text: endpointRow.modelData.stop ? endpointRow.modelData.stop.name : "Choose a stop…"
+                text: endpointRow.modelData.stop
+                  ? Model.stopTitle(endpointRow.modelData.stop) + (endpointRow.modelData.stop.kind === "platform" ? " · " + (endpointRow.modelData.stop.dir || "") : "")
+                  : "Choose a stop…"
                 elide: Text.ElideRight
                 color: endpointRow.modelData.stop ? root.foreground : root.dim
                 font.family: root.fontFamily
