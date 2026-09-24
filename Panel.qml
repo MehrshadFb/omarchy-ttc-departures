@@ -45,7 +45,7 @@ Panel {
     if (fetching) return "Updating…"
     if (!board || !board.fetched) return "No data yet"
     var age = Model.ageText(board.fetched, tick)
-    var src = data.source === "nextbus" ? " · legacy feed" : ""
+    var src = board.source === "nextbus" ? " · legacy feed" : ""
     return "Updated " + age + src
   }
 

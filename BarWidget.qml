@@ -135,11 +135,11 @@ BarWidget {
 
   // ---------------------------------------------------------------- label
   readonly property string glyph: {
-    var stop = board && board.stop ? data.stop : null
+    var stop = board && board.stop ? board.stop : null
     if (stop) return Model.stopGlyph(stop, Hub.routesTable)
     return Model.glyphFor(Model.kindOf(route || (routes.split(",")[0] || ""), Hub.routesTable))
   }
-  readonly property string displayName: (board && board.stop && data.stop.name) || resolvedName || stopName
+  readonly property string displayName: (board && board.stop && board.stop.name) || resolvedName || stopName
   readonly property string label: {
     clockTick
     if (activeStopId <= 0) {
