@@ -1,0 +1,4255 @@
+header {
+  gtfs_realtime_version: "2.0"
+  incrementality: FULL_DATASET
+  timestamp: 1790266018
+}
+entity {
+  id: "subway-134929718|North"
+  trip_update {
+    trip {
+      trip_id: "134929718"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13816"
+      stop_sequence: 22
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13813"
+      stop_sequence: 23
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13812"
+      stop_sequence: 24
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13809"
+      stop_sequence: 25
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13808"
+      stop_sequence: 26
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13805"
+      stop_sequence: 27
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13863"
+      stop_sequence: 28
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13804"
+      stop_sequence: 29
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "33"
+      label: "33"
+    }
+  }
+}
+entity {
+  id: "subway-134929644|North"
+  trip_update {
+    trip {
+      trip_id: "134929644"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13827"
+      stop_sequence: 14
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13854"
+      stop_sequence: 15
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13857"
+      stop_sequence: 16
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13826"
+      stop_sequence: 17
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13823"
+      stop_sequence: 18
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13822"
+      stop_sequence: 19
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "143"
+      label: "143"
+    }
+  }
+}
+entity {
+  id: "subway-134929762|North"
+  trip_update {
+    trip {
+      trip_id: "134929762"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13834"
+      stop_sequence: 11
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13831"
+      stop_sequence: 12
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13830"
+      stop_sequence: 13
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13827"
+      stop_sequence: 14
+      arrival {
+        time: 1790266617
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13854"
+      stop_sequence: 15
+      arrival {
+        time: 1790266677
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "129"
+      label: "129"
+    }
+  }
+}
+entity {
+  id: "subway-134929319|South"
+  trip_update {
+    trip {
+      trip_id: "134929319"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13799"
+      stop_sequence: 8
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13802"
+      stop_sequence: 9
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13803"
+      stop_sequence: 10
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13864"
+      stop_sequence: 11
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13806"
+      stop_sequence: 12
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13807"
+      stop_sequence: 13
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13810"
+      stop_sequence: 14
+      arrival {
+        time: 1790266557
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "1"
+      label: "1"
+    }
+  }
+}
+entity {
+  id: "subway-134929758|North"
+  trip_update {
+    trip {
+      trip_id: "134929758"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13839"
+      stop_sequence: 8
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13838"
+      stop_sequence: 9
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13835"
+      stop_sequence: 10
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "927"
+      label: "927"
+    }
+  }
+}
+entity {
+  id: "subway-134930359|West"
+  trip_update {
+    trip {
+      trip_id: "134930359"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13755"
+      stop_sequence: 14
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13758"
+      stop_sequence: 15
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13855"
+      stop_sequence: 16
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13851"
+      stop_sequence: 17
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13759"
+      stop_sequence: 18
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13762"
+      stop_sequence: 19
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13763"
+      stop_sequence: 20
+      arrival {
+        time: 1790266438
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13766"
+      stop_sequence: 21
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "202"
+      label: "202"
+    }
+  }
+}
+entity {
+  id: "subway-134930350|West"
+  trip_update {
+    trip {
+      trip_id: "134930350"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13775"
+      stop_sequence: 26
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13778"
+      stop_sequence: 27
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13779"
+      stop_sequence: 28
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13782"
+      stop_sequence: 29
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "45"
+      label: "45"
+    }
+  }
+}
+entity {
+  id: "subway-134930353|West"
+  trip_update {
+    trip {
+      trip_id: "134930353"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13767"
+      stop_sequence: 22
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13770"
+      stop_sequence: 23
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13771"
+      stop_sequence: 24
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13774"
+      stop_sequence: 25
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13775"
+      stop_sequence: 26
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "11"
+      label: "11"
+    }
+  }
+}
+entity {
+  id: "subway-134929751|North"
+  trip_update {
+    trip {
+      trip_id: "134929751"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13839"
+      stop_sequence: 8
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13838"
+      stop_sequence: 9
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13835"
+      stop_sequence: 10
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13834"
+      stop_sequence: 11
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "116"
+      label: "116"
+    }
+  }
+}
+entity {
+  id: "subway-134929765|North"
+  trip_update {
+    trip {
+      trip_id: "134929765"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14110"
+      stop_sequence: 7
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "133"
+      label: "133"
+    }
+  }
+}
+entity {
+  id: "subway-134929981|West"
+  trip_update {
+    trip {
+      trip_id: "134929981"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13785"
+      stop_sequence: 1
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "241"
+      label: "241"
+    }
+  }
+}
+entity {
+  id: "subway-134929809|North"
+  trip_update {
+    trip {
+      trip_id: "134929809"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13809"
+      stop_sequence: 25
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13808"
+      stop_sequence: 26
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13805"
+      stop_sequence: 27
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13863"
+      stop_sequence: 28
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13804"
+      stop_sequence: 29
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13801"
+      stop_sequence: 30
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "30"
+      label: "30"
+    }
+  }
+}
+entity {
+  id: "subway-134929766|North"
+  trip_update {
+    trip {
+      trip_id: "134929766"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15667"
+      stop_sequence: 4
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15658"
+      stop_sequence: 5
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15665"
+      stop_sequence: 6
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14110"
+      stop_sequence: 7
+      arrival {
+        time: 1790266557
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "134"
+      label: "134"
+    }
+  }
+}
+entity {
+  id: "subway-134929428|South"
+  trip_update {
+    trip {
+      trip_id: "134929428"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15664"
+      stop_sequence: 33
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15659"
+      stop_sequence: 34
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15666"
+      stop_sequence: 35
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15656"
+      stop_sequence: 36
+      arrival {
+        time: 1790266557
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15661"
+      stop_sequence: 37
+      arrival {
+        time: 1790266677
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15662"
+      stop_sequence: 38
+      arrival {
+        time: 1790266797
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "130"
+      label: "130"
+    }
+  }
+}
+entity {
+  id: "subway-134929715|North"
+  trip_update {
+    trip {
+      trip_id: "134929715"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13826"
+      stop_sequence: 17
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13823"
+      stop_sequence: 18
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13822"
+      stop_sequence: 19
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13819"
+      stop_sequence: 20
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13818"
+      stop_sequence: 21
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13816"
+      stop_sequence: 22
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13813"
+      stop_sequence: 23
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13812"
+      stop_sequence: 24
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "37"
+      label: "37"
+    }
+  }
+}
+entity {
+  id: "subway-134929432|South"
+  trip_update {
+    trip {
+      trip_id: "134929432"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14945"
+      stop_sequence: 32
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15664"
+      stop_sequence: 33
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15659"
+      stop_sequence: 34
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15666"
+      stop_sequence: 35
+      arrival {
+        time: 1790266677
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15656"
+      stop_sequence: 36
+      arrival {
+        time: 1790266797
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15661"
+      stop_sequence: 37
+      arrival {
+        time: 1790266917
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "148"
+      label: "148"
+    }
+  }
+}
+entity {
+  id: "subway-134929378|South"
+  trip_update {
+    trip {
+      trip_id: "134929378"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15659"
+      stop_sequence: 34
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15666"
+      stop_sequence: 35
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15656"
+      stop_sequence: 36
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15661"
+      stop_sequence: 37
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15662"
+      stop_sequence: 38
+      arrival {
+        time: 1790266617
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "43"
+      label: "43"
+    }
+  }
+}
+entity {
+  id: "subway-134930194|East"
+  trip_update {
+    trip {
+      trip_id: "134930194"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13734"
+      stop_sequence: 29
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13732"
+      stop_sequence: 30
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14947"
+      stop_sequence: 31
+      arrival {
+        time: 1790266618
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "219"
+      label: "219"
+    }
+  }
+}
+entity {
+  id: "subway-134929767|North"
+  trip_update {
+    trip {
+      trip_id: "134929767"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15660"
+      stop_sequence: 2
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15657"
+      stop_sequence: 3
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15667"
+      stop_sequence: 4
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15658"
+      stop_sequence: 5
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15665"
+      stop_sequence: 6
+      arrival {
+        time: 1790266617
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14110"
+      stop_sequence: 7
+      arrival {
+        time: 1790266797
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "135"
+      label: "135"
+    }
+  }
+}
+entity {
+  id: "subway-134929299|South"
+  trip_update {
+    trip {
+      trip_id: "134929299"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13832"
+      stop_sequence: 27
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13833"
+      stop_sequence: 28
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "169"
+      label: "169"
+    }
+  }
+}
+entity {
+  id: "subway-134929978|East"
+  trip_update {
+    trip {
+      trip_id: "134929978"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13784"
+      stop_sequence: 2
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13781"
+      stop_sequence: 3
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13780"
+      stop_sequence: 4
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13777"
+      stop_sequence: 5
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13776"
+      stop_sequence: 6
+      arrival {
+        time: 1790266438
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13773"
+      stop_sequence: 7
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13772"
+      stop_sequence: 8
+      arrival {
+        time: 1790266618
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13769"
+      stop_sequence: 9
+      arrival {
+        time: 1790266678
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13768"
+      stop_sequence: 10
+      arrival {
+        time: 1790266738
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13765"
+      stop_sequence: 11
+      arrival {
+        time: 1790266798
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13764"
+      stop_sequence: 12
+      arrival {
+        time: 1790266858
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13761"
+      stop_sequence: 13
+      arrival {
+        time: 1790266978
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "237"
+      label: "237"
+    }
+  }
+}
+entity {
+  id: "subway-134929970|East"
+  trip_update {
+    trip {
+      trip_id: "134929970"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13753"
+      stop_sequence: 19
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13752"
+      stop_sequence: 20
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13749"
+      stop_sequence: 21
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13748"
+      stop_sequence: 22
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13746"
+      stop_sequence: 23
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13743"
+      stop_sequence: 24
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "227"
+      label: "227"
+    }
+  }
+}
+entity {
+  id: "subway-134929975|East"
+  trip_update {
+    trip {
+      trip_id: "134929975"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13768"
+      stop_sequence: 10
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13765"
+      stop_sequence: 11
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13764"
+      stop_sequence: 12
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13761"
+      stop_sequence: 13
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13760"
+      stop_sequence: 14
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13852"
+      stop_sequence: 15
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13856"
+      stop_sequence: 16
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "234"
+      label: "234"
+    }
+  }
+}
+entity {
+  id: "subway-134929974|East"
+  trip_update {
+    trip {
+      trip_id: "134929974"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13760"
+      stop_sequence: 14
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13852"
+      stop_sequence: 15
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13856"
+      stop_sequence: 16
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13757"
+      stop_sequence: 17
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13756"
+      stop_sequence: 18
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "247"
+      label: "247"
+    }
+  }
+}
+entity {
+  id: "subway-134930388|West"
+  trip_update {
+    trip {
+      trip_id: "134930388"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13751"
+      stop_sequence: 12
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13754"
+      stop_sequence: 13
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13755"
+      stop_sequence: 14
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13758"
+      stop_sequence: 15
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13855"
+      stop_sequence: 16
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13851"
+      stop_sequence: 17
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "203"
+      label: "203"
+    }
+  }
+}
+entity {
+  id: "subway-134930386|West"
+  trip_update {
+    trip {
+      trip_id: "134930386"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13758"
+      stop_sequence: 15
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13855"
+      stop_sequence: 16
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13851"
+      stop_sequence: 17
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13759"
+      stop_sequence: 18
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13762"
+      stop_sequence: 19
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13763"
+      stop_sequence: 20
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13766"
+      stop_sequence: 21
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13767"
+      stop_sequence: 22
+      arrival {
+        time: 1790266438
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13770"
+      stop_sequence: 23
+      arrival {
+        time: 1790266558
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "201"
+      label: "201"
+    }
+  }
+}
+entity {
+  id: "subway-134930383|West"
+  trip_update {
+    trip {
+      trip_id: "134930383"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14948"
+      stop_sequence: 31
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "238"
+      label: "238"
+    }
+  }
+}
+entity {
+  id: "subway-134929318|South"
+  trip_update {
+    trip {
+      trip_id: "134929318"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13793"
+      stop_sequence: 5
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13795"
+      stop_sequence: 6
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13799"
+      stop_sequence: 8
+      arrival {
+        time: 1790266617
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13802"
+      stop_sequence: 9
+      arrival {
+        time: 1790266677
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13803"
+      stop_sequence: 10
+      arrival {
+        time: 1790266737
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "3"
+      label: "3"
+    }
+  }
+}
+entity {
+  id: "subway-134929980|East"
+  trip_update {
+    trip {
+      trip_id: "134929980"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13785"
+      stop_sequence: 1
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "240"
+      label: "240"
+    }
+  }
+}
+entity {
+  id: "subway-134930492|West"
+  trip_update {
+    trip {
+      trip_id: "134930492"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13783"
+      stop_sequence: 30
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14948"
+      stop_sequence: 31
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "298"
+      label: "298"
+    }
+  }
+}
+entity {
+  id: "subway-134930792|East"
+  trip_update {
+    trip {
+      trip_id: "134930792"
+      route_id: "4"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13844"
+      stop_sequence: 2
+      arrival {
+        time: 1790266192
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13845"
+      stop_sequence: 3
+      arrival {
+        time: 1790266252
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13848"
+      stop_sequence: 4
+      arrival {
+        time: 1790266372
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14949"
+      stop_sequence: 5
+      arrival {
+        time: 1790266552
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "462"
+      label: "462"
+    }
+  }
+}
+entity {
+  id: "subway-134929435|South"
+  trip_update {
+    trip {
+      trip_id: "134929435"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13792"
+      stop_sequence: 4
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13793"
+      stop_sequence: 5
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13795"
+      stop_sequence: 6
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13799"
+      stop_sequence: 8
+      arrival {
+        time: 1790266737
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "9"
+      label: "9"
+    }
+  }
+}
+entity {
+  id: "subway-134930172|East"
+  trip_update {
+    trip {
+      trip_id: "134930172"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13732"
+      stop_sequence: 30
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14947"
+      stop_sequence: 31
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "217"
+      label: "217"
+    }
+  }
+}
+entity {
+  id: "subway-134929312|South"
+  trip_update {
+    trip {
+      trip_id: "134929312"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13864"
+      stop_sequence: 11
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13806"
+      stop_sequence: 12
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13807"
+      stop_sequence: 13
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13810"
+      stop_sequence: 14
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13811"
+      stop_sequence: 15
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13814"
+      stop_sequence: 16
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13815"
+      stop_sequence: 17
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13817"
+      stop_sequence: 18
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13820"
+      stop_sequence: 19
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "82"
+      label: "82"
+    }
+  }
+}
+entity {
+  id: "subway-134930030|East"
+  trip_update {
+    trip {
+      trip_id: "134930030"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13772"
+      stop_sequence: 8
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13769"
+      stop_sequence: 9
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13768"
+      stop_sequence: 10
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13765"
+      stop_sequence: 11
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13764"
+      stop_sequence: 12
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13761"
+      stop_sequence: 13
+      arrival {
+        time: 1790266438
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13760"
+      stop_sequence: 14
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13852"
+      stop_sequence: 15
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "235"
+      label: "235"
+    }
+  }
+}
+entity {
+  id: "subway-134930394|West"
+  trip_update {
+    trip {
+      trip_id: "134930394"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13865"
+      stop_sequence: 1
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "232"
+      label: "232"
+    }
+  }
+}
+entity {
+  id: "subway-134930390|West"
+  trip_update {
+    trip {
+      trip_id: "134930390"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13741"
+      stop_sequence: 7
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13744"
+      stop_sequence: 8
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13745"
+      stop_sequence: 9
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13747"
+      stop_sequence: 10
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13750"
+      stop_sequence: 11
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13751"
+      stop_sequence: 12
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13754"
+      stop_sequence: 13
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "206"
+      label: "206"
+    }
+  }
+}
+entity {
+  id: "subway-134930392|West"
+  trip_update {
+    trip {
+      trip_id: "134930392"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13733"
+      stop_sequence: 3
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13736"
+      stop_sequence: 4
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13737"
+      stop_sequence: 5
+      arrival {
+        time: 1790266438
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13740"
+      stop_sequence: 6
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13741"
+      stop_sequence: 7
+      arrival {
+        time: 1790266558
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13744"
+      stop_sequence: 8
+      arrival {
+        time: 1790266618
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13745"
+      stop_sequence: 9
+      arrival {
+        time: 1790266678
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13747"
+      stop_sequence: 10
+      arrival {
+        time: 1790266798
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "209"
+      label: "209"
+    }
+  }
+}
+entity {
+  id: "subway-134929811|North"
+  trip_update {
+    trip {
+      trip_id: "134929811"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13857"
+      stop_sequence: 16
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13826"
+      stop_sequence: 17
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13823"
+      stop_sequence: 18
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13822"
+      stop_sequence: 19
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13819"
+      stop_sequence: 20
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13818"
+      stop_sequence: 21
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "39"
+      label: "39"
+    }
+  }
+}
+entity {
+  id: "subway-134929588|North"
+  trip_update {
+    trip {
+      trip_id: "134929588"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13796"
+      stop_sequence: 33
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13794"
+      stop_sequence: 34
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13791"
+      stop_sequence: 35
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13859"
+      stop_sequence: 36
+      arrival {
+        time: 1790266737
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "18"
+      label: "18"
+    }
+  }
+}
+entity {
+  id: "subway-134929764|North"
+  trip_update {
+    trip {
+      trip_id: "134929764"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13839"
+      stop_sequence: 8
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13838"
+      stop_sequence: 9
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13835"
+      stop_sequence: 10
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13834"
+      stop_sequence: 11
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13831"
+      stop_sequence: 12
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13830"
+      stop_sequence: 13
+      arrival {
+        time: 1790266737
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "131"
+      label: "131"
+    }
+  }
+}
+entity {
+  id: "subway-134929621|North"
+  trip_update {
+    trip {
+      trip_id: "134929621"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13801"
+      stop_sequence: 30
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13800"
+      stop_sequence: 31
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13797"
+      stop_sequence: 32
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13796"
+      stop_sequence: 33
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "124"
+      label: "124"
+    }
+  }
+}
+entity {
+  id: "subway-134929769|South"
+  trip_update {
+    trip {
+      trip_id: "134929769"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15663"
+      stop_sequence: 1
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "139"
+      label: "139"
+    }
+  }
+}
+entity {
+  id: "subway-134929813|North"
+  trip_update {
+    trip {
+      trip_id: "134929813"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13790"
+      stop_sequence: 37
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14944"
+      stop_sequence: 38
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "113"
+      label: "113"
+    }
+  }
+}
+entity {
+  id: "subway-134929315|South"
+  trip_update {
+    trip {
+      trip_id: "134929315"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13802"
+      stop_sequence: 9
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13803"
+      stop_sequence: 10
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13864"
+      stop_sequence: 11
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13806"
+      stop_sequence: 12
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13807"
+      stop_sequence: 13
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13810"
+      stop_sequence: 14
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13814"
+      stop_sequence: 16
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13811"
+      stop_sequence: 15
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13815"
+      stop_sequence: 17
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "84"
+      label: "84"
+    }
+  }
+}
+entity {
+  id: "subway-134930989|West"
+  trip_update {
+    trip {
+      trip_id: "134930989"
+      route_id: "4"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13847"
+      stop_sequence: 2
+      arrival {
+        time: 1790266192
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13846"
+      stop_sequence: 3
+      arrival {
+        time: 1790266252
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13843"
+      stop_sequence: 4
+      arrival {
+        time: 1790266372
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13861"
+      stop_sequence: 5
+      arrival {
+        time: 1790266612
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "464"
+      label: "464"
+    }
+  }
+}
+entity {
+  id: "subway-134929623|North"
+  trip_update {
+    trip {
+      trip_id: "134929623"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13794"
+      stop_sequence: 34
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13791"
+      stop_sequence: 35
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13859"
+      stop_sequence: 36
+      arrival {
+        time: 1790266557
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13790"
+      stop_sequence: 37
+      arrival {
+        time: 1790266677
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14944"
+      stop_sequence: 38
+      arrival {
+        time: 1790266797
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "15"
+      label: "15"
+    }
+  }
+}
+entity {
+  id: "subway-134929309|South"
+  trip_update {
+    trip {
+      trip_id: "134929309"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13821"
+      stop_sequence: 20
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13824"
+      stop_sequence: 21
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13825"
+      stop_sequence: 22
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13858"
+      stop_sequence: 23
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13853"
+      stop_sequence: 24
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13828"
+      stop_sequence: 25
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13829"
+      stop_sequence: 26
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "76"
+      label: "76"
+    }
+  }
+}
+entity {
+  id: "subway-134929595|North"
+  trip_update {
+    trip {
+      trip_id: "134929595"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13819"
+      stop_sequence: 20
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13818"
+      stop_sequence: 21
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13816"
+      stop_sequence: 22
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13813"
+      stop_sequence: 23
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13812"
+      stop_sequence: 24
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13809"
+      stop_sequence: 25
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13808"
+      stop_sequence: 26
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13805"
+      stop_sequence: 27
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "34"
+      label: "34"
+    }
+  }
+}
+entity {
+  id: "subway-134929968|East"
+  trip_update {
+    trip {
+      trip_id: "134929968"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13748"
+      stop_sequence: 22
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13746"
+      stop_sequence: 23
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13743"
+      stop_sequence: 24
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13742"
+      stop_sequence: 25
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13739"
+      stop_sequence: 26
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "224"
+      label: "224"
+    }
+  }
+}
+entity {
+  id: "subway-134929596|North"
+  trip_update {
+    trip {
+      trip_id: "134929596"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13791"
+      stop_sequence: 35
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13859"
+      stop_sequence: 36
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13790"
+      stop_sequence: 37
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14944"
+      stop_sequence: 38
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "22"
+      label: "22"
+    }
+  }
+}
+entity {
+  id: "subway-134929962|East"
+  trip_update {
+    trip {
+      trip_id: "134929962"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13856"
+      stop_sequence: 16
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13757"
+      stop_sequence: 17
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13756"
+      stop_sequence: 18
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13753"
+      stop_sequence: 19
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "214"
+      label: "214"
+    }
+  }
+}
+entity {
+  id: "subway-134929272|South"
+  trip_update {
+    trip {
+      trip_id: "134929272"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13798"
+      stop_sequence: 7
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "842"
+      label: "842"
+    }
+  }
+}
+entity {
+  id: "subway-134929967|East"
+  trip_update {
+    trip {
+      trip_id: "134929967"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13739"
+      stop_sequence: 26
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13738"
+      stop_sequence: 27
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13735"
+      stop_sequence: 28
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13734"
+      stop_sequence: 29
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "222"
+      label: "222"
+    }
+  }
+}
+entity {
+  id: "subway-134929816|North"
+  trip_update {
+    trip {
+      trip_id: "134929816"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13863"
+      stop_sequence: 28
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13804"
+      stop_sequence: 29
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13801"
+      stop_sequence: 30
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13800"
+      stop_sequence: 31
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13797"
+      stop_sequence: 32
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "126"
+      label: "126"
+    }
+  }
+}
+entity {
+  id: "subway-134929293|South"
+  trip_update {
+    trip {
+      trip_id: "134929293"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13837"
+      stop_sequence: 30
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13840"
+      stop_sequence: 31
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14945"
+      stop_sequence: 32
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "158"
+      label: "158"
+    }
+  }
+}
+entity {
+  id: "subway-134930991|West"
+  trip_update {
+    trip {
+      trip_id: "134930991"
+      route_id: "4"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13843"
+      stop_sequence: 4
+      arrival {
+        time: 1790266012
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13861"
+      stop_sequence: 5
+      arrival {
+        time: 1790266252
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "463"
+      label: "463"
+    }
+  }
+}
+entity {
+  id: "subway-134930374|West"
+  trip_update {
+    trip {
+      trip_id: "134930374"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13771"
+      stop_sequence: 24
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13774"
+      stop_sequence: 25
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13775"
+      stop_sequence: 26
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13778"
+      stop_sequence: 27
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "46"
+      label: "46"
+    }
+  }
+}
+entity {
+  id: "subway-134930895|East"
+  trip_update {
+    trip {
+      trip_id: "134930895"
+      route_id: "4"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14109"
+      stop_sequence: 1
+      arrival {
+        time: 1790266132
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "461"
+      label: "461"
+    }
+  }
+}
+entity {
+  id: "subway-134930372|West"
+  trip_update {
+    trip {
+      trip_id: "134930372"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13778"
+      stop_sequence: 27
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13779"
+      stop_sequence: 28
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13782"
+      stop_sequence: 29
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13783"
+      stop_sequence: 30
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "44"
+      label: "44"
+    }
+  }
+}
+entity {
+  id: "subway-134929807|North"
+  trip_update {
+    trip {
+      trip_id: "134929807"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13800"
+      stop_sequence: 31
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13797"
+      stop_sequence: 32
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13796"
+      stop_sequence: 33
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13794"
+      stop_sequence: 34
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "19"
+      label: "19"
+    }
+  }
+}
+entity {
+  id: "subway-134929275|South"
+  trip_update {
+    trip {
+      trip_id: "134929275"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13798"
+      stop_sequence: 7
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "844"
+      label: "844"
+    }
+  }
+}
+entity {
+  id: "subway-134929296|South"
+  trip_update {
+    trip {
+      trip_id: "134929296"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13833"
+      stop_sequence: 28
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13836"
+      stop_sequence: 29
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13837"
+      stop_sequence: 30
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13840"
+      stop_sequence: 31
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "65"
+      label: "65"
+    }
+  }
+}
+entity {
+  id: "subway-134929285|South"
+  trip_update {
+    trip {
+      trip_id: "134929285"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13798"
+      stop_sequence: 7
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "849"
+      label: "849"
+    }
+  }
+}
+entity {
+  id: "subway-134929314|South"
+  trip_update {
+    trip {
+      trip_id: "134929314"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13811"
+      stop_sequence: 15
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13814"
+      stop_sequence: 16
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13815"
+      stop_sequence: 17
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13817"
+      stop_sequence: 18
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13820"
+      stop_sequence: 19
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13821"
+      stop_sequence: 20
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13824"
+      stop_sequence: 21
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13825"
+      stop_sequence: 22
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "80"
+      label: "80"
+    }
+  }
+}
+entity {
+  id: "subway-134929308|South"
+  trip_update {
+    trip {
+      trip_id: "134929308"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13817"
+      stop_sequence: 18
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13820"
+      stop_sequence: 19
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13821"
+      stop_sequence: 20
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13824"
+      stop_sequence: 21
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13825"
+      stop_sequence: 22
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13858"
+      stop_sequence: 23
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13853"
+      stop_sequence: 24
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13828"
+      stop_sequence: 25
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "77"
+      label: "77"
+    }
+  }
+}
+entity {
+  id: "subway-134929297|South"
+  trip_update {
+    trip {
+      trip_id: "134929297"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13836"
+      stop_sequence: 29
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13837"
+      stop_sequence: 30
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13840"
+      stop_sequence: 31
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "63"
+      label: "63"
+    }
+  }
+}
+entity {
+  id: "subway-134930395|East"
+  trip_update {
+    trip {
+      trip_id: "134930395"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13865"
+      stop_sequence: 1
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "213"
+      label: "213"
+    }
+  }
+}
+entity {
+  id: "subway-134930447|West"
+  trip_update {
+    trip {
+      trip_id: "134930447"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13759"
+      stop_sequence: 18
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13762"
+      stop_sequence: 19
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13763"
+      stop_sequence: 20
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13766"
+      stop_sequence: 21
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13767"
+      stop_sequence: 22
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13770"
+      stop_sequence: 23
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13771"
+      stop_sequence: 24
+      arrival {
+        time: 1790266438
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13774"
+      stop_sequence: 25
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "231"
+      label: "231"
+    }
+  }
+}
+entity {
+  id: "subway-134930360|West"
+  trip_update {
+    trip {
+      trip_id: "134930360"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13750"
+      stop_sequence: 11
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13751"
+      stop_sequence: 12
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13754"
+      stop_sequence: 13
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13755"
+      stop_sequence: 14
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "205"
+      label: "205"
+    }
+  }
+}
+entity {
+  id: "subway-134930361|West"
+  trip_update {
+    trip {
+      trip_id: "134930361"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13736"
+      stop_sequence: 4
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13737"
+      stop_sequence: 5
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13740"
+      stop_sequence: 6
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13741"
+      stop_sequence: 7
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13744"
+      stop_sequence: 8
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13745"
+      stop_sequence: 9
+      arrival {
+        time: 1790266378
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13747"
+      stop_sequence: 10
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13750"
+      stop_sequence: 11
+      arrival {
+        time: 1790266558
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "207"
+      label: "207"
+    }
+  }
+}
+entity {
+  id: "subway-134930362|West"
+  trip_update {
+    trip {
+      trip_id: "134930362"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13731"
+      stop_sequence: 2
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13733"
+      stop_sequence: 3
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13736"
+      stop_sequence: 4
+      arrival {
+        time: 1790266438
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13737"
+      stop_sequence: 5
+      arrival {
+        time: 1790266558
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13740"
+      stop_sequence: 6
+      arrival {
+        time: 1790266618
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "229"
+      label: "229"
+    }
+  }
+}
+entity {
+  id: "subway-134930347|West"
+  trip_update {
+    trip {
+      trip_id: "134930347"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13779"
+      stop_sequence: 28
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13782"
+      stop_sequence: 29
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13783"
+      stop_sequence: 30
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "42"
+      label: "42"
+    }
+  }
+}
+entity {
+  id: "subway-134929303|South"
+  trip_update {
+    trip {
+      trip_id: "134929303"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13858"
+      stop_sequence: 23
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13853"
+      stop_sequence: 24
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13828"
+      stop_sequence: 25
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13829"
+      stop_sequence: 26
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "74"
+      label: "74"
+    }
+  }
+}
+entity {
+  id: "subway-134929234|South"
+  trip_update {
+    trip {
+      trip_id: "134929234"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13789"
+      stop_sequence: 2
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13860"
+      stop_sequence: 3
+      arrival {
+        time: 1790266077
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13792"
+      stop_sequence: 4
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13793"
+      stop_sequence: 5
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13795"
+      stop_sequence: 6
+      arrival {
+        time: 1790266797
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "107"
+      label: "107"
+    }
+  }
+}
+entity {
+  id: "subway-134929294|South"
+  trip_update {
+    trip {
+      trip_id: "134929294"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "14945"
+      stop_sequence: 32
+      arrival {
+        time: 1790266197
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "15664"
+      stop_sequence: 33
+      arrival {
+        time: 1790266377
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "150"
+      label: "150"
+    }
+  }
+}
+entity {
+  id: "subway-134929305|South"
+  trip_update {
+    trip {
+      trip_id: "134929305"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13829"
+      stop_sequence: 26
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13832"
+      stop_sequence: 27
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "72"
+      label: "72"
+    }
+  }
+}
+entity {
+  id: "subway-134929300|South"
+  trip_update {
+    trip {
+      trip_id: "134929300"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13832"
+      stop_sequence: 27
+      arrival {
+        time: 1790266137
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13833"
+      stop_sequence: 28
+      arrival {
+        time: 1790266257
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13836"
+      stop_sequence: 29
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "68"
+      label: "68"
+    }
+  }
+}
+entity {
+  id: "subway-134930028|East"
+  trip_update {
+    trip {
+      trip_id: "134930028"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13757"
+      stop_sequence: 17
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13756"
+      stop_sequence: 18
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13753"
+      stop_sequence: 19
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13752"
+      stop_sequence: 20
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13749"
+      stop_sequence: 21
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "228"
+      label: "228"
+    }
+  }
+}
+entity {
+  id: "subway-134930025|East"
+  trip_update {
+    trip {
+      trip_id: "134930025"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13742"
+      stop_sequence: 25
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13739"
+      stop_sequence: 26
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13738"
+      stop_sequence: 27
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13735"
+      stop_sequence: 28
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "216"
+      label: "216"
+    }
+  }
+}
+entity {
+  id: "subway-134930026|East"
+  trip_update {
+    trip {
+      trip_id: "134930026"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13738"
+      stop_sequence: 27
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13735"
+      stop_sequence: 28
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13734"
+      stop_sequence: 29
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13732"
+      stop_sequence: 30
+      arrival {
+        time: 1790266498
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "220"
+      label: "220"
+    }
+  }
+}
+entity {
+  id: "subway-134930027|East"
+  trip_update {
+    trip {
+      trip_id: "134930027"
+      route_id: "2"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13752"
+      stop_sequence: 20
+      arrival {
+        time: 1790266018
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13749"
+      stop_sequence: 21
+      arrival {
+        time: 1790266078
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13748"
+      stop_sequence: 22
+      arrival {
+        time: 1790266138
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13746"
+      stop_sequence: 23
+      arrival {
+        time: 1790266198
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13743"
+      stop_sequence: 24
+      arrival {
+        time: 1790266258
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13742"
+      stop_sequence: 25
+      arrival {
+        time: 1790266318
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "225"
+      label: "225"
+    }
+  }
+}
+entity {
+  id: "subway-134929761|North"
+  trip_update {
+    trip {
+      trip_id: "134929761"
+      route_id: "1"
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13831"
+      stop_sequence: 12
+      arrival {
+        time: 1790266017
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13830"
+      stop_sequence: 13
+      arrival {
+        time: 1790266317
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13827"
+      stop_sequence: 14
+      arrival {
+        time: 1790266437
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13854"
+      stop_sequence: 15
+      arrival {
+        time: 1790266497
+      }
+      schedule_relationship: SCHEDULED
+    }
+    stop_time_update {
+      stop_id: "13857"
+      stop_sequence: 16
+      arrival {
+        time: 1790266617
+      }
+      schedule_relationship: SCHEDULED
+    }
+    vehicle {
+      id: "127"
+      label: "127"
+    }
+  }
+}

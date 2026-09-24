@@ -1,0 +1,3457 @@
+header {
+  gtfs_realtime_version: "2.0"
+  incrementality: FULL_DATASET
+  timestamp: 1790266018
+}
+entity {
+  id: "76838"
+  alert {
+    active_period {
+      start: 1790263655
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16067"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16068"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16202"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16203"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16083"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16084"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16204"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16205"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16206"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16207"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "16069"
+    }
+    informed_entity {
+      route_id: "5"
+      stop_id: "13832"
+    }
+    cause: ACCIDENT
+    effect: NO_SERVICE
+    header_text {
+      translation {
+        text: "Line 5 Eglinton: No service between Mount Dennis and Cedarvale stations due to a Toronto fire investigation. Shuttle buses are running between Mount Dennis and Cedarvale."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76740"
+  alert {
+    active_period {
+      start: 1790395140
+      end: 1790586000
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13859"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13860"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13790"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13789"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "14111"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "14944"
+    }
+    cause: OTHER_CAUSE
+    effect: NO_SERVICE
+    header_text {
+      translation {
+        text: "Line 1 Yonge-University: There is no subway service between Finch and Sheppard-Yonge stations due to planned signal work. Shuttle buses are running."
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "https://files.ttc.ca/public-images/public-image-639256014167971404.png"
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://files.ttc.ca/public-images/public-image-639256014167971404.png"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://files.ttc.ca/public-images/public-image-639256014167971404.png"
+        media_type: "image/png"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "alert image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76637"
+  alert {
+    active_period {
+      start: 1790019015
+      end: 1790395140
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13859"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13860"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13790"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13789"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "14111"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "14944"
+    }
+    cause: OTHER_CAUSE
+    effect: REDUCED_SERVICE
+    header_text {
+      translation {
+        text: "Line 1 Yonge-University: This weekend, there will be no subway service between Finch and Sheppard-Yonge stations due to planned signal work. Shuttle buses will operate."
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "https://files.ttc.ca/public-images/public-image-639256014167971404.png"
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://files.ttc.ca/public-images/public-image-639257621334253749.png"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://files.ttc.ca/public-images/public-image-639257621334253749.png"
+        media_type: "image/png"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "alert image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76325"
+  alert {
+    active_period {
+      start: 1790308740
+      end: 1790321400
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13808"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13807"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13805"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13806"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13863"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13864"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13804"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13803"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13801"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13802"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13800"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13799"
+    }
+    cause: MAINTENANCE
+    effect: NO_SERVICE
+    header_text {
+      translation {
+        text: "Line 1 Yonge-University: There is no subway service between St Clair and College stations due to planned track work. Shuttle buses are running."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76321"
+  alert {
+    active_period {
+      start: 1789589371
+      end: 1790308740
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13808"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13807"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13805"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13806"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13863"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13864"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13804"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13803"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13801"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13802"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13800"
+    }
+    informed_entity {
+      route_id: "1"
+      stop_id: "13799"
+    }
+    cause: MAINTENANCE
+    effect: REDUCED_SERVICE
+    header_text {
+      translation {
+        text: "Line 1 Yonge-University: There will be no subway service between St Clair and College stations, starting 11:59 p.m., nightly Monday, September 21 to Thursday, September 24, due to planned track work. Shuttle buses will operate."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://files.ttc.ca/public-images/public-image-639251717728282165.png"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://files.ttc.ca/public-images/public-image-639251717728282165.png"
+        media_type: "image/png"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "alert image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76834"
+  alert {
+    active_period {
+      start: 1790262483
+    }
+    informed_entity {
+      route_id: "67"
+      stop_id: "6681"
+    }
+    cause: ACCIDENT
+    effect: DETOUR
+    header_text {
+      translation {
+        text: "67 Pharmacy: Detour northbound via Edge Park Ave, Harris Park Dr and Holswade Rd due to a collision."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76827"
+  alert {
+    active_period {
+      start: 1790258417
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "14705"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "15434"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7888"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7891"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7882"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7886"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7893"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7901"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7899"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4509"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4502"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4510"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4506"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4505"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4567"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4024"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "3978"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4057"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "15998"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "15431"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7889"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7890"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7892"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7883"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7887"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7894"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "7902"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "15750"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "14434"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "11069"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "8749"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "8750"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "8765"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "14866"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "11588"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "14867"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "3979"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "4058"
+    }
+    informed_entity {
+      route_id: "41"
+      stop_id: "15994"
+    }
+    cause: CONSTRUCTION
+    effect: SIGNIFICANT_DELAYS
+    header_text {
+      translation {
+        text: "41 Keele: Delays between Keele Station at Bus Bay 4 and Keele St at Eglinton Ave West due to construction."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76819"
+  alert {
+    active_period {
+      start: 1790252904
+    }
+    informed_entity {
+      route_id: "107"
+      stop_id: "9101"
+    }
+    informed_entity {
+      route_id: "107"
+      stop_id: "9102"
+    }
+    informed_entity {
+      route_id: "107"
+      stop_id: "9094"
+    }
+    informed_entity {
+      route_id: "107"
+      stop_id: "9093"
+    }
+    cause: CONSTRUCTION
+    effect: DETOUR
+    header_text {
+      translation {
+        text: "107 Alness-Chesswood: Detour via Kodiak Cres due to construction."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76799"
+  alert {
+    active_period {
+      start: 1790240494
+    }
+    informed_entity {
+      route_id: "96"
+      stop_id: "7731"
+    }
+    informed_entity {
+      route_id: "96"
+      stop_id: "7734"
+    }
+    informed_entity {
+      route_id: "96"
+      stop_id: "7724"
+    }
+    informed_entity {
+      route_id: "96"
+      stop_id: "7732"
+    }
+    informed_entity {
+      route_id: "96"
+      stop_id: "7735"
+    }
+    informed_entity {
+      route_id: "96"
+      stop_id: "7723"
+    }
+    cause: POLICE_ACTIVITY
+    effect: DETOUR
+    header_text {
+      translation {
+        text: "96 Wilson: Detour via Islington Ave, Irwin Ave and Albion Rd due to police activity."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "100"
+  alert {
+    active_period {
+      start: 1777680000
+      end: 1790740800
+    }
+    informed_entity {
+      route_id: "101"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "101 Downsview Park – Temporary route change due to Rogers Stadium concert road closures"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "during concert dates as shown (subject to change):\n \n\n101 Downsview Park buses will divert both ways on Sheppard Avenue West to Keele Street. Buses will stop on the street outside of Downsview Park Station.\n \nDuring this time, the 101 Downsview Park route will be extended to Sheppard West Station. \n \nStops not served: John Drury Drive, Carl Hall Road, and Service Road to Downsview Park Station."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/101-Temporary-route-change-due-to-Rogers-Stadium-concert-road-closures"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/101_RSCRC_May-2.gif?rev=43c245ceb7fa4ab2a6b0363706fa9802"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "101"
+  alert {
+    active_period {
+      start: 1773547200
+      end: 1804221000
+    }
+    informed_entity {
+      route_id: "88"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "88 South Leaside – Route change, due to Ontario Line construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "The routing of the 88 South Leaside will be adjusted to accommodate the temporary full closure of Beth Nealson Drive for Ontario Line construction. \n \n88A South Leaside will be adjusted to operate between St Clair Station and Thorncliffe Park. \n \n88B South Leaside will be adjusted to operate between St Clair Station and Wicksteed Avenue via Laird Station. \n \nTo accommodate local travel, temporary service on the new 156 Millwood will begin, operating between Thorncliffe Park and Wicksteed Avenue via Laird Station. \n \nService on the 156 Millwood will operate every 25 to 30 minutes approximately between 5 a.m. and 7 p.m. on weekdays, 5:30 a.m. and 7 p.m. on Saturdays, and 7 a.m. and 7 p.m. on Sundays."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/88-Route-change-due-to-Ontario-Line-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/March/88-South-Leaside-RC-031526-PoleCard-PG.jpg?rev=8ad9ea77e27d4a7d9f16ac5ab2dfefca"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "102"
+  alert {
+    active_period {
+      start: 1776675600
+      end: 1830313800
+    }
+    informed_entity {
+      route_id: "51"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "To Leslie Station Via Laird Station – Temporary route change due to bridge work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "51A Leslie buses will divert northbound on Leslie Street, west on Sheppard Avenue East and west/south on Old Leslie Street, to Leslie Station. \n \nStops not served: northbound through North York General Hospital, west on Esther Shiner Boulevard and north on Old Leslie Street, to Leslie Station."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/51-Temporary-route-change-due-to-bridge-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/51_BW_Apr20.gif?rev=62e43036213e49aea3fc9f78d4007762"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "103"
+  alert {
+    active_period {
+      start: 1779177600
+      end: 1830313800
+    }
+    informed_entity {
+      route_id: "94"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "94 Wellesley – Temporary route change due to Wellesley Street project"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "94 Wellesley buses will divert eastbound via south on Jarvis Street, east on Carlton Street and north on Parliament Street, to regular route. \n \nStops not served: eastbound Wellesley Street East between Jarvis and Parliament streets."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/94-Temporary-route-change-due-to-Wellesley-Street-project"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/May/94-Wellesley-via-Carlton-260519.jpg?rev=fa58e72968e6477e87039e54b7f9a9fb"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "104"
+  alert {
+    active_period {
+      start: 1786532400
+      end: 1793401200
+    }
+    informed_entity {
+      route_id: "23"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "23 Dawes – Temporary route change due to road work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "23 Dawes buses will divert north on Main Street, east on Doncaster Avenue, north on Barrington Avenue, east on Secord Avenue, and north on Dawes Road, to regular route.\n \nStops not served: eastbound Danforth Avenue between Main Street and Dawes Road, northbound on Dawes Road between Danforth and Secord avenues."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/23-Temporary-route-change-due-to-road-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/August/Danforth-Road-Work/23---Dawes---Road-Work.jpg?rev=2aaf3b5f3e174e99a8de13b420cd197d"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "105"
+  alert {
+    active_period {
+      start: 1786532400
+      end: 1793401200
+    }
+    informed_entity {
+      route_id: "300"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "300 Bloor-Danforth – Temporary route change due to road work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "300 Bloor-Danforth Night Bus eastbound will divert south on Main Street, east on Gerrard Street East, north on Victoria Park Avenue, and east on Danforth Avenue, to regular route. \n \nStops not served: eastbound on Danforth Avenue between Main Street and Victoria Park Avenue."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/300-Temporary-route-change-due-to-road-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/August/Danforth-Road-Work/300---Bloor-Danforth---Road-Work.jpg?rev=8f1f196edbda4f3fa70c8a25700963da"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "106"
+  alert {
+    active_period {
+      start: 1786532400
+      end: 1793401200
+    }
+    informed_entity {
+      route_id: "20"
+    }
+    informed_entity {
+      route_id: "113"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Temporary route change due to road work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "20 Cliffside and 113 Danforth eastbound buses will divert south on Main Street, east on Gerrard Street East, north on Victoria Park Avenue, and east on Danforth Avenue, to regular route. \n \nStops not served: eastbound on Danforth Avenue between Main Street and Victoria Park Avenue."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/20-113-Temporary-route-change-due-to-road-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/August/Danforth-Road-Work/20---Cliffside-113-Danforth-Road-Work.jpg?rev=a439b9c2a43448d4b93f2223d19c707f"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "107"
+  alert {
+    active_period {
+      start: 1787137200
+      end: 1793487600
+    }
+    informed_entity {
+      route_id: "160"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "160 Bathurst North – Temporary route change due to mall construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Revised route - August 19, 7 a.m. to October 31, 2026, 7 p.m.\n \n160 Bathurst North buses will divert northbound via Bathurst Street, west on Centre Street and south on North Promenade, to regular route.\n \nStops not served: East Promenade, Promenade Circle between East Promenade and North Promenade, Promenade Circle between North Promenade and Brownridge Drive, Brownridge Drive, New Westminister Drive between Brownridge Drive and Centre Street."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/160-Temporary-route-change-due-to-mall-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/August/160-Bathurst-North-260819-REVISED.jpg?rev=c8e81b9e61fb478786fe7ca0944472c8"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "108"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "8"
+    }
+    informed_entity {
+      route_id: "62"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to Ontario Line construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 8 Broadview and 62 Mortimer will be adjusted in all time periods on weekdays and weekends to no longer operate to Hennick Bridgepoint Hospital as Ontario Line construction at Pape Station progresses. With this change, regular service to Broadview Station will be restored."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/8-62-Route-change-due-to-Ontario-Line-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/8-62_RC_Sep6.gif?rev=bbdbbbed274b4519bad8ded13c87c6f6"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "109"
+  alert {
+    active_period {
+      start: 1788739200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "903"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "903 Kennedy Stn-Scarborough Express – Route change due to operational considerations"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Northbound routing on 903A (Kennedy Station-Centennial College via Scarborough Centre Station Express) will operate via Triton Road, McCowan Road, and Consilium Place instead of Triton Road, McCowan Road, Bushby Drive, and Grangeway Avenue to align routing with 134 Progress. \n \nWith this change, service will be removed from the stop at Bushby Drive and McCowan Road (Stop ID 9610). Customers can continue to use alternative service on 9 Bellamy."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/903-Route-change-due-to-operational-considerations"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "110"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "906"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "906 Airport-Humber College Express – Service change due to seasonal service demand"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 906 Airport-Humber College Express will be restored in the late evening period Monday to Friday, the early morning, early evening and late evening periods on Saturdays, and the early evening and late evening periods on Sundays due to increased seasonal travel demand to Humber Polytechnic."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/906-Service-change-due-to-seasonal-service-demand"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "111"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "68"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "68 Warden – 968 Warden Express Route change due to Easier Access construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 68 Warden and 968 Warden Express will also be adjusted in all time periods on weekdays and weekends to operate to Warden Station via a new temporary turnback loop as Warden Station Easier Access construction progresses.Buses will serve Warden Station on street at Bay 3 (Stop ID 16642). \n \nService on 968 Warden Express will be restored in all time periods on weekdays due to increased seasonal travel demand on the Warden Avenue corridor."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/68-968-Route-change-due-to-Easier-Access-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/68-968_RC_Sep6.gif?rev=7d03b27ad0ce41c69d6cc0d641f7e905"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "112"
+  alert {
+    active_period {
+      start: 1788739200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "102"
+    }
+    informed_entity {
+      route_id: "117"
+    }
+    informed_entity {
+      route_id: "902"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to Easier Access construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 102 Markham Rd, 117 Birchmount South, and 902 Markham Rd Express will be adjusted in all time periods on weekdays and weekends to operate to Warden Station via a new temporary turnback loop as Warden Station Easier Access construction progresses. Buses will serve Warden Station on street at a new stop located on St Clair Avenue East near the Line 2 Bloor–Danforth overpass (Bay 1, Stop ID 16898). \n \nService on 117 Birchmount South will no longer be interlined with service on 69 Warden South in all time periods on weekdays and weekends."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/102-117-902-Route-change-due-to-Easier-Access-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/102-117-902_RC_Sep6.gif?rev=f65cf37200434f3298eacb7122178967"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "113"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "69"
+    }
+    informed_entity {
+      route_id: "135"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to Easier Access construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 69 Warden South and 135 Gerrard will be adjusted in all time periods on weekdays and weekends to operate to Warden Station on-street via a new temporary turnback loop as Warden Station Easier Access construction progresses. Buses will serve Warden Station on street at Bay 5 (Stop ID 16641)."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/69-135-Route-change-due-to-Easier-Access-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/69-135_RC_Sep6.gif?rev=5bf3de795fe4471895ae05b4aaf75d69"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "114"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "353"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "353 Steeles – Route change due to Annual Network Plan"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 353 Steeles will be extended from Pioneer Village Station to Martin Grove Loop via Steeles Avenue West in the overnight period on weekdays and weekends. With this change, service will be removed from Northwest Gate, Ian Macdonald Boulevard and The Pond Road. \n \nCustomers can continue to use alternative service on 335 Jane or 341 Keele."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/353-Route-change-due-to-Annual-Network-Plan"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/353_RC_Sep6.gif?rev=ce9c463a1966430bb8c7ea09ff3d0256"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "115"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "100"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "100 Flemingdon Park – Route change due to Ontario Line construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 100 Flemingdon Park will be adjusted in all time periods on weekdays and weekends to operate to Pape Station via Pape Avenue as Ontario Line construction at Pape Station progresses. With this change, service will be removed from Broadview Avenue and O’Connor Drive."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/Service-Advisory-Page"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/100_RC_Sep6.gif?rev=d08fc6bbeccb432ebf01d9e643dcb282"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "116"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "300"
+    }
+    informed_entity {
+      route_id: "334"
+    }
+    informed_entity {
+      route_id: "343"
+    }
+    informed_entity {
+      route_id: "386"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to operational considerations"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on the 300B Bloor-Danforth, 334 Eglinton and 386 Scarborough will be removed from Eglinton Avenue East at South Service Road East Side stop (Stop ID 16339) due to operational considerations. \n \nWith this change, the outbound routing on the 300B Bloor-Danforth and 386 Scarborough will be adjusted to exit Kennedy Station via Transway Crescent and Kennedy Road. With this change, service will be added to Eglinton Avenue East at Kennedy Road stop (Stop ID 3539) to facilitate transfers with connecting trips. \n \nService on the 334 Eglinton and 343 Kennedy will also be removed from South Service Road at Transway Crescent stop (Stop ID 12198) due to operational considerations."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/300-334-343-386-Route-change-due-to-operational-considerations"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/300-334-343-386_RC_Sep6.gif?rev=b4aaa81cbb6a4d43a856dfe7b7bd859e"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "117"
+  alert {
+    active_period {
+      start: 1781002800
+      end: 1790852400
+    }
+    informed_entity {
+      route_id: "112"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "112 West Mall – REVISED - Temporary route change due to sewer repairs"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Revised routing - Extended to October 1, 2026, 7 a.m.\n\n\n \n112 West Mall buses will divert both ways via Renforth and Eringate drives.\n \nStops not served: Gentian Drive between Renforth and Wellesworth drives, Wellesworth Drive between Gentian Drive and Rangoon Road, Eringate Drive between Rangoon Road and Wellesworth Drive."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/112-Temporary-route-change-due-to-sewer-repairs"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/June/112-West-Mall---Sewer-Repairs-REV03-260624.jpg?rev=902100466e3c4c7182f5ddcf88f0d46c"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "118"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "72"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "72 Pape – Route change due to Ontario Line construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Southbound service on 72 Pape will be adjusted in all time periods on weekdays and weekends as Ontario Line construction at Pape Station progresses. With this change, southbound service will resume servicing Pape Station via the partially reopened bus terminal. \n \nFurther, service at the southern end of line will be adjusted to operate via Don Roadway, Lake Shore Boulevard East and Saulter Street South instead of Saulter Street South, Lake Shore Boulevard East and Bouchette Street to provide an accessible connection to 114 Queens Quay East at the final 72C Pape stop. The final southbound 72C stop will change from Commissioners Street at Saulter Street South (Stop ID 6319) to Commissioners Street at Don Roadway (Stop ID 16443)."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/72-Route-change-due-to-Ontario-Line-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/72_RC_Sep6.gif?rev=350f8448ce4f47c1bdb47ed4a92a350a"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "119"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "12"
+    }
+    informed_entity {
+      route_id: "20"
+    }
+    informed_entity {
+      route_id: "21"
+    }
+    informed_entity {
+      route_id: "57"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to operational considerations"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on the 12 Kingston Rd, 20 Cliffside, 21 Brimley and 57 Midland will be removed from stop Eglinton Avenue East at South Service Road East Side (Stop ID 16339) due to operational considerations. \n \nWith this change, the outbound routing in the early morning period on weekdays and weekends will be adjusted to exit Kennedy Station via Transway Crescent and Kennedy Road. Service will be added to stop on Eglinton Avenue East at Kennedy Road (Stop ID 3539) to facilitate transfers with connecting trips."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/12-20-21-57-Route-change-due-to-operational-considerations"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "120"
+  alert {
+    active_period {
+      start: 1788841800
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "45"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "To Carlingview Via Belfield – Route change due to Annual Service Plan"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on 45B Kipling (Kipling Station - Carlingview via Belfield) will be removed in all time periods on weekdays relating to the introduction of new service on 145 Belfield. \n \nWith this change, service on 45A Kipling (Kipling Station - Steeles) will be increased to maintain 10 minute service along the Kipling corridor."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/45-Route-change-due-to-Annual-Service-Plan"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/45-145_RC_Sep6.gif?rev=e09c3cb24a304599b211809fc54457b4"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "121"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "16"
+    }
+    informed_entity {
+      route_id: "17"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to Easier Access construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Southbound service on 16 McCowan and 17 Birchmount will be adjusted in all time periods on weekdays and weekends to operate to Warden Station via Birchmount Road, Danforth Road, Mack Avenue and Warden Avenue, as Warden Station Easier Access construction progresses. Buses will serve Warden Station on street at Bay 5 (Stop ID 16641)."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/16-17-Route-change-due-to-Easier-Access-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/16-17_RC_Sep6.gif?rev=c57c0a4e64404a8c8b5d218eec2887ca"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "122"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "8"
+    }
+    informed_entity {
+      route_id: "9"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to Easier Access construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Service on the 8 Broadview will be interlined with service on the 9 Bellamy in all time periods on weekdays and weekends as Warden Station Easier Access construction continues. With this change, service will be adjusted to serve Warden Station via stops on St Clair Avenue East. Southbound buses will pick up customers at the existing St Clair Avenue East at Warden Avenue West Side stop (Bay 2, Stop ID 14055), while northbound buses will pick up at a new stop located on St Clair Avenue East near the Line 2 Bloor–Danforth overpass (Bay 1, Stop ID 16898)."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/8-9-Route-change-due-to-Easier-Access-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/8-9_RC_Sep6.gif?rev=b401906c65f743638e0ace72e596771f"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "123"
+  alert {
+    active_period {
+      start: 1789545600
+      end: 1793653200
+    }
+    informed_entity {
+      route_id: "16"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "16 Mccowan – Temporary route change due to storm drain repair"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "16 McCowan buses will divert as follows:\n \nSouthbound: from south on Danforth Road, west on Mack Avenue and north on Warden Avenue, to Warden Station. \nNorthbound: from east on St Clair Avenue East, south on Kennedy Road and north on Danforth Road, to regular route. \n \nStops not served: westbound St Clair Avenue East, southbound Warden Avenue."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/16-Temporary-route-change-due-to-storm-drain-repair"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/16-McCowan---Danforth-StClair--Storm-Drain-260916.jpg?rev=85b8b723300f4767ad269fbcb27f623f"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "124"
+  alert {
+    active_period {
+      start: 1789556400
+      end: 1791630000
+    }
+    informed_entity {
+      route_id: "102"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "102 Markham Rd – Temporary route change due to road work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "102C Markham Road buses will divert southbound via west on McNicoll Avenue and south on Dynamic Drive, to regular route. \n \nStops not served: Dynamic Drive between McNicoll and Passmore avenues, Passmore Avenue between Dynamic Drive and Markham Road."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/102C-Temporary-route-change-due-to-road-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/102C-Markham-Rd---DynamicDr-260916.jpg?rev=6ca599e2f3454251a4f7c2b48b781b4e"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "125"
+  alert {
+    active_period {
+      start: 1788544800
+      end: 1793991600
+    }
+    informed_entity {
+      route_id: "68"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "68 Warden – REVISED - Temporary route change due to City of Markham work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "68B Warden buses will divert both ways via Glenbourne Park Drive.\n \nStops not served: Warden Avenue between Glenbourne Park Drive and Major Mackenzie Drive East, Major Mackenzie Drive East between Warden Avenue and Glenbourne Park Drive."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/68B-Temporary-route-change-due-to-City-of-Markham-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/68B-Warden---via-Glenbourne-260904-REVISED.jpg?rev=aedd294669df48e293807adb3684b668"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "126"
+  alert {
+    active_period {
+      start: 1790362800
+      end: 1790388000
+    }
+    informed_entity {
+      route_id: "121"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "121 Esplanade-River – Temporary route change due to Brita Night Run event"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "September 25, 2026, 3 p.m. to 9:30 p.m.\n \n121 Esplanade-River buses will operate as follows:\n \nWestbound: from River Street, west on King Street East, south on Sumach/Cherry streets, west on Eastern Avenue, west on Front Street East and south on Berkeley Street, to regular route. \nEastbound: from Front Street East, north on Cherry/Sumach streets, east on King Street East and north on River Street, to regular route. \n \nStops not served: Parliament Street between Front Street East and Mill Street, Mill Street between Parliament Street and Bayview Avenue, Front Street East between Cherry Street and Bayview Avenue, Bayview Avenue between Mill Street and Lawren Harris Square, and River Street between Lawren Harris Square and King Street East.\n \n\n \nSeptember 25, 2026, 9:30 p.m. to 10 p.m.\n \n121 Esplanade-River buses will divert westbound from Mill Street, north on Cherry Street, west on Eastern Avenue and west on Front Street East, to regular route. \n \nStops not served: Parliament Street between Front Street East and Mill Street, and Mill Street between Parliament and Cherry streets."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/121-Temporary-route-change-due-to-Brita-Night-Run-event"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/Brita-Run/121-Maps-Combined.jpg?rev=a4a3b3e50c8149db9a7ecfc859491b80"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "127"
+  alert {
+    active_period {
+      start: 1790362800
+      end: 1790388000
+    }
+    informed_entity {
+      route_id: "202"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "202 Cherry Beach – Temporary route change due to Brita Night Run event"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "202 Cherry Beach buses will divert both ways on Lake Shore Boulevard East between Cherry and Parliament streets.\n \nStops not served: Parliament and Cherry streets between Lake Shore Boulevard East and Front Street East, Mill Street and Front Street East between Parliament and Cherry streets."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/202-Temporary-route-change-due-to-Brita-Night-Run-event"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/Brita-Run/Rte-202---Brita-Run-260925.jpg?rev=66039a8923ad43b9ac93943192cbbcbe"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "128"
+  alert {
+    active_period {
+      start: 1790650800
+      end: 1791014400
+    }
+    informed_entity {
+      route_id: "90"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "90 Vaughan – Temporary route change: Buses will not enter St Clair West Station"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Buses will serve St Clair West Station on the street. \n \n90 Vaughan buses will divert north on Bathurst Street, east on Tichester Road/Heath Street West, south on Tweedsmuir Avenue and west on St Clair Avenue West, to St Clair West Station."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/90-Temporary-route-change-Buses-will-not-enter-St-Clair-West-Station"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/90_SIW_Sep28.gif?rev=03e60f4b0a0942859d863394f4f1b52f"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "129"
+  alert {
+    active_period {
+      start: 1790506800
+      end: 1790524800
+    }
+    informed_entity {
+      route_id: "300"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "300 Bloor-Danforth – Temporary route change due to Bloor Street Mile event"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "300 Bloor-Danforth buses will divert both ways on Bathurst Street, Dupont Street, Davenport Road and Church Street. \n \nStops not served: Bloor Street West/East between Bathurst and Church streets."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/300-Temporary-route-change-due-to-Bloor-Street-Mile-event"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/Bloor-street-mile/Rte-300---Bloor-Street-Mile-260927.jpg?rev=f656fc57c281450a861b508cdef037fd"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "130"
+  alert {
+    active_period {
+      start: 1790161200
+      end: 1790809200
+    }
+    informed_entity {
+      route_id: "101"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "101 Downsview Park – Temporary route change due to storm drain repairs"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "101 Downsview Park buses will divert both ways via Bakersfield Street. \n \nStops not served: St Regis Crescent South between Bakersfield Street and Tuscan Gate, Tuscan Gate between St Regis Crescent South and Sheppard Avenue West, and Sheppard Avenue West between Tuscan Gate and Bakersfield Street."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/101-Temporary-route-change-due-to-storm-drain-repairs"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/101_SDR_Sep23.gif?rev=0c9d1bdf1f5f4ea8b50675b1b6de598b"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "131"
+  alert {
+    active_period {
+      start: 1790161200
+      end: 1790809200
+    }
+    informed_entity {
+      route_id: "108"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Temporary route change due to storm drain repairs"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "108A Driftwood buses will divert both ways via St Regis Crescent South and Bakersfield Street. \n \nStops not served: Tuscan Gate between St Regis Crescent South and Sheppard Avenue West, and Sheppard Avenue West between Tuscan Gate and Bakersfield Street."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/108-Temporary-route-change-due-to-storm-drain-repairs"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/108A_SDR_Sep23.gif?rev=8cde2358b8304d109e41d50b966a6bae"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "132"
+  alert {
+    active_period {
+      start: 1789988400
+      end: 1790636400
+    }
+    informed_entity {
+      route_id: "43"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "43 Kennedy – Temporary route change due to road construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "43 Kennedy buses will divert southbound via south on Silver Star Boulevard and west on Passmore Avenue, to regular route. \n \nStops not served: Steeles Avenue East between Silver Star Boulevard and Midland Avenue, Midland Avenue between Steeles Avenue East and Passmore Avenue, and Passmore Avenue between Midland Avenue and Silver Star Boulevard."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/43-Temporary-route-change-due-to-road-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/43-Kennedy---SB-via-SilverStar-260921.jpg?rev=684bf22b084d4f9ea77bd78ea737c3b9"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "133"
+  alert {
+    active_period {
+      start: 1790434800
+      end: 1790442000
+    }
+    informed_entity {
+      route_id: "97"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "97 Yonge – Temporary route change due to HCHC Latin Parade and Fall Fiesta"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "97C Yonge buses will divert as follows:\n \nSouthbound: from Yonge Street, east and south on Church Street, west on Richmond Street East, south on Yonge Street, to regular route. \nNorthbound: from Yonge Street, east on Adelaide Street East, north and west on Church Street and north on Yonge Street, to regular route.\n \nStops not served: Yonge Street between Church Street and Richmond Street East."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/97C-Temporary-route-change-due-to-HCHC-Latin-Parade-and-Fall-Fiesta"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/97C---Latin-Parade-Fall-Fiesta-260926.jpg?rev=c7f77fd25d244f3fa5e72cef4f949d02"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "134"
+  alert {
+    active_period {
+      start: 1790650800
+      end: 1791014400
+    }
+    informed_entity {
+      route_id: "33"
+    }
+    informed_entity {
+      route_id: "126"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Temporary route change: Buses will not enter St Clair West Station"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Buses will serve St Clair West Station on the street. \n \n33 Forest Hill: board on the south side of St Clair Avenue West outside of the station. \n \n126 Christie: board on the north side of St Clair Avenue West outside of the station."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/33-126-Temporary-route-change-Buses-will-not-enter-St-Clair-West-Station"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/33-126_Sep28.gif?rev=87164ff109824dcaaa9d82500efb8b8e"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "135"
+  alert {
+    active_period {
+      start: 1790512200
+      end: 1790524800
+    }
+    informed_entity {
+      route_id: "13"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "13 Avenue Rd – Temporary route change due to Bloor Street Mile event"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "13 Avenue Road buses will divert from Avenue Road, west on Davenport Road, south on Bedford Road and west on Prince Arthur Avenue, to St George Station.\n \nStops not served: south of Davenport Road."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/13-Temporary-route-change-due-to-Bloor-Street-Mile-event"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/Bloor-street-mile/Rte-13---Bloor-Street-Mile-260927.jpg?rev=16ed816b5b87449a8cdb0b5192b6f2a8"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "136"
+  alert {
+    active_period {
+      start: 1790512200
+      end: 1790524800
+    }
+    informed_entity {
+      route_id: "19"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "19 Bay – Temporary route change due to Bloor Street Mile event"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "19 Bay buses will divert both ways via Davenport Road, Yonge Street, Wellesley Street West and Bay Street.\n \nStops not served: Bay Street between Davenport Road and Wellesley Street West."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/19-Temporary-route-change-due-to-Bloor-Street-Mile-event"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/Bloor-street-mile/Rte-19---Bloor-Street-Mile-260927.jpg?rev=b24e4796dd0c43a3be458fff98503c7c"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76822"
+  alert {
+    active_period {
+      start: 1790255354
+    }
+    informed_entity {
+      route_id: "504"
+    }
+    cause: OTHER_CAUSE
+    effect: SIGNIFICANT_DELAYS
+    header_text {
+      translation {
+        text: "504 King: Delays between Broadview Station at Bay 7 and Dundas West Station at Bay 4 due to traffic congestion."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "200"
+  alert {
+    active_period {
+      start: 1780876800
+      end: 1798693200
+    }
+    informed_entity {
+      route_id: "501"
+    }
+    informed_entity {
+      route_id: "301"
+    }
+    informed_entity {
+      route_id: "507"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Long Branch Loop Streetcar Track Renewal Work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "With the start of the TTC construction at Long Branch Loop service will be adjusted on the following routes: \n \n501 Queen: 501A Queen streetcar will be extended to operate in the late evening period between Neville Park Loop and Humber Loop. Streetcars will continue to arrive every 10 minutes. \n \nService on the 501C Queen will be suspended during this construction period. \n \n301 Queen: Overnight service on the 301 Queen streetcar will be shortened to operate between Neville Park Loop and Humber Loop. \n \n301L Queen bus replacement service will be introduced between Long Branch Loop and Dufferin Gate Loop via The Queensway, Park Lawn Road and Lake Shore Boulevard West. Buses will arrive every 30 minutes. \n \n507 Long Branch: Service on the 507 Long Branch streetcar will be suspended and replaced by 507 Long Branch bus replacement service. \n \n507 Long Branch bus replacement service will operate between Humber Loop and Long Branch Loop via Lake Shore Boulevard West, Park Lawn Road and The Queensway. \n \nBuses will arrive every 10 minutes and be extended into the late evening period to replace suspended 501C Queen streetcar service. \n \n507M Long Branch bus replacement shuttle service will begin operating between Humber Loop and Humber Bay Shores (Marine Parade Drive and Silver Moon Drive) via The Queensway, Park Lawn Road, Lake Shore Boulevard West and Marine Parade Drive.\n \nBuses will arrive 15 minutes during the weekday peak periods and between 20 and 30 minutes in off peak periods. \n \nService on the 508 Lake Shore streetcar will be suspended for the summer."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/501-301-507-508-Long-Branch-Loop-Streetcar-Track-Renewal-Work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/July/501-507-508-Long-Branch-060726-PoleCard-PG.jpg?rev=de1da929774342adb531e8de7a309b7d"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "201"
+  alert {
+    active_period {
+      start: 1777262400
+      end: 1798777800
+    }
+    informed_entity {
+      route_id: "501"
+    }
+    informed_entity {
+      route_id: "301"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to end of TTC track work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Regular streetcar service will resume on the 501/301 Queen as TTC track work ends on Queen Street East between Broadview Avenue and Davies Avenue. \n \nThe 301B Queen bus replacement service will be removed."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/501-301-301B-Route-change-due-to-end-of-TTC-track-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/April/501-301-Queen-Route-Change.jpg?rev=07c21e6c2f03422fb439635d62b6d3ad"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "202"
+  alert {
+    active_period {
+      start: 1777262400
+      end: 1798777800
+    }
+    informed_entity {
+      route_id: "503"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "503 Kingston Rd – Route change due to end of TTC track work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "The 503 Kingston Rd replacement bus will no longer divert as the TTC track work ends on Queen Street East between Broadview Avenue and Davies Avenue. \n \nWith this change, regular service will resume on Queen Street East between Broadview Avenue and King Street East, and on King Street East between Queen Street East and Parliament Street."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/503-Route-change-due-to-end-of-TTC-track-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/April/503-Route-Change.jpg?rev=717b9b272b844e23961959c8a2f546ce"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "203"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "512"
+    }
+    informed_entity {
+      route_id: "312"
+    }
+    informed_entity {
+      route_id: "340"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to rail bridge construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Streetcar service on 512 St Clair and 312 St Clair will be shortened to end at Lansdowne Avenue instead of Gunns Loop (Keele Street) to accommodate railway underpass construction in preparation for the new St Clair–Old Weston transit station. \n \n512B St Clair bus replacement service will be introduced between Gunns Loop and Lansdowne Station. \n \nEastbound buses will operate via St Clair Avenue West, Lansdowne Avenue, Dupont Street, Symington Avenue, Bloor Street West and Lansdowne Avenue. \n \nWestbound buses will operate via Lansdowne Avenue and St Clair Avenue West. \n \nDuring the overnight period, bus service on 340 Junction will be extended to Oakwood Avenue via St Clair Avenue West."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/512-312-Route-change-due-to-rail-bridge-construction"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/512-312-340_RC_Sep6.gif?rev=732acebef889461a9bde6c70ce3ee851"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "204"
+  alert {
+    active_period {
+      start: 1788667200
+      end: 1791000000
+    }
+    informed_entity {
+      route_id: "506"
+    }
+    informed_entity {
+      route_id: "306"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to City and TTC construction on College/Carlton streets between Bay Street and Church Street"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Westbound 506B Carlton and 306B Carlton bus replacement service will be adjusted to divert via Yonge Street, Wellesley Street West and Bay Street as the construction progresses. Eastbound bus replacement service and streetcar service will remain unchanged."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/due-to-City-and-TTC-construction-on-College-Carlton-streets"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "205"
+  alert {
+    active_period {
+      start: 1788321600
+      end: 1793593800
+    }
+    informed_entity {
+      route_id: "506"
+    }
+    informed_entity {
+      route_id: "306"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Route change due to City and TTC construction"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Westbound 506B/306B Carlton bus replacement service will be adjusted to divert via Parliament Street, Carlton Street, Yonge Street and Wellesley Street as the portion of Carlton Street construction ends. \nEastbound 506B/306B Carlton replacement buses will continue to operate via Spadina Avenue, College Street, Carlton Street, Parliament Street, and Gerrard Street East. \n \n506/306 Carlton streetcars will continue to divert via Bay Street, Dundas Street, and Parliament Street while construction activities remain underway within the corridor. \n \nPlease note: These route changes will not be reflected on the TTC’s Routes and Schedules pages or most trip‑planning apps."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/506-306-Route-change-due-to-City-and-TTC-construction"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "206"
+  alert {
+    active_period {
+      start: 1790038800
+      end: 1792051200
+    }
+    informed_entity {
+      route_id: "501"
+    }
+    informed_entity {
+      route_id: "301"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Temporary route change due to Toronto Hydro work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "501/301 Queen streetcars will divert both ways via King and Shaw streets. \n \n501/301 Queen replacement buses will operate between Bathurst Street and Sunnyside Loop via Queen Street West. \n \nWestbound: from Wolseley Loop, south on Bathurst Street and west on Queen Street West/The Queensway, to Sunnyside Loop. \nEastbound: from Sunnyside Loop, east on The Queensway/Queen Street West, north on Bathurst Street and east on Wolseley Street, to Wolseley Loop. \n \nTransfer points: \nEastbound buses: board on the south side of The Queensway, west of Roncesvalles Avenue. \nWestbound streetcars: board on the east side of King Street West, south of Queen Street West. \nWestbound buses: board on the north side of Queen Street West, east of Shaw Street.\nEastbound streetcars: board on the south side of Queen Street West, west of Strachan Avenue."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/501-301-Temporary-route-change-due-to-Toronto-Hydro-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/501-301-Queen--TOHydro-Queen-Abell-260921.jpg?rev=65fb9831ae744d358b4525e7e2b5b9f2"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "207"
+  alert {
+    active_period {
+      start: 1790377200
+      end: 1790388000
+    }
+    informed_entity {
+      route_id: "504"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "504 King – Temporary route change due to Brita Night Run event"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "504A King streetcars will not serve the Distillery Loop and will divert as follows:\n \nEastbound: from King Street East, north on Parliament Street, east on Dundas Street East and south on Broadview Avenue, to Queen Street East. \nWestbound: west on Queen Street East and west on King Street East, to regular route.\n \nStops not served: Sumach/Cherry streets between King Street East and Distillery Loop, eastbound on King Street East between Parliament and Sumach/Cherry streets."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/504A-Temporary-route-change-due-to-Brita-Night-Run-event"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/September/Brita-Run/Rte-504A---Brita-Run-260925.jpg?rev=a3f761933da74bb8b7bbd804f3e0cece"
+        media_type: "image/jpeg"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "208"
+  alert {
+    active_period {
+      start: 1790582400
+      end: 1791014400
+    }
+    informed_entity {
+      route_id: "512"
+    }
+    informed_entity {
+      route_id: "312"
+    }
+    effect: MODIFIED_SERVICE
+    header_text {
+      translation {
+        text: "– Temporary route change due to streetcar infrastructure work"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "512/312 St Clair streetcars will be replaced with buses. \n \nBoard replacement buses at curbside stops."
+        language: "en"
+      }
+    }
+    url {
+      translation {
+        text: "https://www.ttc.ca/service-advisories/Service-Changes/512-312-Temporary-route-change-due-to-streetcar-infrastructure-work"
+        language: "en"
+      }
+    }
+    image {
+      localized_image {
+        url: "https://cdn.ttc.ca/-/media/1-RD/512-312_SIW_Sep28.gif?rev=8038e9f9a3eb4f97b3a4d8d9b7bb4cd3"
+        media_type: "image/gif"
+        language: "en"
+      }
+    }
+    image_alternative_text {
+      translation {
+        text: "advisory image"
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76841"
+  alert {
+    active_period {
+      start: 1790265912
+    }
+    informed_entity {
+      stop_id: "16204"
+    }
+    informed_entity {
+      stop_id: "16205"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Fairbank: Elevator ELV02-B out of service between Eglinton Avenue south east side entrance and concourse due to a technical problem."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76840"
+  alert {
+    active_period {
+      start: 1790264309
+    }
+    informed_entity {
+      stop_id: "13739"
+    }
+    informed_entity {
+      stop_id: "13740"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Coxwell: Elevator 11D1L out of service between Strathmore Blvd entrance, concourse and Line 2 eastbound platform while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76839"
+  alert {
+    active_period {
+      start: 1790264012
+    }
+    informed_entity {
+      stop_id: "15666"
+    }
+    informed_entity {
+      stop_id: "15667"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "York University: Escalator 12S6E out of service from concourse to Ian MacDonald Blvd entrance while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76833"
+  alert {
+    active_period {
+      start: 1790262251
+    }
+    informed_entity {
+      stop_id: "13817"
+    }
+    informed_entity {
+      stop_id: "13818"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "St Andrew: Escalator 6Y2E out of service from concourse to Line 1 platform while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76831"
+  alert {
+    active_period {
+      start: 1790261945
+    }
+    informed_entity {
+      stop_id: "13828"
+    }
+    informed_entity {
+      stop_id: "13827"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Dupont: Elevator 2S1L out of service between Spadina Ave east side entrance and concourse while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76823"
+  alert {
+    active_period {
+      start: 1790255957
+    }
+    informed_entity {
+      stop_id: "13738"
+    }
+    informed_entity {
+      stop_id: "13737"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Woodbine: Escalator 12D3E out of service from Line 2 Kipling platform to concourse while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76818"
+  alert {
+    active_period {
+      start: 1790251621
+    }
+    informed_entity {
+      stop_id: "15664"
+    }
+    informed_entity {
+      stop_id: "15665"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Downsview Park: Escalator 10S5E out of service from GO entrance to concourse due to a technical problem."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76817"
+  alert {
+    active_period {
+      start: 1790251489
+    }
+    informed_entity {
+      stop_id: "13813"
+    }
+    informed_entity {
+      stop_id: "13814"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "King: Escalator 8Y4E out of service from Line 1 Vaughan via Union platform to north concourse due to a technical problem."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76814"
+  alert {
+    active_period {
+      start: 1790260200
+      end: 1790276400
+    }
+    informed_entity {
+      stop_id: "13829"
+    }
+    informed_entity {
+      stop_id: "13830"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "St Clair West: Escalator 3S6E out of service from south concourse to bus and Streetcar platform while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76811"
+  alert {
+    active_period {
+      start: 1790260200
+      end: 1790276400
+    }
+    informed_entity {
+      stop_id: "13828"
+    }
+    informed_entity {
+      stop_id: "13827"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Dupont: Escalator 2S8E out of service from concourse to Dupont St north side entrance while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76809"
+  alert {
+    active_period {
+      start: 1790260200
+      end: 1790276400
+    }
+    informed_entity {
+      stop_id: "13765"
+    }
+    informed_entity {
+      stop_id: "13766"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Dufferin: Escalator 6B3E out of service from Line 2 Kennedy platform to concourse while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76807"
+  alert {
+    active_period {
+      start: 1790260200
+      end: 1790276400
+    }
+    informed_entity {
+      stop_id: "13773"
+    }
+    informed_entity {
+      stop_id: "13774"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "High Park: Escalator 10B3E out of service from west concourse to Line 2 Kipling platform while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76800"
+  alert {
+    active_period {
+      start: 1790240662
+    }
+    informed_entity {
+      stop_id: "13836"
+    }
+    informed_entity {
+      stop_id: "13835"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Lawrence West: Escalator 6S2E out of service from Line 1 platform to Lawrence Ave W south side entrance due to a technical problem."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76774"
+  alert {
+    active_period {
+      start: 1790214285
+    }
+    informed_entity {
+      stop_id: "15656"
+    }
+    informed_entity {
+      stop_id: "15657"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Pioneer Village: Escalator 13S1E out of service from north concourse to Steeles Ave W north side entrance due to a technical problem."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76773"
+  alert {
+    active_period {
+      start: 1790212717
+    }
+    informed_entity {
+      stop_id: "14947"
+    }
+    informed_entity {
+      stop_id: "16081"
+    }
+    informed_entity {
+      stop_id: "13865"
+    }
+    informed_entity {
+      stop_id: "16082"
+    }
+    informed_entity {
+      stop_id: "16390"
+    }
+    informed_entity {
+      stop_id: "16391"
+    }
+    informed_entity {
+      stop_id: "16392"
+    }
+    informed_entity {
+      stop_id: "16393"
+    }
+    informed_entity {
+      stop_id: "16394"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Kennedy: Escalator 16D4E out of service from Line 2 platform to bus platform due to a technical problem."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76683"
+  alert {
+    active_period {
+      start: 1790094238
+    }
+    informed_entity {
+      stop_id: "16069"
+    }
+    informed_entity {
+      stop_id: "13832"
+    }
+    informed_entity {
+      stop_id: "13831"
+    }
+    informed_entity {
+      stop_id: "16070"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Cedarvale: Elevator ELV02-B out of service between Line 5 platform, Line 1 northbound platform/east concourse, and upper concourse while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76587"
+  alert {
+    active_period {
+      start: 1789990200
+      end: 1790278200
+    }
+    informed_entity {
+      stop_id: "13862"
+    }
+    informed_entity {
+      stop_id: "13859"
+    }
+    informed_entity {
+      stop_id: "13860"
+    }
+    informed_entity {
+      stop_id: "13861"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Sheppard-Yonge: Escalator 51P2E out of service from Line 1 platform to Line 4 Don Mills platform while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76586"
+  alert {
+    active_period {
+      start: 1789990200
+      end: 1790278200
+    }
+    informed_entity {
+      stop_id: "14945"
+    }
+    informed_entity {
+      stop_id: "14110"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Sheppard West: Escalator 9S7E out of service from concourse to Sheppard Ave E south side entrance while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76583"
+  alert {
+    active_period {
+      start: 1789990200
+      end: 1790278200
+    }
+    informed_entity {
+      stop_id: "13829"
+    }
+    informed_entity {
+      stop_id: "13830"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "St Clair West: Escalator 3S14E out of service from Line 1 Vaughan platform to north concourse while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76582"
+  alert {
+    active_period {
+      start: 1789990200
+      end: 1790278200
+    }
+    informed_entity {
+      stop_id: "15656"
+    }
+    informed_entity {
+      stop_id: "15657"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Pioneer Village: Escalator 13S9E out of service from upper south concourse to bus platform while we perform maintenance. Escalator is expected to be back in service September 24, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76445"
+  alert {
+    active_period {
+      start: 1789759380
+      end: 1798779540
+    }
+    informed_entity {
+      stop_id: "13739"
+    }
+    informed_entity {
+      stop_id: "13740"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Coxwell: Escalator 11D3E out of service from Line 2 Kipling platform to concourse while we perform maintenance. Escalator is expected to be back in service December 31, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "76382"
+  alert {
+    active_period {
+      start: 1789685069
+    }
+    informed_entity {
+      stop_id: "13809"
+    }
+    informed_entity {
+      stop_id: "13810"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "TMU: Elevator out of service between Toronto Eaton Centre entrance, Line 1 Vaughan via Union platform, and underpass while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "75879"
+  alert {
+    active_period {
+      start: 1788970380
+      end: 1791574200
+    }
+    informed_entity {
+      stop_id: "13821"
+    }
+    informed_entity {
+      stop_id: "13822"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "St Patrick: Elevator 4Y1L out of service between concourse and Line 1 centre platform due to a technical problem. Elevator is expected to be back in service October 9, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "75328"
+  alert {
+    active_period {
+      start: 1788389340
+      end: 1790802000
+    }
+    informed_entity {
+      stop_id: "16075"
+    }
+    informed_entity {
+      stop_id: "16076"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Laird: Elevator ELV02-B out of service between Eglinton Avenue south side entrance and concourse while we perform maintenance. Elevator is expected to be back in service September 30, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "74831"
+  alert {
+    active_period {
+      start: 1770544800
+      end: 1959847200
+    }
+    informed_entity {
+      stop_id: "16077"
+    }
+    informed_entity {
+      stop_id: "16078"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Don Valley: Elevator ELV03-C out of service between concourse and Don Mills Road west side entrance due to the Ontario Line construction. Elevator is expected to be back in service February 8, 2032."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "74136"
+  alert {
+    active_period {
+      start: 1786514340
+      end: 1803790740
+    }
+    informed_entity {
+      stop_id: "13852"
+    }
+    informed_entity {
+      stop_id: "13853"
+    }
+    informed_entity {
+      stop_id: "13854"
+    }
+    informed_entity {
+      stop_id: "13851"
+    }
+    informed_entity {
+      stop_id: "14816"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Spadina: Escalator 2B3E out of service from Line 2 Kipling platform to south concourse while we perform maintenance. Escalator is expected to be back in service February 27, 2027."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "73835"
+  alert {
+    active_period {
+      start: 1786361400
+      end: 1797021000
+    }
+    informed_entity {
+      stop_id: "14947"
+    }
+    informed_entity {
+      stop_id: "16081"
+    }
+    informed_entity {
+      stop_id: "13865"
+    }
+    informed_entity {
+      stop_id: "16082"
+    }
+    informed_entity {
+      stop_id: "16390"
+    }
+    informed_entity {
+      stop_id: "16391"
+    }
+    informed_entity {
+      stop_id: "16392"
+    }
+    informed_entity {
+      stop_id: "16393"
+    }
+    informed_entity {
+      stop_id: "16394"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Kennedy: Escalator 16D2E out of service from Line 2 platform to concourse while we perform maintenance. Escalator is expected to be back in service December 11, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "73474"
+  alert {
+    active_period {
+      start: 1783242000
+      end: 1793350800
+    }
+    informed_entity {
+      stop_id: "13785"
+    }
+    informed_entity {
+      stop_id: "14948"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Kipling: Escalator 16B6E out of service from concourse to Aukland Rd entrance while we perform maintenance. Escalator is expected to be back in service October 30, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "71416"
+  alert {
+    active_period {
+      start: 1773306000
+      end: 1798711200
+    }
+    informed_entity {
+      stop_id: "13749"
+    }
+    informed_entity {
+      stop_id: "13750"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Broadview: Escalator 6D3E out of service from concourse to Broadview Ave entrance while we perform maintenance. Escalator is expected to be back in service December 31, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "71415"
+  alert {
+    active_period {
+      start: 1774429200
+      end: 1794817800
+    }
+    informed_entity {
+      stop_id: "16218"
+    }
+    informed_entity {
+      stop_id: "16219"
+    }
+    informed_entity {
+      stop_id: "13825"
+    }
+    informed_entity {
+      stop_id: "13826"
+    }
+    effect: ACCESSIBILITY_ISSUE
+    header_text {
+      translation {
+        text:     "Museum: Escalator 2Y1E out of service from concourse to Line 1 platform while we perform maintenance. Escalator is expected to be back in service November 16, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  "id": "00005",
+  "alert": {
+    "activePeriod": [
+      {
+        "start": "1770557400"
+      }
+    ],
+    "informedEntity": [
+      {
+        "routeId": "5"
+      },
+      {
+        "routeId": "18"
+      },
+      {
+        "routeId": "27"
+      },
+      {
+        "routeId": "32"
+      },
+      {
+        "routeId": "34"
+      },
+      {
+        "routeId": "35"
+      },
+      {
+        "routeId": "47"
+      },
+      {
+        "routeId": "51"
+      },
+      {
+        "routeId": "54"
+      },
+      {
+        "routeId": "56"
+      },
+      {
+        "routeId": "71"
+      },
+      {
+        "routeId": "91"
+      },
+      {
+        "routeId": "162"
+      },
+      {
+        "routeId": "954"
+      }
+    ],
+    "cause": "OTHER_CAUSE",
+    "effect": "NO_EFFECT",
+    "url": {
+      "translation": [
+        {
+          "text": "https://www.ttc.ca/riding-the-ttc/Line-5-Eglinton?utm_source=gtfsrt&utm_medium=app",
+          "language": "en"
+        }
+      ]
+    },
+    "headerText": {
+      "translation": [
+        {
+          "text": "Are you riding Line 5 or connecting bus routes?",
+          "language": "en"
+        }
+      ]
+    },
+    "descriptionText": {
+      "translation": [
+        {
+          "text": "Share your feedback at ttc.ca/line5",
+          "language": "en"
+        }
+      ]
+    }
+  }
+}

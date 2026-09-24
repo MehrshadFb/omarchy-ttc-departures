@@ -1,0 +1,869 @@
+header {
+  gtfs_realtime_version: "2.0"
+  incrementality: FULL_DATASET
+  timestamp: 1790265455
+}
+entity {
+  id: "DevAPI-A7A47D84-4C20-4E7B-A011-BE3F74D8425A"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "7"
+      stop_id: "3718"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "84"
+      stop_id: "3748"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "104"
+      stop_id: "3975"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "984"
+      stop_id: "3754"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "84"
+      stop_id: "3755"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "84"
+      stop_id: "3755"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "108"
+      stop_id: "3756"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "84"
+      stop_id: "3755"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "108"
+      stop_id: "3756"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "106"
+      stop_id: "3751"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "107"
+      stop_id: "3753"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "984"
+      stop_id: "3750"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "105"
+      stop_id: "3749"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Have proof of payment ready for"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Have proof of payment ready for inspection."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-6B7F53ED-A331-4221-9D93-744DB3D10E21"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "41"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "41 Keele: Delays between Keele S"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "41 Keele: Delays between Keele Station at Bus Bay 4 and Keele St at Eglinton Ave West due to construction."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-3D499095-99A1-416B-A16E-568AAD4E5BA5"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "501"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "501 Queen: Delays between and Qu"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "501 Queen: Delays between and Queen St East at Woodbine Ave due to Special event."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-9ED4C19D-9862-44BC-B25B-02D1C97DDAAD"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "131"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "316"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "395"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "38"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "95"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "134"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "21"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "130"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "132"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "43"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "904"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "996"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "9"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "939"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "129"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "169"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "16"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "938"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "903"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "133"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Scarborough Centre: Elevator 6RT"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Scarborough Centre: Elevator out of service between concourse and Scarborough Town Centre entrance and bus platform while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-F4785DC9-9293-4ED6-B0C7-63DABA519AEC"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "26"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "127"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "19"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Dupont: Elevator 2S1L out of ser"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Dupont: Elevator out of service between Spadina Ave east side entrance and concourse while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-98696F87-9247-4EDA-8FA8-0FE70CBA2598"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "67"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "67 Pharmacy: Detour northbound v"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "67 Pharmacy: Detour northbound via Edge Park Ave, Harris Park Dr and Holswade Rd due to a collision."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-4AD19F83-AE31-4416-AEC1-615241598D55"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "11"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "11 Bayview: Delays between Davis"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "11 Bayview: Delays between Davisville Station at Bus Bay 5 and due to construction."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-9B053E0D-480A-41E3-A009-FE40127211F1"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "505"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "320"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "305"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "506"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "97"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "306"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "19"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "TMU: Elevator out of service bet"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "TMU: Elevator out of service between Toronto Eaton Centre entrance, Line 1 Vaughan via Union platform, and underpass while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-C66C73FC-56A4-4D56-9446-A782EB594C77"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "156"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "334"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "354"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "51"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "34"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "88"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Laird: Elevator ELV02-B out of s"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Laird: Elevator out of service between Eglinton Avenue south side entrance and concourse while we perform maintenance. Elevator is expected to be back in service September 30, 2026."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-19148489-7614-42B1-B957-DD36413F9136"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "334"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "63"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "90"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "34"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "109"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "363"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "164"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Cedarvale: Elevator 06-ELV-B out"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Cedarvale: Elevator out of service between platform and upper concourse while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-F1A9E02D-51A5-4130-A5F9-7993A9EAB5D3"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "334"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "354"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "54"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "162"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "191"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "100"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "325"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "25"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "34"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "925"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "72"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "954"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Don Valley: Elevator ELV03-C out"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Don Valley: Elevator out of service between concourse and Don Mills Road west side entrance due to the Ontario Line construction. Elevator is expected to be back in service February 8, 2032."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-E75DFA1D-E879-4CAD-A11B-8D0E0B9F8FFE"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "504"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "504 King: Delays between Broadvi"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "504 King: Delays between Broadview Station at Bay 7 and Dundas West Station at Bay 4 due to traffic congestion."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-A669C5C7-A773-400C-8786-4D674D5CEC88"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "202"
+      stop_id: "4277"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "114"
+      stop_id: "4277"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Please look both ways"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Please look both ways for cyclists before exiting."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-645FF5B1-7468-4B72-A98A-6F20E11465DC"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "96"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "96 Wilson: Detour via Islington"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "96 Wilson: Detour via Islington Ave, Irwin Ave and Albion Rd due to police activity."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-3664AD32-474A-420F-BF35-4A5520FAF75E"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "334"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "63"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "90"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "34"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "109"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "363"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "164"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Cedarvale: Elevator ELV02-B out"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Cedarvale: Elevator out of service between Line 5 platform, Line 1 northbound platform/east concourse, and upper concourse while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-59E1780F-40BB-40E3-BF3E-25C370B71BAD"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "329"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "341"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "168"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "171"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "363"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "164"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "32"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "73"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "29"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "90"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "89"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "929"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "941"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "161"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "63"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "989"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "34"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "71"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "158"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "41"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "47"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "18"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "334"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "109"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "27"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "35"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Line 5 Eglinton: No service betw"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Line 5 Eglinton: No service between Mount Dennis and Cedarvale stations due to an operational problem. Shuttle buses are on the way."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-8883A331-FC02-4607-933E-56956D00FD10"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "107"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "107 Alness-Chesswood: Detour via"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "107 Alness-Chesswood: Detour via Kodiak Cres due to construction."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-D534E034-A70E-47FF-BC83-9349ECA5C191"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "322"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "300"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "22"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "70"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "Coxwell: Elevator 11D1L out of s"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "Coxwell: Elevator out of service between Strathmore Blvd entrance, concourse and Line 2 eastbound platform while we perform maintenance."
+        language: "en"
+      }
+    }
+  }
+}
+entity {
+  id: "DevAPI-1B08ADEB-826E-4580-AA58-A2BEB8A2CCE5"
+  alert {
+    informed_entity {
+      agency_id: "1"
+      route_id: "13"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "505"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "301"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "501"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "305"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "506"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "306"
+    }
+    informed_entity {
+      agency_id: "1"
+      route_id: "19"
+    }
+    cause: UNKNOWN_CAUSE
+    effect: UNKNOWN_EFFECT
+    header_text {
+      translation {
+        text: "St Patrick: Elevator 4Y1L out of"
+        language: "en"
+      }
+    }
+    description_text {
+      translation {
+        text: "St Patrick: Elevator out of service between concourse and Line 1 centre platform due to a technical problem. Elevator is expected to be back in service October 9, 2026."
+        language: "en"
+      }
+    }
+  }
+}

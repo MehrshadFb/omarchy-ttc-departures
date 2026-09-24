@@ -1,0 +1,4 @@
+# A qmldir replaces automatic same-directory discovery. Only the singleton is
+# declared here; Panel.qml is loaded by URL from BarWidget.qml and must not be
+# listed, because its name would shadow the qs.Ui Panel it extends.
+singleton Hub 1.0 Hub.qml

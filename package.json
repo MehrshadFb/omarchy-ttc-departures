@@ -3,6 +3,8 @@
   "private": true,
   "description": "Unit tests for the TTC Departures Omarchy bar widget",
   "scripts": {
-    "test": "node --test test/model.test.js"
+    "test": "./test/all",
+    "test:node": "node --test test/model.test.js",
+    "test:python": "python3 -m unittest discover -s test/python"
   }
 }

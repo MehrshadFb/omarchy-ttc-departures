@@ -91,13 +91,47 @@ omarchy bar set "$PLUGIN_ID" stop "zzz nowhere" >>"$ART/log.txt" 2>&1 || true
 sleep 20
 shot 04-no-match; crop_bar 04-no-match
 
+log "== panel: board for stop 14282"
+omarchy bar set "$PLUGIN_ID" stop "" >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" route "" >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" stopId 14282 --json >>"$ART/log.txt" 2>&1 || true
+sleep 25
+omarchy-shell shell summon "$PLUGIN_ID" >>"$ART/log.txt" 2>&1 || log "warn - summon failed"
+sleep 4
+shot 05-panel-board
+
+log "== panel: stop picker, search for Union"
+wtype s; sleep 1
+wtype "union"; sleep 4
+shot 06-panel-picker
+wtype -k Return; sleep 30
+shot 07-panel-union-platform
+grep -o '"stopId":[0-9]*' ~/.config/omarchy/shell.json | head -1 | tee -a "$ART/log.txt"
+grep -q '"stopId":13816' ~/.config/omarchy/shell.json && log "ok - picker persisted stop 13816 to shell.json" || log "not ok - picker did not persist the stop"
+
+log "== panel: trip planner Union -> Bathurst Station"
+wtype p; sleep 2
+shot 08-panel-plan-empty
+wtype t; sleep 1
+wtype "bathurst station"; sleep 4
+wtype -k Return; sleep 25
+shot 09-panel-plan-results
+grep -q '"planTo":"13760"' ~/.config/omarchy/shell.json && log "ok - planner persisted destination" || log "warn - planTo not found in shell.json ($(grep -o '"planTo":"[0-9]*"' ~/.config/omarchy/shell.json | head -1))"
+wtype -k Escape; sleep 1; wtype -k Escape; sleep 2
+shot 10-panel-closed
+cp ~/.config/omarchy/shell.json "$ART/shell-after.json" 2>/dev/null || true
+health after-panel
+
 log "== shell diagnostics"
 journalctl --user --no-pager -n 600 >"$ART/journal.txt" 2>&1 || true
 ls -la ~/.local/state/omarchy/crash* 2>/dev/null >>"$ART/health.txt" || true
-grep -iE "ttc|mehrshadfb|BarWidget.qml|Model.js" "$ART/journal.txt" >"$ART/journal-plugin.txt" 2>/dev/null || true
-if grep -qiE "error|failed|TypeError|ReferenceError" "$ART/journal-plugin.txt"; then
-  log "warn - plugin-related errors in journal (see journal-plugin.txt)"
+grep -iE "ttc|mehrshadfb|BarWidget.qml|Panel.qml|Hub.qml|Model.js" "$ART/journal.txt" >"$ART/journal-plugin.txt" 2>/dev/null || true
+if grep -qiE "error|TypeError|ReferenceError|is not a function|Cannot read|undefined" "$ART/journal-plugin.txt"; then
+  log "not ok - plugin QML errors in journal (see journal-plugin.txt)"; status=1
+else
+  log "ok - no plugin QML errors in journal"
 fi
+ls ~/.local/state/omarchy/ttc-departures 2>/dev/null | head -20 >"$ART/cache-dir.txt" || true
 ls "$ART" | tee -a "$ART/log.txt" >/dev/null
 log "== done, status $status"
 exit $status
