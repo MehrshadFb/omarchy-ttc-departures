@@ -1,0 +1,66 @@
+#!/bin/bash
+# Runs inside the Omarchy VM booted by omarchy-iso-test. Installs this plugin
+# from GitHub, puts it on the bar with a real Toronto stop, and screenshots
+# the result into $OMARCHY_ACCEPTANCE_DIR, which the harness collects.
+set -uo pipefail
+
+PLUGIN_ID="io.github.mehrshadfb.ttc-departures"
+PLUGIN_URL="https://github.com/MehrshadFb/omarchy-ttc-departures.git"
+ART="${OMARCHY_ACCEPTANCE_DIR:-/tmp/omarchy-acceptance}"
+mkdir -p "$ART"
+
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export HYPRLAND_INSTANCE_SIGNATURE="$(ls -t "$XDG_RUNTIME_DIR/hypr" 2>/dev/null | head -1)"
+export WAYLAND_DISPLAY="$(find "$XDG_RUNTIME_DIR" -maxdepth 1 -name 'wayland-*' ! -name '*.lock' -printf '%f\n' | head -1)"
+export OMARCHY_PATH="${OMARCHY_PATH:-/usr/share/omarchy}"
+export PATH="$OMARCHY_PATH/bin:$PATH"
+
+log() { printf '%s\n' "$*" | tee -a "$ART/log.txt"; }
+shot() { timeout 10 grim "$ART/$1.png" 2>/dev/null && log "captured $1.png" || log "grim failed for $1"; }
+crop_bar() {
+  # Keep the top strip so the bar is readable without zooming into a full desktop.
+  magick "$ART/$1.png" -gravity North -crop 100%x72+0+0 +repage "$ART/$1-bar.png" 2>/dev/null || true
+}
+
+status=0
+log "== omarchy version: $(omarchy version 2>/dev/null || cat "$OMARCHY_PATH/version" 2>/dev/null)"
+shot 00-before-install
+
+log "== plugin add"
+if omarchy plugin add "$PLUGIN_URL" --enable --yes >>"$ART/log.txt" 2>&1; then
+  log "ok - plugin added"
+else
+  log "not ok - plugin add failed"; status=1
+fi
+omarchy plugin list >"$ART/plugin-list.txt" 2>&1
+grep -q "$PLUGIN_ID" "$ART/plugin-list.txt" && log "ok - plugin listed" || { log "not ok - plugin not listed"; status=1; }
+
+log "== place on bar and configure (stop 14282 = The Queensway at Windermere, route 501)"
+omarchy bar put "$PLUGIN_ID" --section right --index 0 >>"$ART/log.txt" 2>&1 || { log "not ok - bar put failed"; status=1; }
+omarchy bar set "$PLUGIN_ID" stopId 14282 --json >>"$ART/log.txt" 2>&1 || log "warn - bar set stopId failed"
+omarchy bar set "$PLUGIN_ID" labelStyle "Route and minutes" >>"$ART/log.txt" 2>&1 || log "warn - bar set labelStyle failed"
+cp ~/.config/omarchy/shell.json "$ART/shell.json" 2>/dev/null || true
+sleep 30
+shot 01-route-and-minutes; crop_bar 01-route-and-minutes
+
+log "== second stop, minutes-only label, three arrivals"
+omarchy bar set "$PLUGIN_ID" stopId 6916 --json >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" labelStyle "Minutes" >>"$ART/log.txt" 2>&1 || true
+omarchy bar set "$PLUGIN_ID" maxShown 3 --json >>"$ART/log.txt" 2>&1 || true
+sleep 30
+shot 02-minutes-only; crop_bar 02-minutes-only
+
+log "== invalid stop shows the error marker"
+omarchy bar set "$PLUGIN_ID" stopId 99999999 --json >>"$ART/log.txt" 2>&1 || true
+sleep 20
+shot 03-invalid-stop; crop_bar 03-invalid-stop
+
+log "== shell diagnostics"
+journalctl --user --no-pager -n 400 >"$ART/journal.txt" 2>&1 || true
+grep -iE "ttc|mehrshadfb|BarWidget.qml|Model.js" "$ART/journal.txt" >"$ART/journal-plugin.txt" 2>/dev/null || true
+if grep -qiE "error|failed|TypeError|ReferenceError" "$ART/journal-plugin.txt"; then
+  log "warn - plugin-related errors in journal (see journal-plugin.txt)"
+fi
+ls "$ART" | tee -a "$ART/log.txt" >/dev/null
+log "== done, status $status"
+exit $status

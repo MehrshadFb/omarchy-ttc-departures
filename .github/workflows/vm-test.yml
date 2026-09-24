@@ -1,0 +1,23 @@
+name: vm-test
+# Installs Omarchy in a KVM guest on the runner using the official
+# omarchy-iso harness, installs this plugin inside it, and uploads
+# screenshots of the bar. Manual trigger only: it takes about an hour.
+on:
+  workflow_dispatch:
+jobs:
+  vm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the Omarchy ISO harness in an Arch container with KVM
+        run: |
+          docker run --rm --privileged --device /dev/kvm \
+            -v "$PWD":/work -w /work archlinux:latest bash ci/run-vm-test.sh
+      - name: Upload screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: omarchy-vm-screenshots
+          path: ci/out/
+          if-no-files-found: warn
