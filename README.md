@@ -4,9 +4,15 @@ Next TTC bus and streetcar arrivals for one Toronto stop, right in the Omarchy b
 
 The widget polls the TTC's public real-time feed (UmoIQ, formerly NextBus) and shows the minutes until the next vehicles. No API key, no account, no extra packages beyond `curl`, which Omarchy already ships.
 
+![TTC Departures in the Omarchy bar](preview.png)
+
+The four states, captured on a real Omarchy 4.0.4 desktop: route and minutes, minutes only with three arrivals, an unknown stop number, and a stop name that matched nothing.
+
 ```
-󰔭 5·15        streetcar stop, next two arrivals in minutes
-󰃧 501 now·9   bus stop with "Route and minutes" label style
+󰔭 501 5·15    "Route and minutes" label style
+󰔭 3·13·23     "Minutes" with maxShown 3
+󰔭 !           the feed rejected the stop number
+󰔭 ?           no stop on the route matched the words
 ```
 
 - **Hover** for the full board: every route and direction at the stop with upcoming minutes.
@@ -60,10 +66,10 @@ The feed covers **buses and streetcars**. Subway lines are not in this feed.
 | `refreshSeconds` | `30` | Poll interval. Minimum 15. |
 | `labelStyle` | `Minutes` | `Minutes` shows `5·15`. `Route and minutes` shows `501 5·15`. |
 
-Example `shell.json` layout entry:
+Example `shell.json` layout entry (settings sit next to the id, which is how `omarchy bar set` writes them):
 
 ```json
-{ "id": "io.github.mehrshadfb.ttc-departures", "settings": { "route": "501", "stop": "Windermere east", "maxShown": 3 } }
+{ "id": "io.github.mehrshadfb.ttc-departures", "route": "501", "stop": "Windermere east", "maxShown": 3 }
 ```
 
 You can add the widget more than once for different stops.
@@ -76,12 +82,14 @@ omarchy plugin remove io.github.mehrshadfb.ttc-departures
 
 ## Development
 
-`Model.js` holds all feed parsing and label logic and runs under Node as well as QML. Tests use real feed responses saved in `test/fixtures`.
+`Model.js` holds all feed parsing, stop matching, and label logic and runs under Node as well as QML. Tests use real feed responses saved in `test/fixtures`.
 
 ```
 npm test
 omarchy plugin validate .
 ```
+
+The `vm-test` GitHub Actions workflow installs Omarchy from the official ISO in a KVM guest on the runner, installs this plugin inside it, walks it through the four states above, and uploads screenshots and logs as an artifact. Trigger it manually from the Actions tab; it takes about an hour.
 
 ## Data
 
