@@ -20,7 +20,15 @@ printf '#!/bin/bash\nexec pacman -S --needed --noconfirm "$@"\n' >/usr/local/bin
 chmod +x /usr/local/bin/omarchy-pkg-add
 ls -l /dev/kvm
 
-git clone --depth 1 https://github.com/omacom/omarchy-iso.git /iso
+# The harness is fetched at one reviewed commit and checked out detached, so a
+# moving branch cannot change what this workflow executes. Bump deliberately.
+OMARCHY_ISO_COMMIT="${OMARCHY_ISO_COMMIT:-86c07785cb0f63be78edb1349843d5817b5c0e66}"
+[[ $OMARCHY_ISO_COMMIT =~ ^[0-9a-f]{40}$ ]] || { echo "OMARCHY_ISO_COMMIT must be a full 40-character commit sha" >&2; exit 1; }
+git init -q /iso
+git -C /iso remote add origin https://github.com/omacom/omarchy-iso.git
+git -C /iso fetch -q --depth 1 origin "$OMARCHY_ISO_COMMIT"
+git -C /iso checkout -q --detach "$OMARCHY_ISO_COMMIT"
+echo "omarchy-iso at $(git -C /iso rev-parse HEAD)"
 mkdir -p /iso/release
 echo "Downloading $ISO_URL"
 curl -fL --retry 3 --retry-delay 10 -o /iso/release/omarchy.iso "$ISO_URL"
