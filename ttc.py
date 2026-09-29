@@ -27,6 +27,7 @@ required.
 import argparse
 import fcntl
 import json
+import stat
 import math
 import os
 import re
@@ -193,16 +194,47 @@ def _cache_path(key):
     return os.path.join(STATE_DIR, safe)
 
 
-def _read_cache(key, ttl):
-    path = _cache_path(key)
+def _open_regular(path, flags, mode=0o600):
+    """Open path without following symlinks and only if it is a regular file.
+
+    The cache directory is user-writable, so an entry could be replaced by a
+    symlink or a FIFO between checks. Everything is verified on the opened
+    descriptor: O_NOFOLLOW refuses a symlink, O_NONBLOCK keeps a FIFO from
+    blocking the open, and fstat rejects anything that is not a plain file.
+    Returns a descriptor and its stat, or (None, None).
+    """
     try:
-        age = time.time() - os.path.getmtime(path)
-        if age <= ttl:
-            with open(path, "rb") as f:
-                return f.read()
+        fd = os.open(path, flags | os.O_NOFOLLOW | os.O_NONBLOCK | os.O_CLOEXEC, mode)
     except OSError:
-        pass
-    return None
+        return None, None
+    try:
+        st = os.fstat(fd)
+        if not stat.S_ISREG(st.st_mode):
+            raise OSError("not a regular file")
+        return fd, st
+    except OSError:
+        os.close(fd)
+        return None, None
+
+
+def _read_cache(key, ttl):
+    """Return a cache entry younger than ttl, or None. Bounded to MAX_BYTES
+    and tied to the descriptor that was verified, never to the pathname."""
+    fd, st = _open_regular(_cache_path(key), os.O_RDONLY)
+    if fd is None:
+        return None
+    try:
+        if st.st_size > MAX_BYTES or time.time() - st.st_mtime > ttl:
+            return None
+        with os.fdopen(fd, "rb") as f:
+            fd = None
+            data = f.read(MAX_BYTES + 1)
+        return data if len(data) <= MAX_BYTES else None
+    except OSError:
+        return None
+    finally:
+        if fd is not None:
+            os.close(fd)
 
 
 def _prune_cache():
@@ -211,7 +243,8 @@ def _prune_cache():
         now = time.time()
         for name in os.listdir(STATE_DIR):
             path = os.path.join(STATE_DIR, name)
-            if name.startswith(".tmp-") or now - os.path.getmtime(path) > CACHE_MAX_AGE:
+            st = os.lstat(path)   # never follow a link out of the cache directory
+            if name.startswith(".tmp-") or not stat.S_ISREG(st.st_mode) or now - st.st_mtime > CACHE_MAX_AGE:
                 os.unlink(path)
     except OSError:
         pass
@@ -243,9 +276,12 @@ class _Lock:
         if self.path:
             try:
                 os.makedirs(STATE_DIR, mode=0o700, exist_ok=True)
-                self.fd = os.open(self.path, os.O_CREAT | os.O_RDWR, 0o600)
-                fcntl.flock(self.fd, fcntl.LOCK_EX)
+                self.fd, _ = _open_regular(self.path, os.O_CREAT | os.O_RDWR)
+                if self.fd is not None:
+                    fcntl.flock(self.fd, fcntl.LOCK_EX)
             except OSError:
+                if self.fd is not None:
+                    os.close(self.fd)
                 self.fd = None
         return self
 

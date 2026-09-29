@@ -352,6 +352,67 @@ class CacheTests(unittest.TestCase):
         self.assertNotEqual(key("12", "3456"), key("123", "456"))
 
 
+class CacheSafetyTests(unittest.TestCase):
+    """The cache directory is user-writable; a replaced entry must never be
+    followed, block the helper, or hand it unbounded data."""
+
+    def setUp(self):
+        import tempfile
+        self.tmp = tempfile.mkdtemp()
+        self.old_dir = ttc.STATE_DIR
+        ttc.STATE_DIR = self.tmp
+
+    def tearDown(self):
+        import shutil
+        ttc.STATE_DIR = self.old_dir
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def path(self, key):
+        return ttc._cache_path(key)
+
+    def test_regular_fresh_entry_is_returned(self):
+        ttc._write_cache("fresh", b"hello")
+        self.assertEqual(ttc._read_cache("fresh", 60), b"hello")
+
+    def test_stale_entry_is_ignored(self):
+        ttc._write_cache("old", b"x")
+        os.utime(self.path("old"), (1, 1))
+        self.assertIsNone(ttc._read_cache("old", 60))
+
+    def test_symlinked_entry_is_not_followed(self):
+        target = os.path.join(self.tmp, "secret.txt")
+        with open(target, "wb") as f:
+            f.write(b"private")
+        os.symlink(target, self.path("link"))
+        self.assertIsNone(ttc._read_cache("link", 60))
+
+    def test_fifo_entry_does_not_block(self):
+        os.mkfifo(self.path("pipe"))
+        self.assertIsNone(ttc._read_cache("pipe", 60))
+
+    def test_oversized_entry_is_rejected(self):
+        with open(self.path("big"), "wb") as f:
+            f.truncate(ttc.MAX_BYTES + 1)
+        self.assertIsNone(ttc._read_cache("big", 60))
+
+    def test_lock_ignores_a_symlinked_lock_file(self):
+        target = os.path.join(self.tmp, "elsewhere")
+        os.symlink(target, self.path("feed") + ".lock")
+        with ttc._Lock("feed") as lock:
+            self.assertIsNone(lock.fd)
+        self.assertFalse(os.path.exists(target), "a symlinked lock must not create its target")
+
+    def test_prune_removes_links_and_old_files_only(self):
+        ttc._write_cache("keep", b"k")
+        ttc._write_cache("old", b"o")
+        os.utime(self.path("old"), (1, 1))
+        os.symlink("/etc/hostname", self.path("link"))
+        ttc._prune_cache()
+        self.assertTrue(os.path.exists(self.path("keep")))
+        self.assertFalse(os.path.exists(self.path("old")))
+        self.assertFalse(os.path.lexists(self.path("link")))
+
+
 class CliTests(unittest.TestCase):
     def test_cli_always_prints_json(self):
         import io
