@@ -10,5 +10,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: sudo apt-get install -y -qq jq >/dev/null
       - run: ./test/all
