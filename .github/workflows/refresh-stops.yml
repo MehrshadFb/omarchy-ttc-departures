@@ -40,14 +40,21 @@ jobs:
           if [[ $changed != yes ]]; then
             echo "stop table unchanged"; git checkout -- data; exit 0
           fi
-          version=$(python3 -c 'import json; m=json.load(open("data/stops.json"))["meta"]; print(m["surface_feed"]["version"], m["classic_service"]["start"], m["classic_service"]["end"])')
+          version=$(python3 -c 'import json; m=json.load(open("data/stops.json"))["meta"]; print(m["surface_feed"]["version"], m["classic_service"]["start"] + "-" + m["classic_service"]["end"])')
+          git show HEAD:data/stops.json > "$RUNNER_TEMP/old_stops.json"
+          git show HEAD:data/trips.json > "$RUNNER_TEMP/old_trips.json"
+          {
+            echo "Automated rebuild of data/stops.json and data/trips.json from Toronto Open Data."
+            echo "Both feeds cover the same board period; the build refuses mismatched ones."
+            echo
+            python3 tools/diff_stops.py "$RUNNER_TEMP/old_stops.json" data/stops.json "$RUNNER_TEMP/old_trips.json" data/trips.json
+          } > "$RUNNER_TEMP/body.md"
           branch="refresh-stops/$(date +%Y%m%d)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
           git add data/stops.json data/trips.json
-          git commit -m "Refresh stop table from TTC GTFS ($version)"
+          git commit -m "Refresh stop table from TTC GTFS ($version)" -m "$(cat "$RUNNER_TEMP/body.md")"
           git push -u origin "$branch"
           gh pr create --title "Refresh stop table from TTC GTFS ($version)" \
-            --body "Automated rebuild of data/stops.json from Toronto Open Data. Feed: $version. Review the diff summary, then merge." \
-            --base main --head "$branch"
+            --body-file "$RUNNER_TEMP/body.md" --base main --head "$branch"
