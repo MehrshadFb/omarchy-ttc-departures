@@ -1,10 +1,12 @@
 name: refresh-stops
 # The TTC publishes a new schedule roughly every six weeks. Rebuild the
-# shipped stop table from Toronto Open Data and open a pull request when it
-# changed, so the plugin never drifts from the feeds it reads.
+# shipped stop table from Toronto Open Data every day and open a pull request
+# when it changed, so the plugin never drifts from the feeds it reads. The
+# two feeds are published days apart; until both describe the same board
+# period the build exits 3 and the run skips quietly.
 on:
   schedule:
-    - cron: "17 9 * * 1"   # Mondays, 09:17 UTC
+    - cron: "17 9 * * *"   # daily, 09:17 UTC
   workflow_dispatch:
 permissions:
   contents: write
@@ -15,12 +17,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Rebuild data/stops.json from the current GTFS feeds
-        run: python3 tools/build_stops.py
+        id: build
+        run: |
+          if python3 tools/build_stops.py; then
+            echo "skip=no" >> "$GITHUB_OUTPUT"
+          elif [[ $? == 3 ]]; then
+            echo "::notice::feeds cover different board periods; trying again tomorrow"
+            echo "skip=yes" >> "$GITHUB_OUTPUT"
+          else
+            exit 1
+          fi
       - name: Verify the table still passes the offline tests
+        if: steps.build.outputs.skip == 'no'
         run: |
           node --test test/model.test.js
           python3 -m unittest discover -s test/python
       - name: Open a pull request when the table changed
+        if: steps.build.outputs.skip == 'no'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
