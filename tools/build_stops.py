@@ -21,6 +21,7 @@ import csv
 import io
 import json
 import os
+import posixpath
 import re
 import sys
 import tempfile
@@ -35,6 +36,7 @@ SURFACE_PKG = "surface-routes-and-schedules-for-bustime"
 ATTRIBUTION = "Contains information licensed under the Open Government Licence – Toronto."
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "stops.json")
+MISMATCH_EXIT = 3  # the two feeds describe different board periods; retry later
 
 PLATFORM_RE = re.compile(r"^(?P<station>.+?)\s+Station\s*-\s*(?P<dir>North|South|East|West)bound Platform(?:\s+Towards\s+(?P<towards>.+))?$", re.I)
 
@@ -62,13 +64,28 @@ def fetch_zip(url, dest):
             f.write(chunk)
 
 
+def find_member(names, name):
+    """Locate a GTFS table by file name, wherever it sits in the archive.
+
+    The TTC sometimes exports the feed inside a folder ("GTFSExport - Copy/
+    stops.txt" in SurfaceGTFS S1000544), so match on the base name and prefer
+    the shallowest hit. Raises KeyError like ZipFile.open when it is absent.
+    """
+    hits = [n for n in names if posixpath.basename(n) == name]
+    if not hits:
+        raise KeyError(name)
+    return min(hits, key=lambda n: (n.count("/"), n))
+
+
 def open_table(source, name):
     """Yield dict rows from name inside a directory or a zip file."""
     if os.path.isdir(source):
-        f = open(os.path.join(source, name), newline="", encoding="utf-8-sig")
+        paths = [os.path.relpath(os.path.join(d, f), source) for d, _, fs in os.walk(source) for f in fs]
+        f = open(os.path.join(source, find_member(paths, name)), newline="", encoding="utf-8-sig")
         return csv.DictReader(f)
     z = zipfile.ZipFile(source)
-    return csv.DictReader(io.TextIOWrapper(z.open(name), encoding="utf-8-sig", newline=""))
+    member = find_member(z.namelist(), name)
+    return csv.DictReader(io.TextIOWrapper(z.open(member), encoding="utf-8-sig", newline=""))
 
 
 def load_classic(source):
@@ -253,13 +270,35 @@ def route_sort_key(short):
     return (int(m.group(1)), m.group(2)) if m else (10**9, short)
 
 
-def build(classic, surface):
+def check_same_period(classic_window, surface_feed, allow_mismatch=False):
+    """Refuse to join feeds for different board periods.
+
+    The TTC publishes the two datasets days apart, so for a while after a
+    schedule change the classic feed describes the new period while
+    SurfaceGTFS still describes the old one. Joining them yields new stops
+    with no BusTime id and a trip table the live feed no longer matches.
+    """
+    cs, ce = classic_window
+    ss, se = surface_feed.get("feed_start_date"), surface_feed.get("feed_end_date")
+    if not (cs and ce and ss and se) or (ss <= ce and cs <= se):
+        return
+    msg = (f"feed mismatch: classic schedule covers {cs}-{ce} but SurfaceGTFS "
+           f"{surface_feed.get('feed_version', '?')} covers {ss}-{se}; retry once both "
+           "describe the same board period, or pass --allow-mismatch")
+    if not allow_mismatch:
+        log(msg)
+        raise SystemExit(MISMATCH_EXIT)
+    log("warning: " + msg)
+
+
+def build(classic, surface, allow_mismatch=False):
     routes, stop_routes, stops, platform_towards = load_classic(classic)
     surface_map, surface_feed = load_surface_map(surface)
+    start, end = service_window(classic)
+    check_same_period((start, end), surface_feed, allow_mismatch)
     headsigns, trip_meta = load_surface_headsigns(surface)
     stop_directions = load_stop_directions(surface, trip_meta)
     trip_table = build_trip_table(trip_meta)
-    start, end = service_window(classic)
 
     route_table = {}
     for rid, r in routes.items():
@@ -325,6 +364,8 @@ def main():
     ap.add_argument("--classic", help="unzipped classic GTFS directory or zip")
     ap.add_argument("--surface", help="unzipped SurfaceGTFS directory or zip")
     ap.add_argument("--out", default=OUT)
+    ap.add_argument("--allow-mismatch", action="store_true",
+                    help="build even when the two feeds cover different board periods")
     args = ap.parse_args()
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -338,7 +379,7 @@ def main():
             url, _ = resource_url(SURFACE_PKG)
             surface = os.path.join(tmp, "surface.zip")
             fetch_zip(url, surface)
-        trip_table, data = build(classic, surface)
+        trip_table, data = build(classic, surface, args.allow_mismatch)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     trips_out = os.path.join(os.path.dirname(args.out), "trips.json")
