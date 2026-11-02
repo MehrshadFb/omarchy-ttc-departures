@@ -3,6 +3,7 @@ import json
 import os
 import struct
 import sys
+import time
 import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -207,6 +208,16 @@ class DeparturesTests(unittest.TestCase):
 
     def vehicles_feed(self):
         return feed([{"id": "v", "vehicle": {"vehicle": {"id": "4501"}, "occupancy_status": "FULL", "timestamp": NOW}}])
+
+    def test_data_stale_flag_follows_the_table_end_date(self):
+        end = ttc.stops_data()["meta"]["classic_service"]["end"]
+        self.assertFalse(ttc.data_stale(NOW), "fixtures predate the table")
+        after = time.mktime(time.strptime(end, "%Y%m%d")) + 2 * 86400
+        self.assertTrue(ttc.data_stale(after))
+        feeds = {"bustime": feed([]), "vehicles": feed([]), "alerts": feed([])}
+        self.assertFalse(ttc.departures(WINDERMERE, now=NOW, feeds=feeds)["dataStale"])
+        self.assertTrue(ttc.departures(WINDERMERE, now=after, feeds=feeds)["dataStale"])
+        self.assertTrue(ttc.departures("0", now=after, feeds=feeds)["dataStale"])
 
     def test_surface_stop_uses_bustime_and_headsigns(self):
         d = ttc.departures(WINDERMERE, now=NOW, feeds={"bustime": self.surface_feed(), "vehicles": self.vehicles_feed(), "alerts": feed([])})

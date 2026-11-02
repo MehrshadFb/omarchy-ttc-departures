@@ -666,6 +666,20 @@ def parse_routes_filter(text):
     return [r.strip() for r in str(text or "").split(",") if r.strip()]
 
 
+def data_stale(now=None):
+    """True once the shipped stop table's board period has ended.
+
+    The tables are refreshed by a pull request in the repository, but an
+    installed plugin only picks them up on `omarchy plugin update`, so the
+    widget tells the rider when that is due.
+    """
+    end = stops_data()["meta"].get("classic_service", {}).get("end") or ""
+    if not end:
+        return False
+    today = time.strftime("%Y%m%d", time.localtime(now if now is not None else time.time()))
+    return today > end
+
+
 def departures(code, routes_filter=None, max_arrivals=12, now=None, feeds=None):
     """Build the departures document for one stop code.
 
@@ -676,7 +690,7 @@ def departures(code, routes_filter=None, max_arrivals=12, now=None, feeds=None):
     feeds = feeds or {}
     stop = find_stop(code)
     if not stop:
-        return {"ok": False, "error": f"stop {code} is not in the TTC stop list", "stop": None, "arrivals": [], "byRoute": [], "alerts": []}
+        return {"ok": False, "error": f"stop {code} is not in the TTC stop list", "stop": None, "arrivals": [], "byRoute": [], "alerts": [], "dataStale": data_stale(now)}
 
     errors = []
     arrivals = []
@@ -733,6 +747,7 @@ def departures(code, routes_filter=None, max_arrivals=12, now=None, feeds=None):
         "byRoute": group_by_route(arrivals),
         "alerts": alerts,
         "error": "; ".join(errors),
+        "dataStale": data_stale(now),
     }
 
 
@@ -947,11 +962,7 @@ def plan(from_code, to_code, when=None, max_itineraries=4, raw=None):
 
 def status():
     meta = stops_data()["meta"]
-    end = meta.get("classic_service", {}).get("end") or ""
-    stale = False
-    if end:
-        stale = time.strftime("%Y%m%d") > end
-    return {"ok": True, "version": VERSION, "stops": len(stops_data()["stops"]), "trips": len(trip_table()), "data": meta, "dataStale": stale}
+    return {"ok": True, "version": VERSION, "stops": len(stops_data()["stops"]), "trips": len(trip_table()), "data": meta, "dataStale": data_stale()}
 
 
 def main(argv=None):
