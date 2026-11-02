@@ -375,6 +375,17 @@ Panel {
             font.pixelSize: Style.font.caption
           }
 
+          Text {
+            visible: root.mode === "board" && root.board.dataStale === true
+            width: bodyColumn.width
+            textFormat: Text.PlainText
+            wrapMode: Text.WordWrap
+            text: Model.staleText(root.board)
+            color: root.urgent
+            font.family: root.fontFamily
+            font.pixelSize: Style.font.caption
+          }
+
           PanelSectionHeader {
             visible: root.mode === "board" && root.alerts.length > 0
             text: "SERVICE ALERTS"

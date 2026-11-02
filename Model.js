@@ -31,7 +31,15 @@ function kindOf(route, routesTable) {
 }
 
 function emptyData() {
-  return { ok: false, error: "", stop: null, source: "none", fetched: 0, arrivals: [], byRoute: [], alerts: [] }
+  return { ok: false, error: "", stop: null, source: "none", fetched: 0, arrivals: [], byRoute: [], alerts: [], dataStale: false }
+}
+
+// Shown when the shipped stop table's board period has ended. The repository
+// refreshes the table automatically; an installed plugin needs a pull.
+var STALE_TEXT = "Stop data is out of date: run omarchy plugin update"
+
+function staleText(data) {
+  return data && data.dataStale ? STALE_TEXT : ""
 }
 
 function minutesText(m) {
@@ -120,6 +128,7 @@ function boardText(data, nowMs) {
     lines.push(effectText(alerts[k].effect) + ": " + alerts[k].header)
   }
   if (data.source === "nextbus") lines.push("(legacy feed)")
+  if (data.dataStale) lines.push(STALE_TEXT)
   return lines.join("\n")
 }
 
@@ -192,7 +201,7 @@ if (typeof module !== "undefined" && module.exports) {
     GLYPH: GLYPH, glyphFor: glyphFor, stopGlyph: stopGlyph, kindOf: kindOf, emptyData: emptyData,
     minutesText: minutesText, clockText: clockText, durationText: durationText, ageText: ageText,
     liveMinutes: liveMinutes, barLabel: barLabel, effectText: effectText, directionText: directionText,
-    boardText: boardText, stopTitle: stopTitle, stopSubtitle: stopSubtitle, cleanHeadsign: cleanHeadsign, subscriptionKey: subscriptionKey,
+    boardText: boardText, staleText: staleText, stopTitle: stopTitle, stopSubtitle: stopSubtitle, cleanHeadsign: cleanHeadsign, subscriptionKey: subscriptionKey,
     itineraryTitle: itineraryTitle, legsText: legsText
   }
 }
