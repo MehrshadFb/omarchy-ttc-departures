@@ -53,6 +53,11 @@ test("board text lists the stop, each route with direction, alerts, and legacy m
   assert.match(Model.boardText(data({ source: "nextbus" }), NOW), /legacy feed/)
   assert.equal(Model.boardText(data({ byRoute: [], alerts: [] }), NOW).split("\n")[1], "No vehicles predicted")
   assert.equal(Model.boardText({ ok: false, error: "feed unreachable" }, NOW), "TTC: feed unreachable")
+  assert.doesNotMatch(Model.boardText(data(), NOW), /out of date/)
+  assert.match(Model.boardText(data({ dataStale: true }), NOW), /out of date: run omarchy plugin update$/)
+  assert.equal(Model.staleText(data()), "")
+  assert.equal(Model.staleText(data({ dataStale: true })), "Stop data is out of date: run omarchy plugin update")
+  assert.equal(Model.emptyData().dataStale, false)
 })
 
 test("formatting helpers", () => {

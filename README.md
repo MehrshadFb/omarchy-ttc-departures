@@ -85,7 +85,7 @@ Settings live inline in the widget's entry in `~/.config/omarchy/shell.json`, wh
 
 A Python 3 helper, `ttc.py`, is run by the widget with an argument list, never through a shell, and prints one JSON document per request. It uses only the standard library and decodes the GTFS-realtime protobuf feeds with a small built-in reader, so nothing needs to be installed. One shared hub inside the shell runs the helper once per stop on a schedule, however many bars or widgets show that stop.
 
-`data/stops.json` and `data/trips.json` are built from the TTC's published GTFS by `tools/build_stops.py`. They carry every stop and platform, which routes serve it, the internal id the BusTime feed uses for it, the direction each route serves at each stop, and the headsign of every scheduled trip. The live feed carries a trip id and a window of stops but no destination, so those tables are what let the widget say "East to Neville Park" and mark a short turn.
+`data/stops.json` and `data/trips.json` are built from the TTC's published GTFS by `tools/build_stops.py`. They carry every stop and platform, which routes serve it, the internal id the BusTime feed uses for it, the direction each route serves at each stop, and the headsign of every scheduled trip. The live feed carries a trip id and a window of stops but no destination, so those tables are what let the widget say "East to Neville Park" and mark a short turn. Once a table's board period has ended, the panel and bar tooltip say so and point to `omarchy plugin update`, which pulls the refreshed tables.
 
 ## Data sources and attribution
 
