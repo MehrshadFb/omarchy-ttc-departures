@@ -36,6 +36,7 @@ SURFACE_PKG = "surface-routes-and-schedules-for-bustime"
 ATTRIBUTION = "Contains information licensed under the Open Government Licence – Toronto."
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "stops.json")
+MISMATCH_EXIT = 3  # the two feeds describe different board periods; retry later
 
 PLATFORM_RE = re.compile(r"^(?P<station>.+?)\s+Station\s*-\s*(?P<dir>North|South|East|West)bound Platform(?:\s+Towards\s+(?P<towards>.+))?$", re.I)
 
@@ -285,7 +286,8 @@ def check_same_period(classic_window, surface_feed, allow_mismatch=False):
            f"{surface_feed.get('feed_version', '?')} covers {ss}-{se}; retry once both "
            "describe the same board period, or pass --allow-mismatch")
     if not allow_mismatch:
-        raise SystemExit(msg)
+        log(msg)
+        raise SystemExit(MISMATCH_EXIT)
     log("warning: " + msg)
 
 
