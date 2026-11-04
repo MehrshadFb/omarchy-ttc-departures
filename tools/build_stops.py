@@ -36,7 +36,9 @@ SURFACE_PKG = "surface-routes-and-schedules-for-bustime"
 ATTRIBUTION = "Contains information licensed under the Open Government Licence – Toronto."
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "stops.json")
-MISMATCH_EXIT = 3  # the two feeds describe different board periods; retry later
+NOT_READY_EXIT = 3  # the published feeds cannot be built from yet; retry later
+CLASSIC_TABLES = ("routes.txt", "trips.txt", "stop_times.txt", "stops.txt", "calendar.txt")
+SURFACE_TABLES = ("trips.txt", "stop_times.txt", "stops.txt")
 
 PLATFORM_RE = re.compile(r"^(?P<station>.+?)\s+Station\s*-\s*(?P<dir>North|South|East|West)bound Platform(?:\s+Towards\s+(?P<towards>.+))?$", re.I)
 
@@ -86,6 +88,66 @@ def open_table(source, name):
     z = zipfile.ZipFile(source)
     member = find_member(z.namelist(), name)
     return csv.DictReader(io.TextIOWrapper(z.open(member), encoding="utf-8-sig", newline=""))
+
+
+def table_sizes(source):
+    """Path of every file in a directory or zip -> its size in bytes."""
+    if os.path.isdir(source):
+        sizes = {}
+        for d, _, files in os.walk(source):
+            for f in files:
+                path = os.path.join(d, f)
+                sizes[os.path.relpath(path, source)] = os.path.getsize(path)
+        return sizes
+    with zipfile.ZipFile(source) as z:
+        return {i.filename: i.file_size for i in z.infolist() if not i.is_dir()}
+
+
+def feed_problem(source, label, required):
+    """Describe why a published feed is unusable, or return None if it is fine.
+
+    Toronto Open Data sometimes publishes an empty zip for days at a time
+    (22 bytes in November 2026) with a normal HTTP 200.
+    """
+    try:
+        sizes = table_sizes(source)
+    except zipfile.BadZipFile as e:
+        return f"{label} feed is unreadable: {e}"
+    missing = []
+    for table in required:
+        try:
+            if sizes[find_member(sizes, table)] == 0:
+                missing.append(table)
+        except KeyError:
+            missing.append(table)
+    if missing:
+        return f"{label} feed has no data in {', '.join(missing)}"
+    return None
+
+
+def shipped_table_end(out):
+    """Last service date of the table already in the repository, or ""."""
+    try:
+        with open(out, encoding="utf-8") as f:
+            return json.load(f)["meta"]["classic_service"]["end"] or ""
+    except (OSError, ValueError, KeyError, TypeError):
+        return ""
+
+
+def feeds_not_ready(msg, out, today=None):
+    """Stop the build because the feeds cannot be used yet.
+
+    This is normal while the table in the repository is still valid, so it
+    exits with NOT_READY_EXIT and the workflow skips quietly. Once that table
+    has expired, or cannot be read, riders are affected and it is a failure.
+    """
+    log(msg)
+    today = today or datetime.now(timezone.utc).strftime("%Y%m%d")
+    end = shipped_table_end(out)
+    if end and today <= end:
+        raise SystemExit(NOT_READY_EXIT)
+    log(f"shipped table in {out} ended {end or 'at an unknown date'}, so this is a failure")
+    raise SystemExit(1)
 
 
 def load_classic(source):
@@ -270,7 +332,7 @@ def route_sort_key(short):
     return (int(m.group(1)), m.group(2)) if m else (10**9, short)
 
 
-def check_same_period(classic_window, surface_feed, allow_mismatch=False):
+def check_same_period(classic_window, surface_feed, out=OUT, allow_mismatch=False):
     """Refuse to join feeds for different board periods.
 
     The TTC publishes the two datasets days apart, so for a while after a
@@ -286,16 +348,19 @@ def check_same_period(classic_window, surface_feed, allow_mismatch=False):
            f"{surface_feed.get('feed_version', '?')} covers {ss}-{se}; retry once both "
            "describe the same board period, or pass --allow-mismatch")
     if not allow_mismatch:
-        log(msg)
-        raise SystemExit(MISMATCH_EXIT)
+        feeds_not_ready(msg, out)
     log("warning: " + msg)
 
 
-def build(classic, surface, allow_mismatch=False):
+def build(classic, surface, out=OUT, allow_mismatch=False):
+    for source, label, required in ((classic, "classic", CLASSIC_TABLES), (surface, "SurfaceGTFS", SURFACE_TABLES)):
+        problem = feed_problem(source, label, required)
+        if problem:
+            feeds_not_ready(problem, out)
     routes, stop_routes, stops, platform_towards = load_classic(classic)
     surface_map, surface_feed = load_surface_map(surface)
     start, end = service_window(classic)
-    check_same_period((start, end), surface_feed, allow_mismatch)
+    check_same_period((start, end), surface_feed, out, allow_mismatch)
     headsigns, trip_meta = load_surface_headsigns(surface)
     stop_directions = load_stop_directions(surface, trip_meta)
     trip_table = build_trip_table(trip_meta)
@@ -379,7 +444,7 @@ def main():
             url, _ = resource_url(SURFACE_PKG)
             surface = os.path.join(tmp, "surface.zip")
             fetch_zip(url, surface)
-        trip_table, data = build(classic, surface, args.allow_mismatch)
+        trip_table, data = build(classic, surface, args.out, args.allow_mismatch)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     trips_out = os.path.join(os.path.dirname(args.out), "trips.json")
