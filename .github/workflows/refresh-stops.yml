@@ -2,8 +2,10 @@ name: refresh-stops
 # The TTC publishes a new schedule roughly every six weeks. Rebuild the
 # shipped stop table from Toronto Open Data every day and open a pull request
 # when it changed, so the plugin never drifts from the feeds it reads. The
-# two feeds are published days apart; until both describe the same board
-# period the build exits 3 and the run skips quietly.
+# two feeds are published days apart, and either can be published empty for a
+# while. Until both are usable and describe the same board period the build
+# exits 3 and the run skips quietly, unless the table in the repository has
+# expired, which fails the run.
 on:
   schedule:
     - cron: "17 9 * * *"   # daily, 09:17 UTC
@@ -22,7 +24,7 @@ jobs:
           if python3 tools/build_stops.py; then
             echo "skip=no" >> "$GITHUB_OUTPUT"
           elif [[ $? == 3 ]]; then
-            echo "::notice::feeds cover different board periods; trying again tomorrow"
+            echo "::notice::TTC feeds are not ready yet (see the log above); trying again tomorrow"
             echo "skip=yes" >> "$GITHUB_OUTPUT"
           else
             exit 1

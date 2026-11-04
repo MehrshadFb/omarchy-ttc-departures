@@ -133,7 +133,7 @@ python3 ttc.py plan 13760 13816 | jq .
 
 The Python tests validate the protobuf reader against the TTC's own text renderings of the same feeds, saved under `test/fixtures/rt`, and exercise departures merging, the NextBus fallback, alert matching, search ranking, and itinerary parsing offline.
 
-`tools/build_stops.py` regenerates `data/stops.json` and `data/trips.json`. The TTC publishes a new schedule roughly every six weeks; the `refresh-stops` workflow rebuilds the table daily and opens a pull request when it changes.
+`tools/build_stops.py` regenerates `data/stops.json` and `data/trips.json`. The TTC publishes a new schedule roughly every six weeks; the `refresh-stops` workflow rebuilds the table daily and opens a pull request when it changes. While a published feed is empty or the two feeds disagree, the run skips with a notice; it fails only once the table in the repository has expired.
 
 Desktop verification lives in a separate repository, [omarchy-ttc-departures-ci](https://github.com/MehrshadFb/omarchy-ttc-departures-ci): its `vm-test` workflow installs Omarchy from the official ISO in a KVM guest on a GitHub runner, installs this plugin inside it, drives the bar, picker, and planner with keystrokes, and uploads screenshots. It is kept apart so that this repository, the one users install, contains nothing but the plugin and passes the marketplace's security scan on its own.
 
